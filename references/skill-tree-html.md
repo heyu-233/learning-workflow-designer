@@ -16,9 +16,9 @@ The HTML page should present:
 Visual inspiration should come from game skill-tree and dashboard-style UI patterns:
 
 - RPG-like node graphs with obvious locked / active / unlocked states.
-- Dark panels with neon or gold accents.
+- Dark panels with controlled accent colors.
 - Layered cards with strong hierarchy.
-- Subtle gradients or border glows rather than flat gray boxes.
+- Subtle shadow, border weight, glow, and accent contrast.
 - Separate XP, stars, and node progress so the tree feels like an RPG HUD, not a plain checklist.
 
 Do not turn the page into a long report. Keep it scannable.
@@ -38,12 +38,13 @@ Use a single static HTML file with these sections:
 ## Visual Rules
 
 - Use a polished game UI aesthetic with visible RPG flavor.
-- Prefer dark backgrounds, accent glows, and metallic or neon borders.
+- Use a restrained dark palette with a few strong accents.
+- Use subtle contrast, borders, shadows, and opacity to indicate state.
 - Use colored badges or chips for `未解锁`, `进行中`, and `已解锁`.
-- Use stars, XP bars, and node meters to make progress feel tangible.
+- Use stars, XP bars, and node meters to make progress tangible.
 - Make the skill tree read like a map or progression board, not a generic dashboard.
 - Keep the tree hierarchical but compact.
-- Avoid decorative clutter, but allow highlights, glows, connectors, and framed sections.
+- Avoid decorative clutter, but allow glow, accent lines, and controlled saturated highlights.
 - Make the page readable without external assets.
 
 ## Content Rules
@@ -82,3 +83,4 @@ After each answer or feedback pass, re-evaluate the skill tree. If any node chan
 - `rpg-companion-sillytavern`: use stats panels, progress bars, and character/status widgets as layout inspiration.
 - `Tabler`: borrow the clean dashboard hierarchy, spacing discipline, and responsive panel structure.
 - `skillmap`: keep the tree relationship explicit and treat the page as a map of prerequisites rather than a flat checklist.
+- For a richer version, use hue sparingly and keep the accent set small.

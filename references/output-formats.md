@@ -9,7 +9,7 @@ Recommended files:
 - `learning-content.md`
 - `exercises.md`
 - `reference-answers.md`
-- `skill-tree.html` when a visible progress artifact is requested
+- `skill-tree.html` as part of the default learning package
 
 For critique:
 

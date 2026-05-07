@@ -16,11 +16,12 @@ Unless the user specifies otherwise, use:
 - Mode: learning mode.
 - Density: lightweight.
 - Chapters: 10.
-- Outputs: learning content, exercise paper, reference answers.
+- Outputs: learning content, exercise paper, reference answers, skill tree HTML.
 - Format: Markdown first; DOCX only when requested.
 - Language: follow the user's language or source material.
 
 Lightweight mode means each chapter has a clear main line, no logic jumps, and at most 3 exercises. In lightweight mode, a single exercise may contain multiple sub-questions if that is the best way to cover related knowledge without increasing chapter length. Detailed mode means fuller explanations and exactly 5 exercises per chapter.
+The exercise set should not feel repetitive: vary stem shapes, mix prompt types, and prefer at least one multi-part or scenario-based exercise per chapter when the material supports it.
 
 ## Workflow
 
@@ -31,6 +32,7 @@ Lightweight mode means each chapter has a clear main line, no logic jumps, and a
 5. Split content into chapters. Default to 10 chapters, but merge or split only when the source material clearly requires it.
 6. For each chapter, write one main-line sentence, then the lesson content, then exercises.
    In lightweight mode, prefer compact multi-part exercises when they improve coverage: for example, one code block followed by several small questions, or one ordered sequence followed by explanation prompts.
+   Avoid making every question a single-sentence "what is / why is / list" prompt.
 7. Generate a separate reference-answer document. Do not mix answers into the exercise document.
 8. When grading completed answers, output critique plus positive feedback: chapter gain, skill-tree update, and next-step task.
 9. Render the project-specific skill tree as a static HTML page when the user wants a visible progress artifact. The page should feel like a game UI, with level, stars, and an experience bar.
@@ -59,7 +61,7 @@ For learning mode, produce these artifacts by default:
 1. Learning content document.
 2. Exercise document with answer space.
 3. Reference-answer document.
-4. Project skill tree page when the user asks for progress feedback or a reusable progress artifact.
+4. Project skill tree page as part of the default learning package.
 
 For review mode, produce a review outline, weak-point checklist, and short reinforcement exercises.
 

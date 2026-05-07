@@ -19,12 +19,16 @@ Run these checks before finalizing generated learning materials or critique.
 - Avoid hand-drawing requirements; prefer system diagram judgment or chain correction.
 - In lightweight mode, favor a small number of composite exercises with multiple sub-questions over several isolated tiny questions when that yields broader concept coverage.
 - A composite exercise may span ordering, explanation, boundary checking, and bug spotting, as long as the sub-questions remain tightly related and the answer space is still manageable.
+- Do not let an entire chapter become one-note. Mix stem styles such as sort-and-explain, code-and-diagnose, chain-and-correct, compare-and-contrast, or scenario-based multi-part prompts.
+- If a chapter uses three exercises, they should feel structurally different from each other.
+- If a chapter uses one composite exercise, its sub-questions should progress from recognition to explanation to boundary checking.
 
 ## Answer Separation
 
 - Keep learning content, exercises, and reference answers separate unless the user asks for a combined teacher edition.
 - Exercise documents should not reveal answers.
 - Reference answers should identify the question clearly.
+- When the source material supports it, create at least one exercise that asks the learner to order, then explain, rather than only asking them to describe.
 
 ## Critique
 
