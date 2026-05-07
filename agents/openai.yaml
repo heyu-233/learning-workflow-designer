@@ -1,0 +1,3 @@
+display_name: Learning Workflow
+short_description: Build study packs and critique answers.
+default_prompt: Create a lightweight ten-chapter learning pack with exercises and answers from my materials.

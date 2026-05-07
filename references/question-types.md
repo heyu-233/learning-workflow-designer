@@ -1,0 +1,41 @@
+# Question Types
+
+Use question types to expose misunderstandings, not just memorization gaps.
+
+## Available Types
+
+- Fill-in-the-blank: good for names, ports, file paths, key terms, and sequence anchors.
+- True/false judgment: good for quick concept boundaries.
+- Multiple choice: good for exam mode and single-best-answer checks.
+- Short answer: good for explaining why a design is used.
+- Chain judgment: provide a data/control/media flow and ask whether it is correct.
+- System diagram judgment: provide a textual block diagram and ask what is wrong or missing.
+- Code function judgment: provide a core code block and ask what it does.
+- Code correction: provide flawed pseudocode or code and ask how to fix it.
+- Troubleshooting: give a symptom and ask for a diagnostic order.
+- Practical record: ask the learner to record command, phenomenon, log, and conclusion.
+- Comprehensive retelling: ask the learner to explain the whole system or chapter in several sentences.
+
+## Lightweight Selection
+
+For each chapter:
+
+- Use at most 3 exercises.
+- Prefer 2 to 3 different types.
+- Include at least one reasoning-heavy type when the material supports it: chain judgment, system diagram judgment, code judgment, or troubleshooting.
+- Do not test the same knowledge point twice in the same chapter.
+
+## Detailed Selection
+
+For each chapter:
+
+- Use exactly 5 exercises.
+- Include at least one conceptual question.
+- Include at least one chain/code/diagram judgment question when applicable.
+- Include at least one troubleshooting or practical record question for engineering projects.
+
+## Avoid
+
+- Requiring hand-drawn diagrams when a system diagram judgment question would test the same skill.
+- Long rote lists with no reasoning.
+- Exercises whose answer is already visible in the immediately preceding sentence unless the goal is very early recall.
