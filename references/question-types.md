@@ -15,6 +15,7 @@ Use question types to expose misunderstandings, not just memorization gaps.
 - Troubleshooting: give a symptom and ask for a diagnostic order.
 - Practical record: ask the learner to record command, phenomenon, log, and conclusion.
 - Comprehensive retelling: ask the learner to explain the whole system or chapter in several sentences.
+- Composite multipart question: one stem plus several sub-questions, good for covering multiple nearby knowledge points without inflating chapter count.
 
 ## Lightweight Selection
 
@@ -24,6 +25,7 @@ For each chapter:
 - Prefer 2 to 3 different types.
 - Include at least one reasoning-heavy type when the material supports it: chain judgment, system diagram judgment, code judgment, or troubleshooting.
 - Do not test the same knowledge point twice in the same chapter.
+- It is acceptable for one exercise to contain multiple sub-questions if they are tightly related and together cover a broader concept chain.
 
 ## Detailed Selection
 
@@ -39,3 +41,4 @@ For each chapter:
 - Requiring hand-drawn diagrams when a system diagram judgment question would test the same skill.
 - Long rote lists with no reasoning.
 - Exercises whose answer is already visible in the immediately preceding sentence unless the goal is very early recall.
+- Splitting one coherent code or flow block into many isolated micro-questions when a composite question would be clearer.

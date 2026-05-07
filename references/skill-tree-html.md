@@ -13,6 +13,14 @@ The HTML page should present:
 - Progress state.
 - Compact positive feedback.
 
+Visual inspiration should come from game skill-tree and dashboard-style UI patterns:
+
+- RPG-like node graphs with obvious locked / active / unlocked states.
+- Dark panels with neon or gold accents.
+- Layered cards with strong hierarchy.
+- Subtle gradients or border glows rather than flat gray boxes.
+- Separate XP, stars, and node progress so the tree feels like an RPG HUD, not a plain checklist.
+
 Do not turn the page into a long report. Keep it scannable.
 
 ## Structure
@@ -29,11 +37,13 @@ Use a single static HTML file with these sections:
 
 ## Visual Rules
 
-- Use a polished game UI aesthetic, but keep it readable and calm.
+- Use a polished game UI aesthetic with visible RPG flavor.
+- Prefer dark backgrounds, accent glows, and metallic or neon borders.
 - Use colored badges or chips for `未解锁`, `进行中`, and `已解锁`.
-- Use stars or XP to make progress feel tangible.
+- Use stars, XP bars, and node meters to make progress feel tangible.
+- Make the skill tree read like a map or progression board, not a generic dashboard.
 - Keep the tree hierarchical but compact.
-- Avoid decorative clutter, but allow small highlights, glows, or progress accents.
+- Avoid decorative clutter, but allow highlights, glows, connectors, and framed sections.
 - Make the page readable without external assets.
 
 ## Content Rules
@@ -45,6 +55,8 @@ Use a single static HTML file with these sections:
 - Use only explicit exercise point metadata as the source for XP and unlock progress.
 - Update node states and progress values whenever the learner's latest answers or chapter results change.
 - Start from 0 XP, 0 stars, and all nodes locked unless exercise points have already been awarded.
+- Prefer one visible progress bar per node or chapter group, plus a global XP bar in the header.
+- If the project supports multiple learning lanes, show them as branches or grouped clusters rather than a single flat list.
 
 ## Suggested Data Model
 
@@ -62,3 +74,11 @@ The HTML page can be generated alongside Markdown files, but it should replace t
 ## Refresh Rule
 
 After each answer or feedback pass, re-evaluate the skill tree. If any node changes state or the learner gains XP/stars, regenerate `skill-tree.html` so the visual state stays current.
+
+## Source Inspirations
+
+- `beautiful-skill-tree` on GitHub: use custom theming, borders, and explicit tree navigation ideas.
+- `RPG Maker MV Skill Trees System`: use the Diablo-like tree feeling, node unlocking, and branch structure.
+- `rpg-companion-sillytavern`: use stats panels, progress bars, and character/status widgets as layout inspiration.
+- `Tabler`: borrow the clean dashboard hierarchy, spacing discipline, and responsive panel structure.
+- `skillmap`: keep the tree relationship explicit and treat the page as a map of prerequisites rather than a flat checklist.

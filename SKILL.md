@@ -1,11 +1,13 @@
 ---
 name: learning-workflow-designer
-description: Create reusable learning workflows from projects, papers, codebases, notes, or course materials. Use when Codex should generate staged study content, review packs, exam papers, exercises, answer keys, or critique completed answers with Markdown/DOCX annotations.
+description: Create reusable learning workflows from projects, papers, codebases, notes, or course materials. Use when the user wants to learn a project, generate staged study content, review packs, exam papers, exercises, answer keys, or critique completed answers with Markdown/DOCX annotations.
 ---
 
 # Learning Workflow Designer
 
 Use this skill to turn raw materials into a reusable learning workflow: staged lessons, exercises, answer keys, exams, review packs, and answer critique.
+
+Trigger this skill when the user says they want to learn a project, learn a codebase, study a tutorial, make exercises, or build a reusable learning package.
 
 ## Default Behavior
 
@@ -18,7 +20,7 @@ Unless the user specifies otherwise, use:
 - Format: Markdown first; DOCX only when requested.
 - Language: follow the user's language or source material.
 
-Lightweight mode means each chapter has a clear main line, no logic jumps, and at most 3 exercises. Detailed mode means fuller explanations and exactly 5 exercises per chapter.
+Lightweight mode means each chapter has a clear main line, no logic jumps, and at most 3 exercises. In lightweight mode, a single exercise may contain multiple sub-questions if that is the best way to cover related knowledge without increasing chapter length. Detailed mode means fuller explanations and exactly 5 exercises per chapter.
 
 ## Workflow
 
@@ -28,6 +30,7 @@ Lightweight mode means each chapter has a clear main line, no logic jumps, and a
 4. Choose the requested mode and density. If unspecified, use learning + lightweight.
 5. Split content into chapters. Default to 10 chapters, but merge or split only when the source material clearly requires it.
 6. For each chapter, write one main-line sentence, then the lesson content, then exercises.
+   In lightweight mode, prefer compact multi-part exercises when they improve coverage: for example, one code block followed by several small questions, or one ordered sequence followed by explanation prompts.
 7. Generate a separate reference-answer document. Do not mix answers into the exercise document.
 8. When grading completed answers, output critique plus positive feedback: chapter gain, skill-tree update, and next-step task.
 9. Render the project-specific skill tree as a static HTML page when the user wants a visible progress artifact. The page should feel like a game UI, with level, stars, and an experience bar.
@@ -46,6 +49,7 @@ Read only the references needed for the user's request:
 - `references/output-formats.md`: Markdown and DOCX requirements, including red DOCX critique annotations.
 - `references/feedback.md`: project-specific capability tree and positive-feedback rules.
 - `references/skill-tree-html.md`: HTML skill-tree layout and styling rules.
+- `references/visual-inspirations.md`: GitHub references for more game-like skill tree presentation.
 - `references/quality-checks.md`: anti-repetition, continuity, answer separation, and critique rules.
 
 ## Output Rules

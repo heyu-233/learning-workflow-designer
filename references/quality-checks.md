@@ -17,6 +17,8 @@ Run these checks before finalizing generated learning materials or critique.
 - Do not overuse one question type in a chapter.
 - Include reasoning-heavy questions where possible.
 - Avoid hand-drawing requirements; prefer system diagram judgment or chain correction.
+- In lightweight mode, favor a small number of composite exercises with multiple sub-questions over several isolated tiny questions when that yields broader concept coverage.
+- A composite exercise may span ordering, explanation, boundary checking, and bug spotting, as long as the sub-questions remain tightly related and the answer space is still manageable.
 
 ## Answer Separation
 
