@@ -14,11 +14,13 @@
 
 学习模式下默认生成：
 
-1. `learning-content.md`
-2. `exercises.md`
-3. `reference-answers.md`
-4. `learning-progress.json`
-5. `skill-tree.html`
+如果没有指定输出目录，会自动创建 `tutorial/` 文件夹，并生成：
+
+1. `tutorial/learning-content.md`
+2. `tutorial/exercises.md`
+3. `tutorial/reference-answers.md`
+4. `tutorial/learning-progress.json`
+5. `tutorial/skill-tree.html`
 
 其中：
 

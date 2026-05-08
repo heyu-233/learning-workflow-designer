@@ -26,6 +26,7 @@ Unless the user specifies otherwise, use:
 - Outputs: learning content, exercise paper, reference answers, skill tree HTML.
 - Format: Markdown first; DOCX only when requested.
 - Language: follow the user's language or source material.
+- Output directory: if the user does not specify a destination, create a `tutorial/` folder and put all generated files there.
 
 For large codebases or broad source sets, generate the chapter map and the first chapter sample first, then continue with the full package after the user confirms the direction.
 
@@ -44,13 +45,14 @@ The exercise set should not feel repetitive: vary stem shapes, mix prompt types,
    Avoid making every question a single-sentence "what is / why is / list" prompt.
 7. Generate a separate reference-answer document. Do not mix answers into the exercise document.
 8. When grading completed answers, output critique plus positive feedback: chapter gain, skill-tree update, and next-step task.
-9. Create or update `learning-progress.json` as the state source for the skill tree. Track exercise IDs, total points, earned points, capability node states, chapter mapping, and feedback.
-10. Render the project-specific skill tree as a static HTML page when the user wants a visible progress artifact. Prefer `scripts/render_skill_tree.py learning-progress.json skill-tree.html`; the page should feel like a game UI, with level, stars, and an experience bar.
-11. The skill tree must be driven only by explicit point values in the exercise document and `learning-progress.json`. Do not infer progress from vague understanding; if a question or task has no declared points, it does not contribute to XP.
-12. After every answer, critique, or learning-step response, check whether `learning-progress.json` should advance and refresh the HTML if any node or progress value changed.
-13. Do not invent a README wrapper for the learning package unless the user explicitly asks for one.
-14. Run the quality checks from `references/quality-checks.md` before finishing.
-15. If DOCX output is requested, create Markdown first, then use `scripts/md_to_docx.py` or equivalent DOCX tooling.
+9. If no output directory was specified, create `tutorial/` before writing files. Write `learning-content.md`, `exercises.md`, `reference-answers.md`, `learning-progress.json`, and `skill-tree.html` into that folder.
+10. Create or update `learning-progress.json` as the state source for the skill tree. Track exercise IDs, total points, earned points, capability node states, chapter mapping, and feedback.
+11. Render the project-specific skill tree as a static HTML page when the user wants a visible progress artifact. Prefer `scripts/render_skill_tree.py tutorial/learning-progress.json tutorial/skill-tree.html` when using the default output folder; the page should feel like a game UI, with level, stars, and an experience bar.
+12. The skill tree must be driven only by explicit point values in the exercise document and `learning-progress.json`. Do not infer progress from vague understanding; if a question or task has no declared points, it does not contribute to XP.
+13. After every answer, critique, or learning-step response, check whether `learning-progress.json` should advance and refresh the HTML if any node or progress value changed.
+14. Do not invent a README wrapper for the learning package unless the user explicitly asks for one.
+15. Run the quality checks from `references/quality-checks.md` before finishing.
+16. If DOCX output is requested, create Markdown first, then use `scripts/md_to_docx.py` or equivalent DOCX tooling.
 
 ## Mode References
 
@@ -69,11 +71,13 @@ Read only the references needed for the user's request:
 
 For learning mode, produce these artifacts by default:
 
-1. Learning content document.
-2. Exercise document with answer space.
-3. Reference-answer document.
-4. `learning-progress.json` as the state source.
-5. Project skill tree page as part of the default learning package.
+If the user does not specify an output directory, create `tutorial/` and produce:
+
+1. `tutorial/learning-content.md`
+2. `tutorial/exercises.md`
+3. `tutorial/reference-answers.md`
+4. `tutorial/learning-progress.json`
+5. `tutorial/skill-tree.html`
 
 For review mode, produce a review outline, weak-point checklist, and short reinforcement exercises.
 

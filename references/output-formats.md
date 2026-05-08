@@ -6,11 +6,13 @@ Markdown is the default because it is easy to inspect, edit, diff, and convert.
 
 Recommended files:
 
-- `learning-content.md`
-- `exercises.md`
-- `reference-answers.md`
-- `learning-progress.json` as the state source for XP, stars, nodes, and exercise points
-- `skill-tree.html` as part of the default learning package
+- `tutorial/learning-content.md`
+- `tutorial/exercises.md`
+- `tutorial/reference-answers.md`
+- `tutorial/learning-progress.json` as the state source for XP, stars, nodes, and exercise points
+- `tutorial/skill-tree.html` as part of the default learning package
+
+If the user provides another output directory, use that directory instead of `tutorial/`.
 
 For critique:
 
