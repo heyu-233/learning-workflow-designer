@@ -109,7 +109,7 @@ Required fields:
 - `project_name`, `source_summary`, `mode`, and `density`.
 - `total_xp`, `earned_xp`, `level`, and `stars`.
 - `total_levels`: default to 5. Level thresholds are derived from total XP unless `level_thresholds` is explicitly provided.
-- `nodes`: 5 to 8 project-specific capability nodes with `id`, `name`, `state`, `earned_points`, `total_points`, and `chapters`.
+- `nodes`: project-specific capability nodes or chapter task nodes with `id`, `name`, `state`, `earned_points`, `total_points`, and `chapters`. For a chapter task tree, keep one visible node per chapter.
 - `exercises`: each scored exercise with `id`, `chapter`, `node_id`, `points`, and `earned_points`.
 - `chapter_map`, `positive_feedback`, and `next_step`.
 

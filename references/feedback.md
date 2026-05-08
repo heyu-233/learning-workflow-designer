@@ -5,9 +5,11 @@ Use this layer after learning content or answer critique. Do not predefine a fix
 ## Build The Tree
 
 1. Read the material and the generated chapter plan.
-2. Extract 5 to 8 capability nodes from repeated concepts, prerequisites, and integration points.
+2. Choose the visible node model:
+   - Capability tree: extract 5 to 8 capability nodes from repeated concepts, prerequisites, and integration points.
+   - Chapter task tree: create one visible node per chapter so the node count matches the chapter count.
 3. Name nodes with project language, not generic placeholders.
-4. Organize them from foundation to module-level to integration/debugging.
+4. Organize them from foundation to module-level to integration/debugging, or from chapter 1 to the final chapter for a chapter task tree.
 5. Reuse the same tree throughout the document set so progress can be compared chapter by chapter.
 
 ### Example Shapes

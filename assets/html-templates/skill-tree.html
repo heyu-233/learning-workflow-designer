@@ -29,14 +29,13 @@
       line-height: 1.6;
       min-height: 100vh;
     }
-    .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 20px 40px; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 28px 20px 40px; }
     .header, .panel {
-      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      background: color-mix(in srgb, var(--panel) 94%, transparent);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 18px 20px;
       box-shadow: 0 16px 40px rgba(0, 0, 0, .22);
-      backdrop-filter: blur(10px);
     }
     .header {
       margin-bottom: 18px;
@@ -53,74 +52,19 @@
     .xp-bar, .meter { overflow: hidden; border-radius: 999px; background: rgba(148, 163, 184, .22); }
     .xp-bar { height: 12px; }
     .xp-bar span, .meter span { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
-    .layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 18px; align-items: start; }
-    .skill-tree-map {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(220px, 1fr));
-      gap: 26px 72px;
-      padding: 18px 8px 8px;
-    }
-    .skill-tree-map::before {
-      content: "";
-      position: absolute;
-      top: 54px;
-      bottom: 54px;
-      left: 50%;
-      width: 3px;
-      transform: translateX(-50%);
-      background: linear-gradient(180deg, var(--accent), var(--accent-2));
-      border-radius: 999px;
-      opacity: .55;
-      box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 45%, transparent);
-    }
-    .tree-node {
-      position: relative;
-      min-height: 150px;
-      isolation: isolate;
-    }
-    .tree-node:nth-child(odd) { grid-column: 1; }
-    .tree-node:nth-child(even) { grid-column: 2; transform: translateY(42px); }
-    .tree-node::before {
-      content: "";
-      position: absolute;
-      top: 42px;
-      width: 72px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent));
-      opacity: .55;
-      z-index: -1;
-    }
-    .tree-node:nth-child(odd)::before { right: -72px; }
-    .tree-node:nth-child(even)::before { left: -72px; transform: rotate(180deg); }
-    .node-core {
-      display: grid;
-      grid-template-columns: 54px minmax(0, 1fr);
-      gap: 12px;
-      align-items: start;
+    .grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr); gap: 18px; align-items: start; }
+    .node-card {
       background: var(--panel-strong);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 14px;
-      min-height: 150px;
-    }
-    .node-orb {
-      display: grid;
-      place-items: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, #fff, var(--accent) 38%, color-mix(in srgb, var(--accent-2) 70%, #000));
-      color: #07111f;
-      font-weight: 800;
-      box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 55%, transparent);
+      margin-top: 12px;
     }
     .node-top { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
-    .node-body h3 { margin: 0 0 4px; font-size: 16px; }
-    .node-body p { margin: 0; color: var(--muted); }
+    .node-card h3 { margin: 0 0 4px; font-size: 16px; }
+    .node-card p { margin: 0; color: var(--muted); }
     .meter { height: 8px; margin-top: 12px; }
-    .node-meta, .node-prereq { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; color: var(--muted); font-size: 13px; }
-    .node-prereq { display: block; color: color-mix(in srgb, var(--accent) 65%, var(--muted)); }
+    .node-meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; color: var(--muted); font-size: 13px; }
     .badge {
       display: inline-flex;
       align-items: center;
@@ -144,11 +88,8 @@
       border-radius: 8px;
     }
     .side-stack { display: grid; gap: 18px; }
-    @media (max-width: 980px) {
-      .layout, .header { grid-template-columns: 1fr; }
-      .skill-tree-map { grid-template-columns: 1fr; gap: 18px; }
-      .skill-tree-map::before, .tree-node::before { display: none; }
-      .tree-node:nth-child(odd), .tree-node:nth-child(even) { grid-column: 1; transform: none; }
+    @media (max-width: 900px) {
+      .grid, .header { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -166,9 +107,9 @@
         <div class="hud-row"><span>$level_rule</span></div>
       </div>
     </div>
-    <div class="layout">
+    <div class="grid">
       <section class="panel">
-        <h2>能力树</h2>
+        <h2>章节任务</h2>
         $nodes_html
       </section>
       <aside class="side-stack">

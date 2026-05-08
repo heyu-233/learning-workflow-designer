@@ -20,8 +20,8 @@ Visual inspiration should come from game skill-tree and dashboard-style UI patte
 - Dark panels with controlled accent colors.
 - Layered cards with strong hierarchy.
 - Subtle shadow, border weight, glow, and accent contrast.
-- Separate XP, stars, and node progress so the tree feels like an RPG HUD, not a plain checklist.
-- Show visible parent/child relationships with a central path, branches, connectors, or grouped lanes. Avoid rendering capability nodes as a plain vertical checklist.
+- Separate XP, stars, and node progress so the tree feels like a progression HUD, not a plain report.
+- Default to stable card-based chapter/task nodes. Use branch-heavy map visuals only when the user explicitly asks for a map-style skill tree.
 
 Do not turn the page into a long report. Keep it scannable.
 
@@ -52,14 +52,14 @@ Use a single static HTML file with these sections:
 ## Content Rules
 
 - Derive all nodes from the current materials.
-- Use 5 to 8 capability nodes.
+- Use capability nodes when the package is skill-oriented, or one visible node per chapter when the package is chapter/task-oriented.
 - Order nodes from foundation to integration.
 - Keep the same nodes across the generated package so progress can be compared.
 - Use only explicit exercise point metadata as the source for XP and unlock progress.
 - Update node states and progress values whenever the learner's latest answers or chapter results change.
 - Start from 0 XP, 0 stars, and all nodes locked unless exercise points have already been awarded.
 - Prefer one visible progress bar per node or chapter group, plus a global XP bar in the header.
-- If the project supports multiple learning lanes, show them as branches or grouped clusters rather than a single flat list.
+- If the project supports multiple learning lanes, grouping by lane is acceptable, but do not let visual branching obscure chapter count or progress count.
 
 ## Suggested Data Model
 
@@ -81,7 +81,7 @@ Store this model in `learning-progress.json`. Start from `assets/learning-progre
 - `positive_feedback`
 - `next_step`
 
-Each exercise should include an ID, chapter, node ID, total points, and earned points. Each node should include an ID, name, state, total points, earned points, and chapter list.
+Each exercise should include an ID, chapter, node ID, total points, and earned points. Each node should include an ID, name, state, total points, earned points, and chapter list. If the visible progress artifact is called a task tree or chapter tree, keep the node count aligned with the chapter count unless the user asks for a compressed capability tree.
 
 Default level rule: use 5 levels. Split `total_xp` into five milestones: Lv.1 = 0%, Lv.2 = 25%, Lv.3 = 50%, Lv.4 = 75%, Lv.5 = 100%. The sum of all exercise `points` must equal `total_xp`, so completing every scored exercise reaches Lv.5.
 
@@ -107,5 +107,5 @@ After each answer or feedback pass, re-evaluate the skill tree. If any node chan
 - `RPG Maker MV Skill Trees System`: use the Diablo-like tree feeling, node unlocking, and branch structure.
 - `rpg-companion-sillytavern`: use stats panels, progress bars, and character/status widgets as layout inspiration.
 - `Tabler`: borrow the clean dashboard hierarchy, spacing discipline, and responsive panel structure.
-- `skillmap`: keep the tree relationship explicit and treat the page as a map of prerequisites rather than a flat checklist.
+- `skillmap`: useful only when the user wants a map-like layout; otherwise prefer readable task cards.
 - For a richer version, use hue sparingly and keep the accent set small.

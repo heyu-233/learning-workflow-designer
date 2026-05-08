@@ -112,7 +112,7 @@ def render_stars(stars: int | float, total: int = 5) -> str:
 
 def render_nodes(nodes: list[dict[str, Any]]) -> str:
     rows: list[str] = []
-    for index, node in enumerate(nodes, start=1):
+    for node in nodes:
         state = str(node.get("state", "locked"))
         earned = int(node.get("earned_points", 0))
         total = int(node.get("total_points", 0))
@@ -120,34 +120,25 @@ def render_nodes(nodes: list[dict[str, Any]]) -> str:
         chapters = ", ".join(str(chapter) for chapter in node.get("chapters", []))
         label = STATE_LABELS.get(state, state)
         css_class = STATE_CLASSES.get(state, "todo")
-        prerequisites = node.get("prerequisites", [])
-        if prerequisites:
-            prereq_text = "前置 " + ", ".join(str(item) for item in prerequisites)
-        else:
-            prereq_text = "起点" if index == 1 else "承接上一节点"
         rows.append(
             f"""
-            <article class="tree-node {css_class}" style="--node-index:{index}">
-              <div class="node-core">
-                <div class="node-orb">{index}</div>
-                <div class="node-body">
-                  <div class="node-top">
-                    <h3>{esc(node.get("name", node.get("id", "未命名节点")))}</h3>
-                    <span class="badge {css_class}">{esc(label)}</span>
-                  </div>
+            <article class="node-card {css_class}">
+              <div class="node-top">
+                <div>
+                  <h3>{esc(node.get("name", node.get("id", "未命名节点")))}</h3>
                   <p>{esc(node.get("description", ""))}</p>
-                  <div class="meter"><span style="width:{progress}%"></span></div>
-                  <div class="node-meta">
-                    <span>{earned}/{total} XP</span>
-                    <span>章节 {esc(chapters or "-")}</span>
-                  </div>
-                  <div class="node-prereq">{esc(prereq_text)}</div>
                 </div>
+                <span class="badge {css_class}">{esc(label)}</span>
+              </div>
+              <div class="meter"><span style="width:{progress}%"></span></div>
+              <div class="node-meta">
+                <span>{earned}/{total} XP</span>
+                <span>章节 {esc(chapters or "-")}</span>
               </div>
             </article>
             """.strip()
         )
-    return f'<div class="skill-tree-map">{"".join(rows)}</div>'
+    return "\n".join(rows)
 
 
 def render_level_table(thresholds: list[int], earned_xp: int) -> str:

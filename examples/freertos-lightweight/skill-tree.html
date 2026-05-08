@@ -29,14 +29,13 @@
       line-height: 1.6;
       min-height: 100vh;
     }
-    .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 20px 40px; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 28px 20px 40px; }
     .header, .panel {
-      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      background: color-mix(in srgb, var(--panel) 94%, transparent);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 18px 20px;
       box-shadow: 0 16px 40px rgba(0, 0, 0, .22);
-      backdrop-filter: blur(10px);
     }
     .header {
       margin-bottom: 18px;
@@ -53,74 +52,19 @@
     .xp-bar, .meter { overflow: hidden; border-radius: 999px; background: rgba(148, 163, 184, .22); }
     .xp-bar { height: 12px; }
     .xp-bar span, .meter span { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
-    .layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 18px; align-items: start; }
-    .skill-tree-map {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(220px, 1fr));
-      gap: 26px 72px;
-      padding: 18px 8px 8px;
-    }
-    .skill-tree-map::before {
-      content: "";
-      position: absolute;
-      top: 54px;
-      bottom: 54px;
-      left: 50%;
-      width: 3px;
-      transform: translateX(-50%);
-      background: linear-gradient(180deg, var(--accent), var(--accent-2));
-      border-radius: 999px;
-      opacity: .55;
-      box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 45%, transparent);
-    }
-    .tree-node {
-      position: relative;
-      min-height: 150px;
-      isolation: isolate;
-    }
-    .tree-node:nth-child(odd) { grid-column: 1; }
-    .tree-node:nth-child(even) { grid-column: 2; transform: translateY(42px); }
-    .tree-node::before {
-      content: "";
-      position: absolute;
-      top: 42px;
-      width: 72px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent));
-      opacity: .55;
-      z-index: -1;
-    }
-    .tree-node:nth-child(odd)::before { right: -72px; }
-    .tree-node:nth-child(even)::before { left: -72px; transform: rotate(180deg); }
-    .node-core {
-      display: grid;
-      grid-template-columns: 54px minmax(0, 1fr);
-      gap: 12px;
-      align-items: start;
+    .grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr); gap: 18px; align-items: start; }
+    .node-card {
       background: var(--panel-strong);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 14px;
-      min-height: 150px;
-    }
-    .node-orb {
-      display: grid;
-      place-items: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, #fff, var(--accent) 38%, color-mix(in srgb, var(--accent-2) 70%, #000));
-      color: #07111f;
-      font-weight: 800;
-      box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 55%, transparent);
+      margin-top: 12px;
     }
     .node-top { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
-    .node-body h3 { margin: 0 0 4px; font-size: 16px; }
-    .node-body p { margin: 0; color: var(--muted); }
+    .node-card h3 { margin: 0 0 4px; font-size: 16px; }
+    .node-card p { margin: 0; color: var(--muted); }
     .meter { height: 8px; margin-top: 12px; }
-    .node-meta, .node-prereq { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; color: var(--muted); font-size: 13px; }
-    .node-prereq { display: block; color: color-mix(in srgb, var(--accent) 65%, var(--muted)); }
+    .node-meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; color: var(--muted); font-size: 13px; }
     .badge {
       display: inline-flex;
       align-items: center;
@@ -144,11 +88,8 @@
       border-radius: 8px;
     }
     .side-stack { display: grid; gap: 18px; }
-    @media (max-width: 980px) {
-      .layout, .header { grid-template-columns: 1fr; }
-      .skill-tree-map { grid-template-columns: 1fr; gap: 18px; }
-      .skill-tree-map::before, .tree-node::before { display: none; }
-      .tree-node:nth-child(odd), .tree-node:nth-child(even) { grid-column: 1; transform: none; }
+    @media (max-width: 900px) {
+      .grid, .header { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -166,112 +107,149 @@
         <div class="hud-row"><span>共 5 级，达到 60 XP 即满级；学完全部带分值课程应获得全部 XP。</span></div>
       </div>
     </div>
-    <div class="layout">
+    <div class="grid">
       <section class="panel">
-        <h2>能力树</h2>
-        <div class="skill-tree-map"><article class="tree-node todo" style="--node-index:1">
-              <div class="node-core">
-                <div class="node-orb">1</div>
-                <div class="node-body">
-                  <div class="node-top">
-                    <h3>任务模型</h3>
-                    <span class="badge todo">未解锁</span>
-                  </div>
-                  <p>理解任务函数、优先级、栈和任务生命周期。</p>
-                  <div class="meter"><span style="width:0%"></span></div>
-                  <div class="node-meta">
-                    <span>0/10 XP</span>
-                    <span>章节 1, 2</span>
-                  </div>
-                  <div class="node-prereq">起点</div>
+        <h2>章节任务</h2>
+        <article class="node-card todo">
+              <div class="node-top">
+                <div>
+                  <h3>第 1 章：项目全局地图</h3>
+                  <p>建立 FreeRTOS 项目从硬件初始化到任务运行的整体路径。</p>
                 </div>
+                <span class="badge todo">未解锁</span>
               </div>
-            </article><article class="tree-node todo" style="--node-index:2">
-              <div class="node-core">
-                <div class="node-orb">2</div>
-                <div class="node-body">
-                  <div class="node-top">
-                    <h3>调度机制</h3>
-                    <span class="badge todo">未解锁</span>
-                  </div>
-                  <p>解释抢占、时间片、阻塞态和就绪态之间的关系。</p>
-                  <div class="meter"><span style="width:0%"></span></div>
-                  <div class="node-meta">
-                    <span>0/10 XP</span>
-                    <span>章节 2, 3</span>
-                  </div>
-                  <div class="node-prereq">前置 task-model</div>
+              <div class="meter"><span style="width:0%"></span></div>
+              <div class="node-meta">
+                <span>0/5 XP</span>
+                <span>章节 1</span>
+              </div>
+            </article>
+<article class="node-card todo">
+              <div class="node-top">
+                <div>
+                  <h3>第 2 章：任务状态</h3>
+                  <p>理解任务状态、调度入口和任务生命周期边界。</p>
                 </div>
+                <span class="badge todo">未解锁</span>
               </div>
-            </article><article class="tree-node todo" style="--node-index:3">
-              <div class="node-core">
-                <div class="node-orb">3</div>
-                <div class="node-body">
-                  <div class="node-top">
-                    <h3>队列通信</h3>
-                    <span class="badge todo">未解锁</span>
-                  </div>
+              <div class="meter"><span style="width:0%"></span></div>
+              <div class="node-meta">
+                <span>0/10 XP</span>
+                <span>章节 2</span>
+              </div>
+            </article>
+<article class="node-card todo">
+              <div class="node-top">
+                <div>
+                  <h3>第 3 章：调度机制</h3>
+                  <p>解释优先级、时间片、阻塞态和就绪态之间的关系。</p>
+                </div>
+                <span class="badge todo">未解锁</span>
+              </div>
+              <div class="meter"><span style="width:0%"></span></div>
+              <div class="node-meta">
+                <span>0/5 XP</span>
+                <span>章节 3</span>
+              </div>
+            </article>
+<article class="node-card todo">
+              <div class="node-top">
+                <div>
+                  <h3>第 4 章：队列通信</h3>
                   <p>使用队列在任务之间传递事件和数据。</p>
-                  <div class="meter"><span style="width:0%"></span></div>
-                  <div class="node-meta">
-                    <span>0/10 XP</span>
-                    <span>章节 4</span>
-                  </div>
-                  <div class="node-prereq">前置 scheduler</div>
                 </div>
+                <span class="badge todo">未解锁</span>
               </div>
-            </article><article class="tree-node todo" style="--node-index:4">
-              <div class="node-core">
-                <div class="node-orb">4</div>
-                <div class="node-body">
-                  <div class="node-top">
-                    <h3>同步与互斥</h3>
-                    <span class="badge todo">未解锁</span>
-                  </div>
-                  <p>区分信号量、互斥锁、事件组和临界区的使用边界。</p>
-                  <div class="meter"><span style="width:0%"></span></div>
-                  <div class="node-meta">
-                    <span>0/12 XP</span>
-                    <span>章节 5, 6</span>
-                  </div>
-                  <div class="node-prereq">前置 queues</div>
+              <div class="meter"><span style="width:0%"></span></div>
+              <div class="node-meta">
+                <span>0/10 XP</span>
+                <span>章节 4</span>
+              </div>
+            </article>
+<article class="node-card todo">
+              <div class="node-top">
+                <div>
+                  <h3>第 5 章：事件同步</h3>
+                  <p>区分二值信号量和事件组的同步边界。</p>
                 </div>
+                <span class="badge todo">未解锁</span>
               </div>
-            </article><article class="tree-node todo" style="--node-index:5">
-              <div class="node-core">
-                <div class="node-orb">5</div>
-                <div class="node-body">
-                  <div class="node-top">
-                    <h3>内存与栈</h3>
-                    <span class="badge todo">未解锁</span>
-                  </div>
-                  <p>判断 heap 方案、任务栈大小和溢出排查路径。</p>
-                  <div class="meter"><span style="width:0%"></span></div>
-                  <div class="node-meta">
-                    <span>0/8 XP</span>
-                    <span>章节 7, 8</span>
-                  </div>
-                  <div class="node-prereq">前置 sync</div>
+              <div class="meter"><span style="width:0%"></span></div>
+              <div class="node-meta">
+                <span>0/6 XP</span>
+                <span>章节 5</span>
+              </div>
+            </article>
+<article class="node-card todo">
+              <div class="node-top">
+                <div>
+                  <h3>第 6 章：互斥锁</h3>
+                  <p>理解互斥锁和优先级继承如何缓解优先级反转。</p>
                 </div>
+                <span class="badge todo">未解锁</span>
               </div>
-            </article><article class="tree-node todo" style="--node-index:6">
-              <div class="node-core">
-                <div class="node-orb">6</div>
-                <div class="node-body">
-                  <div class="node-top">
-                    <h3>调试闭环</h3>
-                    <span class="badge todo">未解锁</span>
-                  </div>
-                  <p>根据日志、断点和运行状态定位调度与同步问题。</p>
-                  <div class="meter"><span style="width:0%"></span></div>
-                  <div class="node-meta">
-                    <span>0/10 XP</span>
-                    <span>章节 9, 10</span>
-                  </div>
-                  <div class="node-prereq">前置 memory</div>
+              <div class="meter"><span style="width:0%"></span></div>
+              <div class="node-meta">
+                <span>0/6 XP</span>
+                <span>章节 6</span>
+              </div>
+            </article>
+<article class="node-card todo">
+              <div class="node-top">
+                <div>
+                  <h3>第 7 章：堆管理</h3>
+                  <p>判断 heap 方案是否匹配动态内存使用方式。</p>
                 </div>
+                <span class="badge todo">未解锁</span>
               </div>
-            </article></div>
+              <div class="meter"><span style="width:0%"></span></div>
+              <div class="node-meta">
+                <span>0/4 XP</span>
+                <span>章节 7</span>
+              </div>
+            </article>
+<article class="node-card todo">
+              <div class="node-top">
+                <div>
+                  <h3>第 8 章：任务栈</h3>
+                  <p>掌握任务栈大小和栈溢出的排查路径。</p>
+                </div>
+                <span class="badge todo">未解锁</span>
+              </div>
+              <div class="meter"><span style="width:0%"></span></div>
+              <div class="node-meta">
+                <span>0/4 XP</span>
+                <span>章节 8</span>
+              </div>
+            </article>
+<article class="node-card todo">
+              <div class="node-top">
+                <div>
+                  <h3>第 9 章：运行观测</h3>
+                  <p>设计最小日志和状态观测方案。</p>
+                </div>
+                <span class="badge todo">未解锁</span>
+              </div>
+              <div class="meter"><span style="width:0%"></span></div>
+              <div class="node-meta">
+                <span>0/5 XP</span>
+                <span>章节 9</span>
+              </div>
+            </article>
+<article class="node-card todo">
+              <div class="node-top">
+                <div>
+                  <h3>第 10 章：综合调试</h3>
+                  <p>把中断、队列、任务状态、同步资源和日志串成诊断闭环。</p>
+                </div>
+                <span class="badge todo">未解锁</span>
+              </div>
+              <div class="meter"><span style="width:0%"></span></div>
+              <div class="node-meta">
+                <span>0/5 XP</span>
+                <span>章节 10</span>
+              </div>
+            </article>
       </section>
       <aside class="side-stack">
         <section class="panel">
@@ -280,24 +258,24 @@
         </section>
         <section class="panel">
           <h2>章节映射</h2>
-          <table><thead><tr><th>章</th><th>主题</th><th>能力节点</th></tr></thead><tbody><tr><td>1</td><td>FreeRTOS 项目全局地图</td><td>task-model</td></tr>
-<tr><td>2</td><td>任务状态与调度入口</td><td>task-model, scheduler</td></tr>
-<tr><td>3</td><td>优先级、时间片和阻塞</td><td>scheduler</td></tr>
-<tr><td>4</td><td>队列通信链路</td><td>queues</td></tr>
-<tr><td>5</td><td>信号量与事件同步</td><td>sync</td></tr>
-<tr><td>6</td><td>互斥锁与优先级继承</td><td>sync</td></tr>
-<tr><td>7</td><td>堆管理方案</td><td>memory</td></tr>
-<tr><td>8</td><td>任务栈和溢出检查</td><td>memory</td></tr>
-<tr><td>9</td><td>运行态观测与日志</td><td>debugging</td></tr>
-<tr><td>10</td><td>综合调试演练</td><td>debugging</td></tr></tbody></table>
+          <table><thead><tr><th>章</th><th>主题</th><th>能力节点</th></tr></thead><tbody><tr><td>1</td><td>FreeRTOS 项目全局地图</td><td>chapter-01</td></tr>
+<tr><td>2</td><td>任务状态与调度入口</td><td>chapter-02</td></tr>
+<tr><td>3</td><td>优先级、时间片和阻塞</td><td>chapter-03</td></tr>
+<tr><td>4</td><td>队列通信链路</td><td>chapter-04</td></tr>
+<tr><td>5</td><td>信号量与事件同步</td><td>chapter-05</td></tr>
+<tr><td>6</td><td>互斥锁与优先级继承</td><td>chapter-06</td></tr>
+<tr><td>7</td><td>堆管理方案</td><td>chapter-07</td></tr>
+<tr><td>8</td><td>任务栈和溢出检查</td><td>chapter-08</td></tr>
+<tr><td>9</td><td>运行态观测与日志</td><td>chapter-09</td></tr>
+<tr><td>10</td><td>综合调试演练</td><td>chapter-10</td></tr></tbody></table>
         </section>
         <section class="panel">
           <h2>本章获得</h2>
           <div class="feedback">示例初始状态：尚未完成练习。</div>
           <h2 style="margin-top:18px;">技能树进度</h2>
-          <div class="feedback">所有 FreeRTOS 能力节点等待通过带分值练习解锁。</div>
+          <div class="feedback">10 个 FreeRTOS 章节任务等待通过带分值练习逐步解锁。</div>
           <h2 style="margin-top:18px;">下一步最小任务</h2>
-          <div class="feedback">先回答 ch01-q01，并按评分更新 task-model 节点。</div>
+          <div class="feedback">先回答 ch01-q01，并按评分更新 chapter-01 节点。</div>
         </section>
       </aside>
     </div>
@@ -313,36 +291,48 @@
   "total_xp": 60,
   "nodes": [
     {
-      "id": "task-model",
-      "name": "任务模型",
-      "description": "理解任务函数、优先级、栈和任务生命周期。",
+      "id": "chapter-01",
+      "name": "第 1 章：项目全局地图",
+      "description": "建立 FreeRTOS 项目从硬件初始化到任务运行的整体路径。",
       "state": "locked",
       "earned_points": 0,
-      "total_points": 10,
+      "total_points": 5,
       "chapters": [
-        1,
-        2
+        1
       ],
       "prerequisites": []
     },
     {
-      "id": "scheduler",
-      "name": "调度机制",
-      "description": "解释抢占、时间片、阻塞态和就绪态之间的关系。",
+      "id": "chapter-02",
+      "name": "第 2 章：任务状态",
+      "description": "理解任务状态、调度入口和任务生命周期边界。",
       "state": "locked",
       "earned_points": 0,
       "total_points": 10,
       "chapters": [
-        2,
-        3
+        2
       ],
       "prerequisites": [
-        "task-model"
+        "chapter-01"
       ]
     },
     {
-      "id": "queues",
-      "name": "队列通信",
+      "id": "chapter-03",
+      "name": "第 3 章：调度机制",
+      "description": "解释优先级、时间片、阻塞态和就绪态之间的关系。",
+      "state": "locked",
+      "earned_points": 0,
+      "total_points": 5,
+      "chapters": [
+        3
+      ],
+      "prerequisites": [
+        "chapter-02"
+      ]
+    },
+    {
+      "id": "chapter-04",
+      "name": "第 4 章：队列通信",
       "description": "使用队列在任务之间传递事件和数据。",
       "state": "locked",
       "earned_points": 0,
@@ -351,52 +341,91 @@
         4
       ],
       "prerequisites": [
-        "scheduler"
+        "chapter-03"
       ]
     },
     {
-      "id": "sync",
-      "name": "同步与互斥",
-      "description": "区分信号量、互斥锁、事件组和临界区的使用边界。",
+      "id": "chapter-05",
+      "name": "第 5 章：事件同步",
+      "description": "区分二值信号量和事件组的同步边界。",
       "state": "locked",
       "earned_points": 0,
-      "total_points": 12,
+      "total_points": 6,
       "chapters": [
-        5,
+        5
+      ],
+      "prerequisites": [
+        "chapter-04"
+      ]
+    },
+    {
+      "id": "chapter-06",
+      "name": "第 6 章：互斥锁",
+      "description": "理解互斥锁和优先级继承如何缓解优先级反转。",
+      "state": "locked",
+      "earned_points": 0,
+      "total_points": 6,
+      "chapters": [
         6
       ],
       "prerequisites": [
-        "queues"
+        "chapter-05"
       ]
     },
     {
-      "id": "memory",
-      "name": "内存与栈",
-      "description": "判断 heap 方案、任务栈大小和溢出排查路径。",
+      "id": "chapter-07",
+      "name": "第 7 章：堆管理",
+      "description": "判断 heap 方案是否匹配动态内存使用方式。",
       "state": "locked",
       "earned_points": 0,
-      "total_points": 8,
+      "total_points": 4,
       "chapters": [
-        7,
+        7
+      ],
+      "prerequisites": [
+        "chapter-06"
+      ]
+    },
+    {
+      "id": "chapter-08",
+      "name": "第 8 章：任务栈",
+      "description": "掌握任务栈大小和栈溢出的排查路径。",
+      "state": "locked",
+      "earned_points": 0,
+      "total_points": 4,
+      "chapters": [
         8
       ],
       "prerequisites": [
-        "sync"
+        "chapter-07"
       ]
     },
     {
-      "id": "debugging",
-      "name": "调试闭环",
-      "description": "根据日志、断点和运行状态定位调度与同步问题。",
+      "id": "chapter-09",
+      "name": "第 9 章：运行观测",
+      "description": "设计最小日志和状态观测方案。",
       "state": "locked",
       "earned_points": 0,
-      "total_points": 10,
+      "total_points": 5,
       "chapters": [
-        9,
+        9
+      ],
+      "prerequisites": [
+        "chapter-08"
+      ]
+    },
+    {
+      "id": "chapter-10",
+      "name": "第 10 章：综合调试",
+      "description": "把中断、队列、任务状态、同步资源和日志串成诊断闭环。",
+      "state": "locked",
+      "earned_points": 0,
+      "total_points": 5,
+      "chapters": [
         10
       ],
       "prerequisites": [
-        "memory"
+        "chapter-09"
       ]
     }
   ],
@@ -404,77 +433,77 @@
     {
       "id": "ch01-q01",
       "chapter": 1,
-      "node_id": "task-model",
+      "node_id": "chapter-01",
       "points": 5,
       "earned_points": 0
     },
     {
       "id": "ch02-q01",
       "chapter": 2,
-      "node_id": "scheduler",
+      "node_id": "chapter-02",
       "points": 5,
       "earned_points": 0
     },
     {
       "id": "ch02-q02",
       "chapter": 2,
-      "node_id": "task-model",
+      "node_id": "chapter-02",
       "points": 5,
       "earned_points": 0
     },
     {
       "id": "ch03-q01",
       "chapter": 3,
-      "node_id": "scheduler",
+      "node_id": "chapter-03",
       "points": 5,
       "earned_points": 0
     },
     {
       "id": "ch04-q01",
       "chapter": 4,
-      "node_id": "queues",
+      "node_id": "chapter-04",
       "points": 10,
       "earned_points": 0
     },
     {
       "id": "ch05-q01",
       "chapter": 5,
-      "node_id": "sync",
+      "node_id": "chapter-05",
       "points": 6,
       "earned_points": 0
     },
     {
       "id": "ch06-q01",
       "chapter": 6,
-      "node_id": "sync",
+      "node_id": "chapter-06",
       "points": 6,
       "earned_points": 0
     },
     {
       "id": "ch07-q01",
       "chapter": 7,
-      "node_id": "memory",
+      "node_id": "chapter-07",
       "points": 4,
       "earned_points": 0
     },
     {
       "id": "ch08-q01",
       "chapter": 8,
-      "node_id": "memory",
+      "node_id": "chapter-08",
       "points": 4,
       "earned_points": 0
     },
     {
       "id": "ch09-q01",
       "chapter": 9,
-      "node_id": "debugging",
+      "node_id": "chapter-09",
       "points": 5,
       "earned_points": 0
     },
     {
       "id": "ch10-q01",
       "chapter": 10,
-      "node_id": "debugging",
+      "node_id": "chapter-10",
       "points": 5,
       "earned_points": 0
     }
@@ -484,80 +513,79 @@
       "chapter": 1,
       "title": "FreeRTOS 项目全局地图",
       "nodes": [
-        "task-model"
+        "chapter-01"
       ]
     },
     {
       "chapter": 2,
       "title": "任务状态与调度入口",
       "nodes": [
-        "task-model",
-        "scheduler"
+        "chapter-02"
       ]
     },
     {
       "chapter": 3,
       "title": "优先级、时间片和阻塞",
       "nodes": [
-        "scheduler"
+        "chapter-03"
       ]
     },
     {
       "chapter": 4,
       "title": "队列通信链路",
       "nodes": [
-        "queues"
+        "chapter-04"
       ]
     },
     {
       "chapter": 5,
       "title": "信号量与事件同步",
       "nodes": [
-        "sync"
+        "chapter-05"
       ]
     },
     {
       "chapter": 6,
       "title": "互斥锁与优先级继承",
       "nodes": [
-        "sync"
+        "chapter-06"
       ]
     },
     {
       "chapter": 7,
       "title": "堆管理方案",
       "nodes": [
-        "memory"
+        "chapter-07"
       ]
     },
     {
       "chapter": 8,
       "title": "任务栈和溢出检查",
       "nodes": [
-        "memory"
+        "chapter-08"
       ]
     },
     {
       "chapter": 9,
       "title": "运行态观测与日志",
       "nodes": [
-        "debugging"
+        "chapter-09"
       ]
     },
     {
       "chapter": 10,
       "title": "综合调试演练",
       "nodes": [
-        "debugging"
+        "chapter-10"
       ]
     }
   ],
   "positive_feedback": {
     "chapter_gain": "示例初始状态：尚未完成练习。",
-    "skill_tree_progress": "所有 FreeRTOS 能力节点等待通过带分值练习解锁。",
+    "skill_tree_progress": "10 个 FreeRTOS 章节任务等待通过带分值练习逐步解锁。",
     "next_step": "完成第 1 章的任务模型排序题。"
   },
-  "next_step": "先回答 ch01-q01，并按评分更新 task-model 节点。"
+  "next_step": "先回答 ch01-q01，并按评分更新 chapter-01 节点。"
 }</script>
   </div>
 </body>
