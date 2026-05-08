@@ -54,6 +54,7 @@ Read only the references needed for the user's request:
 - `references/output-formats.md`: Markdown and DOCX requirements, including red DOCX critique annotations.
 - `references/feedback.md`: project-specific capability tree and positive-feedback rules.
 - `references/skill-tree-html.md`: HTML skill-tree layout and styling rules.
+- `references/skill-tree-skins.md`: engineering, course, and paper visual styles for skill-tree pages.
 - `references/visual-inspirations.md`: GitHub references for more game-like skill tree presentation.
 - `references/quality-checks.md`: anti-repetition, continuity, answer separation, and critique rules.
 
@@ -115,6 +116,12 @@ Render with:
 
 ```powershell
 python scripts/render_skill_tree.py learning-progress.json skill-tree.html
+```
+
+Use the default skin unless the project type is obvious or the user asks for a style. Available skins are `engineering`, `course`, and `paper`; see `references/skill-tree-skins.md`.
+
+```powershell
+python scripts/render_skill_tree.py learning-progress.json skill-tree.html --skin engineering
 ```
 
 ## DOCX Conversion

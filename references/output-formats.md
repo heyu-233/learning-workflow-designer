@@ -86,3 +86,5 @@ Render with:
 ```powershell
 python scripts/render_skill_tree.py learning-progress.json skill-tree.html
 ```
+
+Use `--skin engineering`, `--skin course`, or `--skin paper` when the project style is clear.

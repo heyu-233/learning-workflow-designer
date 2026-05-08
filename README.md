@@ -24,12 +24,14 @@
 1. `learning-content.md`
 2. `exercises.md`
 3. `reference-answers.md`
-4. `skill-tree.html`
+4. `learning-progress.json`
+5. `skill-tree.html`
 
 其中：
 - `learning-content.md` 负责讲解主线知识。
 - `exercises.md` 负责出题和留答题空间。
 - `reference-answers.md` 负责参考答案。
+- `learning-progress.json` 负责记录 XP、星级、题目分值和能力节点状态。
 - `skill-tree.html` 负责展示项目技能树、XP、星级和节点状态。
 
 ## 设计特点
@@ -75,15 +77,8 @@
 - `SKILL.md`：主规则和触发方式
 - `references/`：模式、题型、输出格式、质量检查、视觉参考
 - `assets/`：模板和 HTML 骨架
+- `examples/`：轻量示例项目
 - `scripts/`：Markdown 转 DOCX 的工具
-
-## 还能继续改哪里
-
-这个仓库现在已经能跑，但还可以继续补三块：
-
-1. 增加更多题型模板，比如“排序后解释”“伪代码多问”“对照辨析”。
-2. 为技能树增加更多项目风格皮肤，比如偏工程、偏课程、偏论文。
-3. 增加一个更轻量的示例项目，方便新用户一眼看懂生成结果。
 
 ## 许可证
 

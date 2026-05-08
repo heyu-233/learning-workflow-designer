@@ -90,6 +90,8 @@ Render with:
 python scripts/render_skill_tree.py learning-progress.json skill-tree.html
 ```
 
+Use `--skin engineering`, `--skin course`, or `--skin paper` when the visual tone should match the source type. See `references/skill-tree-skins.md`.
+
 ## Refresh Rule
 
 After each answer or feedback pass, re-evaluate the skill tree. If any node changes state or the learner gains XP/stars, update `learning-progress.json` first, then regenerate `skill-tree.html` so the visual state stays current.

@@ -26,6 +26,37 @@ STATE_CLASSES = {
     "unlocked": "done",
 }
 
+SKINS = {
+    "default": {
+        "bg": "#111827",
+        "panel": "#182033",
+        "panel_strong": "#202a43",
+        "accent": "#38bdf8",
+        "accent_2": "#a78bfa",
+    },
+    "engineering": {
+        "bg": "#07111f",
+        "panel": "#101b2d",
+        "panel_strong": "#13233a",
+        "accent": "#22d3ee",
+        "accent_2": "#34d399",
+    },
+    "course": {
+        "bg": "#f5f7fb",
+        "panel": "#ffffff",
+        "panel_strong": "#eef4ff",
+        "accent": "#2563eb",
+        "accent_2": "#f59e0b",
+    },
+    "paper": {
+        "bg": "#f8f5f0",
+        "panel": "#fffdf8",
+        "panel_strong": "#f1ece3",
+        "accent": "#6d28d9",
+        "accent_2": "#b45309",
+    },
+}
+
 
 def esc(value: Any) -> str:
     return html.escape(str(value), quote=True)
@@ -93,14 +124,26 @@ def render_chapter_table(chapter_map: list[dict[str, Any]]) -> str:
     )
 
 
-def render(progress_path: Path, output_path: Path, template_path: Path = DEFAULT_TEMPLATE) -> None:
+def render(
+    progress_path: Path,
+    output_path: Path,
+    template_path: Path = DEFAULT_TEMPLATE,
+    skin: str = "default",
+) -> None:
     data = json.loads(progress_path.read_text(encoding="utf-8"))
     template = Template(template_path.read_text(encoding="utf-8"))
     total_xp = int(data.get("total_xp", 0))
     earned_xp = int(data.get("earned_xp", 0))
     feedback = data.get("positive_feedback", {})
+    skin_tokens = SKINS.get(skin, SKINS["default"])
 
     html_text = template.safe_substitute(
+        skin=esc(skin if skin in SKINS else "default"),
+        skin_bg=skin_tokens["bg"],
+        skin_panel=skin_tokens["panel"],
+        skin_panel_strong=skin_tokens["panel_strong"],
+        skin_accent=skin_tokens["accent"],
+        skin_accent_2=skin_tokens["accent_2"],
         project_name=esc(data.get("project_name", "学习技能树")),
         subtitle=esc(data.get("source_summary", "")),
         mode=esc(data.get("mode", "learning")),
@@ -126,8 +169,9 @@ def main() -> int:
     parser.add_argument("progress", type=Path, help="Path to learning-progress.json")
     parser.add_argument("output", type=Path, help="Path to write skill-tree.html")
     parser.add_argument("--template", type=Path, default=DEFAULT_TEMPLATE)
+    parser.add_argument("--skin", choices=sorted(SKINS), default="default")
     args = parser.parse_args()
-    render(args.progress, args.output, args.template)
+    render(args.progress, args.output, args.template, args.skin)
     return 0
 
 

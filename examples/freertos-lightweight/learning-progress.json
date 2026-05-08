@@ -1,0 +1,147 @@
+{
+  "project_name": "FreeRTOS 轻量学习示例",
+  "source_summary": "面向 FreeRTOS 入门项目的十章轻量学习包示例，覆盖任务、调度、队列、同步、内存和调试。",
+  "mode": "learning",
+  "density": "lightweight",
+  "level": 1,
+  "stars": 0,
+  "earned_xp": 0,
+  "total_xp": 60,
+  "nodes": [
+    {
+      "id": "task-model",
+      "name": "任务模型",
+      "description": "理解任务函数、优先级、栈和任务生命周期。",
+      "state": "locked",
+      "earned_points": 0,
+      "total_points": 10,
+      "chapters": [1, 2]
+    },
+    {
+      "id": "scheduler",
+      "name": "调度机制",
+      "description": "解释抢占、时间片、阻塞态和就绪态之间的关系。",
+      "state": "locked",
+      "earned_points": 0,
+      "total_points": 10,
+      "chapters": [2, 3]
+    },
+    {
+      "id": "queues",
+      "name": "队列通信",
+      "description": "使用队列在任务之间传递事件和数据。",
+      "state": "locked",
+      "earned_points": 0,
+      "total_points": 10,
+      "chapters": [4]
+    },
+    {
+      "id": "sync",
+      "name": "同步与互斥",
+      "description": "区分信号量、互斥锁、事件组和临界区的使用边界。",
+      "state": "locked",
+      "earned_points": 0,
+      "total_points": 12,
+      "chapters": [5, 6]
+    },
+    {
+      "id": "memory",
+      "name": "内存与栈",
+      "description": "判断 heap 方案、任务栈大小和溢出排查路径。",
+      "state": "locked",
+      "earned_points": 0,
+      "total_points": 8,
+      "chapters": [7, 8]
+    },
+    {
+      "id": "debugging",
+      "name": "调试闭环",
+      "description": "根据日志、断点和运行状态定位调度与同步问题。",
+      "state": "locked",
+      "earned_points": 0,
+      "total_points": 10,
+      "chapters": [9, 10]
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ch01-q01",
+      "chapter": 1,
+      "node_id": "task-model",
+      "points": 5,
+      "earned_points": 0
+    },
+    {
+      "id": "ch02-q01",
+      "chapter": 2,
+      "node_id": "scheduler",
+      "points": 5,
+      "earned_points": 0
+    },
+    {
+      "id": "ch04-q01",
+      "chapter": 4,
+      "node_id": "queues",
+      "points": 5,
+      "earned_points": 0
+    }
+  ],
+  "chapter_map": [
+    {
+      "chapter": 1,
+      "title": "FreeRTOS 项目全局地图",
+      "nodes": ["task-model"]
+    },
+    {
+      "chapter": 2,
+      "title": "任务状态与调度入口",
+      "nodes": ["task-model", "scheduler"]
+    },
+    {
+      "chapter": 3,
+      "title": "优先级、时间片和阻塞",
+      "nodes": ["scheduler"]
+    },
+    {
+      "chapter": 4,
+      "title": "队列通信链路",
+      "nodes": ["queues"]
+    },
+    {
+      "chapter": 5,
+      "title": "信号量与事件同步",
+      "nodes": ["sync"]
+    },
+    {
+      "chapter": 6,
+      "title": "互斥锁与优先级继承",
+      "nodes": ["sync"]
+    },
+    {
+      "chapter": 7,
+      "title": "堆管理方案",
+      "nodes": ["memory"]
+    },
+    {
+      "chapter": 8,
+      "title": "任务栈和溢出检查",
+      "nodes": ["memory"]
+    },
+    {
+      "chapter": 9,
+      "title": "运行态观测与日志",
+      "nodes": ["debugging"]
+    },
+    {
+      "chapter": 10,
+      "title": "综合调试演练",
+      "nodes": ["debugging"]
+    }
+  ],
+  "positive_feedback": {
+    "chapter_gain": "示例初始状态：尚未完成练习。",
+    "skill_tree_progress": "所有 FreeRTOS 能力节点等待通过带分值练习解锁。",
+    "next_step": "完成第 1 章的任务模型排序题。"
+  },
+  "next_step": "先回答 ch01-q01，并按评分更新 task-model 节点。"
+}
