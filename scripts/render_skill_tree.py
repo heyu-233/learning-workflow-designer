@@ -31,6 +31,9 @@ SKINS = {
         "bg": "#111827",
         "panel": "#182033",
         "panel_strong": "#202a43",
+        "text": "#f8fafc",
+        "muted": "#a7b0c4",
+        "border": "#334155",
         "accent": "#38bdf8",
         "accent_2": "#a78bfa",
     },
@@ -38,6 +41,9 @@ SKINS = {
         "bg": "#07111f",
         "panel": "#101b2d",
         "panel_strong": "#13233a",
+        "text": "#f8fafc",
+        "muted": "#a7b0c4",
+        "border": "#334155",
         "accent": "#22d3ee",
         "accent_2": "#34d399",
     },
@@ -45,6 +51,9 @@ SKINS = {
         "bg": "#f5f7fb",
         "panel": "#ffffff",
         "panel_strong": "#eef4ff",
+        "text": "#172033",
+        "muted": "#5b6475",
+        "border": "#d7dfec",
         "accent": "#2563eb",
         "accent_2": "#f59e0b",
     },
@@ -52,6 +61,9 @@ SKINS = {
         "bg": "#f8f5f0",
         "panel": "#fffdf8",
         "panel_strong": "#f1ece3",
+        "text": "#211f1c",
+        "muted": "#6f675e",
+        "border": "#ddd4c7",
         "accent": "#6d28d9",
         "accent_2": "#b45309",
     },
@@ -68,14 +80,39 @@ def percent(earned: int | float, total: int | float) -> int:
     return max(0, min(100, round((earned / total) * 100)))
 
 
-def render_stars(stars: int | float) -> str:
-    count = max(0, min(5, int(stars)))
-    return "".join("★" if index < count else "☆" for index in range(5))
+def level_thresholds(total_xp: int | float, total_levels: int = 5) -> list[int]:
+    if total_levels <= 1:
+        return [0]
+    total = max(0, int(total_xp))
+    return [round(total * index / (total_levels - 1)) for index in range(total_levels)]
+
+
+def level_from_xp(earned_xp: int | float, total_xp: int | float, total_levels: int = 5) -> int:
+    earned = max(0, int(earned_xp))
+    thresholds = level_thresholds(total_xp, total_levels)
+    level = 1
+    for index, threshold in enumerate(thresholds, start=1):
+        if earned >= threshold:
+            level = index
+    return max(1, min(total_levels, level))
+
+
+def stars_from_xp(earned_xp: int | float, total_xp: int | float, total_levels: int = 5) -> int:
+    earned = max(0, int(earned_xp))
+    if earned <= 0:
+        return 0
+    thresholds = level_thresholds(total_xp, total_levels)
+    return sum(1 for threshold in thresholds if earned >= threshold)
+
+
+def render_stars(stars: int | float, total: int = 5) -> str:
+    count = max(0, min(total, int(stars)))
+    return "".join("★" if index < count else "☆" for index in range(total))
 
 
 def render_nodes(nodes: list[dict[str, Any]]) -> str:
     rows: list[str] = []
-    for node in nodes:
+    for index, node in enumerate(nodes, start=1):
         state = str(node.get("state", "locked"))
         earned = int(node.get("earned_points", 0))
         total = int(node.get("total_points", 0))
@@ -83,25 +120,53 @@ def render_nodes(nodes: list[dict[str, Any]]) -> str:
         chapters = ", ".join(str(chapter) for chapter in node.get("chapters", []))
         label = STATE_LABELS.get(state, state)
         css_class = STATE_CLASSES.get(state, "todo")
+        prerequisites = node.get("prerequisites", [])
+        if prerequisites:
+            prereq_text = "前置 " + ", ".join(str(item) for item in prerequisites)
+        else:
+            prereq_text = "起点" if index == 1 else "承接上一节点"
         rows.append(
             f"""
-            <article class="node-card {css_class}">
-              <div class="node-top">
-                <div>
-                  <h3>{esc(node.get("name", node.get("id", "未命名节点")))}</h3>
+            <article class="tree-node {css_class}" style="--node-index:{index}">
+              <div class="node-core">
+                <div class="node-orb">{index}</div>
+                <div class="node-body">
+                  <div class="node-top">
+                    <h3>{esc(node.get("name", node.get("id", "未命名节点")))}</h3>
+                    <span class="badge {css_class}">{esc(label)}</span>
+                  </div>
                   <p>{esc(node.get("description", ""))}</p>
+                  <div class="meter"><span style="width:{progress}%"></span></div>
+                  <div class="node-meta">
+                    <span>{earned}/{total} XP</span>
+                    <span>章节 {esc(chapters or "-")}</span>
+                  </div>
+                  <div class="node-prereq">{esc(prereq_text)}</div>
                 </div>
-                <span class="badge {css_class}">{esc(label)}</span>
-              </div>
-              <div class="meter"><span style="width:{progress}%"></span></div>
-              <div class="node-meta">
-                <span>{earned}/{total} XP</span>
-                <span>章节 {esc(chapters or "-")}</span>
               </div>
             </article>
             """.strip()
         )
-    return "\n".join(rows)
+    return f'<div class="skill-tree-map">{"".join(rows)}</div>'
+
+
+def render_level_table(thresholds: list[int], earned_xp: int) -> str:
+    rows = []
+    for index, threshold in enumerate(thresholds, start=1):
+        state = "已达到" if earned_xp >= threshold else "未达到"
+        rows.append(
+            "<tr>"
+            f"<td>Lv. {index}</td>"
+            f"<td>{threshold} XP</td>"
+            f"<td>{state}</td>"
+            "</tr>"
+        )
+    return (
+        "<table>"
+        "<thead><tr><th>等级</th><th>最低 XP</th><th>状态</th></tr></thead>"
+        f"<tbody>{''.join(rows)}</tbody>"
+        "</table>"
+    )
 
 
 def render_chapter_table(chapter_map: list[dict[str, Any]]) -> str:
@@ -124,6 +189,18 @@ def render_chapter_table(chapter_map: list[dict[str, Any]]) -> str:
     )
 
 
+def validate_progress(data: dict[str, Any]) -> None:
+    total_xp = int(data.get("total_xp", 0))
+    exercises = data.get("exercises", [])
+    if exercises:
+        exercise_total = sum(int(exercise.get("points", 0)) for exercise in exercises)
+        if exercise_total != total_xp:
+            raise ValueError(
+                f"Exercise points ({exercise_total}) must equal total_xp ({total_xp}) "
+                "so finishing all scored work reaches Lv.5."
+            )
+
+
 def render(
     progress_path: Path,
     output_path: Path,
@@ -131,9 +208,14 @@ def render(
     skin: str = "default",
 ) -> None:
     data = json.loads(progress_path.read_text(encoding="utf-8"))
+    validate_progress(data)
     template = Template(template_path.read_text(encoding="utf-8"))
     total_xp = int(data.get("total_xp", 0))
     earned_xp = int(data.get("earned_xp", 0))
+    total_levels = int(data.get("total_levels", 5))
+    thresholds = data.get("level_thresholds") or level_thresholds(total_xp, total_levels)
+    current_level = level_from_xp(earned_xp, total_xp, total_levels)
+    current_stars = stars_from_xp(earned_xp, total_xp, total_levels)
     feedback = data.get("positive_feedback", {})
     skin_tokens = SKINS.get(skin, SKINS["default"])
 
@@ -142,17 +224,23 @@ def render(
         skin_bg=skin_tokens["bg"],
         skin_panel=skin_tokens["panel"],
         skin_panel_strong=skin_tokens["panel_strong"],
+        skin_text=skin_tokens["text"],
+        skin_muted=skin_tokens["muted"],
+        skin_border=skin_tokens["border"],
         skin_accent=skin_tokens["accent"],
         skin_accent_2=skin_tokens["accent_2"],
         project_name=esc(data.get("project_name", "学习技能树")),
         subtitle=esc(data.get("source_summary", "")),
         mode=esc(data.get("mode", "learning")),
         density=esc(data.get("density", "lightweight")),
-        level=esc(data.get("level", 1)),
-        stars=render_stars(data.get("stars", 0)),
+        level=esc(current_level),
+        total_levels=esc(total_levels),
+        stars=render_stars(current_stars, total_levels),
         earned_xp=earned_xp,
         total_xp=total_xp,
         xp_percent=percent(earned_xp, total_xp),
+        level_rule=esc(f"共 {total_levels} 级，达到 {total_xp} XP 即满级；学完全部带分值课程应获得全部 XP。"),
+        level_table_html=render_level_table([int(value) for value in thresholds], earned_xp),
         nodes_html=render_nodes(data.get("nodes", [])),
         chapter_table_html=render_chapter_table(data.get("chapter_map", [])),
         chapter_gain=esc(feedback.get("chapter_gain", "")),

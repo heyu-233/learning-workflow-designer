@@ -21,6 +21,7 @@ Visual inspiration should come from game skill-tree and dashboard-style UI patte
 - Layered cards with strong hierarchy.
 - Subtle shadow, border weight, glow, and accent contrast.
 - Separate XP, stars, and node progress so the tree feels like an RPG HUD, not a plain checklist.
+- Show visible parent/child relationships with a central path, branches, connectors, or grouped lanes. Avoid rendering capability nodes as a plain vertical checklist.
 
 Do not turn the page into a long report. Keep it scannable.
 
@@ -69,6 +70,8 @@ Store this model in `learning-progress.json`. Start from `assets/learning-progre
 - `mode`
 - `density`
 - `level`
+- `total_levels`
+- `level_thresholds` when the default proportional thresholds are not enough
 - `stars`
 - `earned_xp`
 - `total_xp`
@@ -79,6 +82,8 @@ Store this model in `learning-progress.json`. Start from `assets/learning-progre
 - `next_step`
 
 Each exercise should include an ID, chapter, node ID, total points, and earned points. Each node should include an ID, name, state, total points, earned points, and chapter list.
+
+Default level rule: use 5 levels. Split `total_xp` into five milestones: Lv.1 = 0%, Lv.2 = 25%, Lv.3 = 50%, Lv.4 = 75%, Lv.5 = 100%. The sum of all exercise `points` must equal `total_xp`, so completing every scored exercise reaches Lv.5.
 
 ## Output Note
 

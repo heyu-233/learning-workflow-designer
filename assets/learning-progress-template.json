@@ -3,10 +3,11 @@
   "source_summary": "用一句话说明学习材料来源。",
   "mode": "learning",
   "density": "lightweight",
+  "total_levels": 5,
   "level": 1,
   "stars": 0,
   "earned_xp": 0,
-  "total_xp": 100,
+  "total_xp": 20,
   "nodes": [
     {
       "id": "foundation",
@@ -23,7 +24,7 @@
       "id": "ch01-q01",
       "chapter": 1,
       "node_id": "foundation",
-      "points": 5,
+      "points": 20,
       "earned_points": 0
     }
   ],

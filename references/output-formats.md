@@ -74,6 +74,7 @@ Requirements:
 - Game-like presentation: level badge, star rating, experience bar, and unlock states.
 - Starting state is always 0 XP and 0 stars until exercise points are earned.
 - Generated from `learning-progress.json` whenever possible.
+- Uses 5 levels by default: 0%, 25%, 50%, 75%, and 100% of `total_xp`.
 - Clear title, source/project label, and chapter mapping.
 - Visual status markers for `未解锁`, `进行中`, and `已解锁`.
 - Compact positive-feedback block with `本章获得`, `技能树进度`, and `下一步最小任务`.

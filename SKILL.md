@@ -1,6 +1,6 @@
 ---
 name: learning-workflow-designer
-description: Create reusable learning workflows from projects, papers, codebases, notes, or course materials. Use when the user wants to learn a project/codebase, generate staged study content, review packs, exam papers, exercises, answer keys, critique completed answers, or track learning progress with Markdown/DOCX/HTML outputs. Chinese triggers include: 我想学习这个项目, 帮我学习这个代码库, 帮我出题, 生成练习题, 批改答案, 整理成学习包, 生成技能树, 更新学习进度.
+description: Create reusable learning workflows from projects, papers, codebases, notes, or course materials. Use when the user wants to learn a project/codebase, generate staged study content, review packs, practice drills, exam papers, exercises, answer keys, critique completed answers, or track learning progress with Markdown/DOCX/HTML outputs. Chinese triggers include: 我想学习这个项目, 帮我学习这个代码库, 帮我出题, 生成练习题, 批改答案, 整理成学习包, 生成技能树, 更新学习进度, 复习模式, 练习模式.
 ---
 
 # Learning Workflow Designer
@@ -70,6 +70,8 @@ For learning mode, produce these artifacts by default:
 
 For review mode, produce a review outline, weak-point checklist, and short reinforcement exercises.
 
+For practice mode, produce an exercise-first practice set with explicit points, separate answers/rubric, and critique-driven skill-tree updates after the learner submits answers.
+
 For exam mode, produce an independent paper, scoring rubric, and separate answers.
 
 ## Critique Rules
@@ -106,11 +108,14 @@ Required fields:
 
 - `project_name`, `source_summary`, `mode`, and `density`.
 - `total_xp`, `earned_xp`, `level`, and `stars`.
+- `total_levels`: default to 5. Level thresholds are derived from total XP unless `level_thresholds` is explicitly provided.
 - `nodes`: 5 to 8 project-specific capability nodes with `id`, `name`, `state`, `earned_points`, `total_points`, and `chapters`.
 - `exercises`: each scored exercise with `id`, `chapter`, `node_id`, `points`, and `earned_points`.
 - `chapter_map`, `positive_feedback`, and `next_step`.
 
 Allowed node states are `locked`, `active`, and `unlocked`. Progress updates must change `earned_points` only when the learner earns explicit exercise points.
+
+Default level rule: there are 5 levels. Split the package's `total_xp` into 5 thresholds: Lv.1 at 0%, Lv.2 at 25%, Lv.3 at 50%, Lv.4 at 75%, and Lv.5 at 100%. The exercise point total must equal `total_xp`, so completing every scored exercise fills the XP bar and reaches Lv.5.
 
 Render with:
 

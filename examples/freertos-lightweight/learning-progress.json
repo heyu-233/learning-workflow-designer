@@ -3,6 +3,7 @@
   "source_summary": "面向 FreeRTOS 入门项目的十章轻量学习包示例，覆盖任务、调度、队列、同步、内存和调试。",
   "mode": "learning",
   "density": "lightweight",
+  "total_levels": 5,
   "level": 1,
   "stars": 0,
   "earned_xp": 0,
@@ -15,7 +16,8 @@
       "state": "locked",
       "earned_points": 0,
       "total_points": 10,
-      "chapters": [1, 2]
+      "chapters": [1, 2],
+      "prerequisites": []
     },
     {
       "id": "scheduler",
@@ -24,7 +26,8 @@
       "state": "locked",
       "earned_points": 0,
       "total_points": 10,
-      "chapters": [2, 3]
+      "chapters": [2, 3],
+      "prerequisites": ["task-model"]
     },
     {
       "id": "queues",
@@ -33,7 +36,8 @@
       "state": "locked",
       "earned_points": 0,
       "total_points": 10,
-      "chapters": [4]
+      "chapters": [4],
+      "prerequisites": ["scheduler"]
     },
     {
       "id": "sync",
@@ -42,7 +46,8 @@
       "state": "locked",
       "earned_points": 0,
       "total_points": 12,
-      "chapters": [5, 6]
+      "chapters": [5, 6],
+      "prerequisites": ["queues"]
     },
     {
       "id": "memory",
@@ -51,7 +56,8 @@
       "state": "locked",
       "earned_points": 0,
       "total_points": 8,
-      "chapters": [7, 8]
+      "chapters": [7, 8],
+      "prerequisites": ["sync"]
     },
     {
       "id": "debugging",
@@ -60,7 +66,8 @@
       "state": "locked",
       "earned_points": 0,
       "total_points": 10,
-      "chapters": [9, 10]
+      "chapters": [9, 10],
+      "prerequisites": ["memory"]
     }
   ],
   "exercises": [
@@ -79,9 +86,65 @@
       "earned_points": 0
     },
     {
+      "id": "ch02-q02",
+      "chapter": 2,
+      "node_id": "task-model",
+      "points": 5,
+      "earned_points": 0
+    },
+    {
+      "id": "ch03-q01",
+      "chapter": 3,
+      "node_id": "scheduler",
+      "points": 5,
+      "earned_points": 0
+    },
+    {
       "id": "ch04-q01",
       "chapter": 4,
       "node_id": "queues",
+      "points": 10,
+      "earned_points": 0
+    },
+    {
+      "id": "ch05-q01",
+      "chapter": 5,
+      "node_id": "sync",
+      "points": 6,
+      "earned_points": 0
+    },
+    {
+      "id": "ch06-q01",
+      "chapter": 6,
+      "node_id": "sync",
+      "points": 6,
+      "earned_points": 0
+    },
+    {
+      "id": "ch07-q01",
+      "chapter": 7,
+      "node_id": "memory",
+      "points": 4,
+      "earned_points": 0
+    },
+    {
+      "id": "ch08-q01",
+      "chapter": 8,
+      "node_id": "memory",
+      "points": 4,
+      "earned_points": 0
+    },
+    {
+      "id": "ch09-q01",
+      "chapter": 9,
+      "node_id": "debugging",
+      "points": 5,
+      "earned_points": 0
+    },
+    {
+      "id": "ch10-q01",
+      "chapter": 10,
+      "node_id": "debugging",
       "points": 5,
       "earned_points": 0
     }

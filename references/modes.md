@@ -18,6 +18,8 @@ Default structure:
 - Each chapter has a main-line sentence, lesson body, and exercises.
 - Chapters must progress from global map to module details to integration and debugging.
 
+Learning mode teaches first, then tests. It should create a coherent path from prerequisites to application, and it may introduce new concepts the learner has not seen.
+
 ### Review Mode
 
 Use when the user already studied the material and wants fast consolidation.
@@ -31,6 +33,21 @@ Outputs:
 
 Keep review mode concise. Prefer recall prompts, comparison tables, and troubleshooting checklists.
 
+Review mode does not re-teach the whole course. It compresses existing material into weak-point maps, memory hooks, contrast tables, and targeted checks. Use it when the learner says they have learned once but want to consolidate, summarize, or prepare for a second pass.
+
+### Practice Mode
+
+Use when the user mainly wants to answer questions and receive feedback.
+
+Outputs:
+
+- Practice set without embedded answers.
+- Separate reference answers or rubric.
+- Optional answer sheet for learner responses.
+- Critique and skill-tree update after the learner submits answers.
+
+Practice mode is exercise-first. Keep explanations short before the learner answers, then give detailed feedback after grading. Use varied question types and explicit point values so progress can update reliably.
+
 ### Exam Mode
 
 Use when the user wants a formal test or self-test.
@@ -42,6 +59,8 @@ Outputs:
 - Separate reference-answer document.
 
 Exam mode should combine factual recall, concept judgment, chain analysis, code judgment, and troubleshooting.
+
+Exam mode is stricter than practice mode: fewer hints, clearer timing/scoring expectations, and a paper-like structure. Practice mode may coach after each answer; exam mode should preserve assessment integrity until answers are submitted.
 
 ## Density
 
