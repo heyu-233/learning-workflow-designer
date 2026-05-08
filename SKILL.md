@@ -1,6 +1,13 @@
 ---
 name: learning-workflow-designer
-description: Create reusable learning workflows from projects, papers, codebases, notes, or course materials. Use when the user wants to learn a project/codebase, generate staged study content, review packs, practice drills, exam papers, exercises, answer keys, critique completed answers, or track learning progress with Markdown/DOCX/HTML outputs. Chinese triggers include: 我想学习这个项目, 帮我学习这个代码库, 帮我出题, 生成练习题, 批改答案, 整理成学习包, 生成技能树, 更新学习进度, 复习模式, 练习模式.
+description: >
+  Create reusable learning workflows from projects, papers, codebases, notes,
+  or course materials. Use when the user wants to learn a project/codebase,
+  generate staged study content, review packs, practice drills, exam papers,
+  exercises, answer keys, critique completed answers, or track learning progress
+  with Markdown/DOCX/HTML outputs. Chinese triggers include: 我想学习这个项目,
+  帮我学习这个代码库, 帮我出题, 生成练习题, 批改答案, 整理成学习包, 生成技能树,
+  更新学习进度, 复习模式, 练习模式.
 ---
 
 # Learning Workflow Designer
