@@ -16,6 +16,8 @@ Use this skill to turn raw materials into a reusable learning workflow: staged l
 
 Trigger this skill when the user says they want to learn a project, learn a codebase, study a tutorial, make exercises, or build a reusable learning package.
 
+Requests such as "make a learning summary", "generate exercises", "create a study pack", or "整理学习总结和习题" should be treated as file-generation tasks by default.
+
 ## Default Behavior
 
 Unless the user specifies otherwise, use:
@@ -27,6 +29,7 @@ Unless the user specifies otherwise, use:
 - Format: Markdown first; DOCX only when requested.
 - Language: follow the user's language or source material.
 - Output directory: if the user does not specify a destination, create a `tutorial/` folder and put all generated files there.
+- File writing: by default, write the generated package to files. Do not only print the full learning package in chat unless the user explicitly asks for inline output.
 
 For large codebases or broad source sets, generate the chapter map and the first chapter sample first, then continue with the full package after the user confirms the direction.
 
@@ -53,6 +56,7 @@ The exercise set should not feel repetitive: vary stem shapes, mix prompt types,
 14. Do not invent a README wrapper for the learning package unless the user explicitly asks for one.
 15. Run the quality checks from `references/quality-checks.md` before finishing.
 16. If DOCX output is requested, create Markdown first, then use `scripts/md_to_docx.py` or equivalent DOCX tooling.
+17. Final chat response should be a short summary with links or paths to generated files, not the full content of every generated document.
 
 ## Mode References
 
@@ -69,6 +73,8 @@ Read only the references needed for the user's request:
 
 ## Output Rules
 
+Default output is file-based. Unless the user explicitly asks for inline-only content, create the output directory and write the artifacts to disk.
+
 For learning mode, produce these artifacts by default:
 
 If the user does not specify an output directory, create `tutorial/` and produce:
@@ -79,11 +85,11 @@ If the user does not specify an output directory, create `tutorial/` and produce
 4. `tutorial/learning-progress.json`
 5. `tutorial/skill-tree.html`
 
-For review mode, produce a review outline, weak-point checklist, and short reinforcement exercises.
+For review mode, write a review outline, weak-point checklist, and short reinforcement exercises to `tutorial/review-pack.md` unless another destination is specified.
 
-For practice mode, produce an exercise-first practice set with explicit points, separate answers/rubric, and critique-driven skill-tree updates after the learner submits answers.
+For practice mode, write an exercise-first practice set with explicit points to `tutorial/practice.md`, and write separate answers/rubric to `tutorial/practice-answers.md` unless another destination is specified.
 
-For exam mode, produce an independent paper, scoring rubric, and separate answers.
+For exam mode, write an independent paper to `tutorial/exam.md`, scoring rubric to `tutorial/rubric.md`, and separate answers to `tutorial/exam-answers.md` unless another destination is specified.
 
 ## Critique Rules
 

@@ -4,6 +4,8 @@
 
 Markdown is the default because it is easy to inspect, edit, diff, and convert.
 
+Default behavior is to write files to disk. Do not emit the full package only in chat unless the user explicitly requests inline output.
+
 Recommended files:
 
 - `tutorial/learning-content.md`
@@ -13,6 +15,8 @@ Recommended files:
 - `tutorial/skill-tree.html` as part of the default learning package
 
 If the user provides another output directory, use that directory instead of `tutorial/`.
+
+After file generation, respond with a compact file list and a short summary.
 
 For critique:
 
