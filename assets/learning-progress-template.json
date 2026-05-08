@@ -1,0 +1,43 @@
+{
+  "project_name": "项目名称",
+  "source_summary": "用一句话说明学习材料来源。",
+  "mode": "learning",
+  "density": "lightweight",
+  "level": 1,
+  "stars": 0,
+  "earned_xp": 0,
+  "total_xp": 100,
+  "nodes": [
+    {
+      "id": "foundation",
+      "name": "基础理解",
+      "description": "识别项目目标、边界和主要模块。",
+      "state": "locked",
+      "earned_points": 0,
+      "total_points": 20,
+      "chapters": [1, 2]
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ch01-q01",
+      "chapter": 1,
+      "node_id": "foundation",
+      "points": 5,
+      "earned_points": 0
+    }
+  ],
+  "chapter_map": [
+    {
+      "chapter": 1,
+      "title": "章节标题",
+      "nodes": ["foundation"]
+    }
+  ],
+  "positive_feedback": {
+    "chapter_gain": "尚未开始答题。",
+    "skill_tree_progress": "基础理解节点等待解锁。",
+    "next_step": "完成第 1 章第 1 题，并按答案获得明确分值。"
+  },
+  "next_step": "完成一个带分值的练习题。"
+}

@@ -1,6 +1,6 @@
 ---
 name: learning-workflow-designer
-description: Create reusable learning workflows from projects, papers, codebases, notes, or course materials. Use when the user wants to learn a project, generate staged study content, review packs, exam papers, exercises, answer keys, or critique completed answers with Markdown/DOCX annotations.
+description: Create reusable learning workflows from projects, papers, codebases, notes, or course materials. Use when the user wants to learn a project/codebase, generate staged study content, review packs, exam papers, exercises, answer keys, critique completed answers, or track learning progress with Markdown/DOCX/HTML outputs. Chinese triggers include: 我想学习这个项目, 帮我学习这个代码库, 帮我出题, 生成练习题, 批改答案, 整理成学习包, 生成技能树, 更新学习进度.
 ---
 
 # Learning Workflow Designer
@@ -20,6 +20,8 @@ Unless the user specifies otherwise, use:
 - Format: Markdown first; DOCX only when requested.
 - Language: follow the user's language or source material.
 
+For large codebases or broad source sets, generate the chapter map and the first chapter sample first, then continue with the full package after the user confirms the direction.
+
 Lightweight mode means each chapter has a clear main line, no logic jumps, and at most 3 exercises. In lightweight mode, a single exercise may contain multiple sub-questions if that is the best way to cover related knowledge without increasing chapter length. Detailed mode means fuller explanations and exactly 5 exercises per chapter.
 The exercise set should not feel repetitive: vary stem shapes, mix prompt types, and prefer at least one multi-part or scenario-based exercise per chapter when the material supports it.
 
@@ -35,12 +37,13 @@ The exercise set should not feel repetitive: vary stem shapes, mix prompt types,
    Avoid making every question a single-sentence "what is / why is / list" prompt.
 7. Generate a separate reference-answer document. Do not mix answers into the exercise document.
 8. When grading completed answers, output critique plus positive feedback: chapter gain, skill-tree update, and next-step task.
-9. Render the project-specific skill tree as a static HTML page when the user wants a visible progress artifact. The page should feel like a game UI, with level, stars, and an experience bar.
-10. The skill tree must be driven only by explicit point values in the exercise document. Do not infer progress from vague understanding; if a question or task has no declared points, it does not contribute to XP.
-11. After every answer, critique, or learning-step response, check whether the skill tree state should advance and refresh the HTML if any node or progress value changed.
-12. Do not invent a README wrapper for the learning package unless the user explicitly asks for one.
-13. Run the quality checks from `references/quality-checks.md` before finishing.
-14. If DOCX output is requested, create Markdown first, then use `scripts/md_to_docx.py` or equivalent DOCX tooling.
+9. Create or update `learning-progress.json` as the state source for the skill tree. Track exercise IDs, total points, earned points, capability node states, chapter mapping, and feedback.
+10. Render the project-specific skill tree as a static HTML page when the user wants a visible progress artifact. Prefer `scripts/render_skill_tree.py learning-progress.json skill-tree.html`; the page should feel like a game UI, with level, stars, and an experience bar.
+11. The skill tree must be driven only by explicit point values in the exercise document and `learning-progress.json`. Do not infer progress from vague understanding; if a question or task has no declared points, it does not contribute to XP.
+12. After every answer, critique, or learning-step response, check whether `learning-progress.json` should advance and refresh the HTML if any node or progress value changed.
+13. Do not invent a README wrapper for the learning package unless the user explicitly asks for one.
+14. Run the quality checks from `references/quality-checks.md` before finishing.
+15. If DOCX output is requested, create Markdown first, then use `scripts/md_to_docx.py` or equivalent DOCX tooling.
 
 ## Mode References
 
@@ -61,7 +64,8 @@ For learning mode, produce these artifacts by default:
 1. Learning content document.
 2. Exercise document with answer space.
 3. Reference-answer document.
-4. Project skill tree page as part of the default learning package.
+4. `learning-progress.json` as the state source.
+5. Project skill tree page as part of the default learning package.
 
 For review mode, produce a review outline, weak-point checklist, and short reinforcement exercises.
 
@@ -88,10 +92,30 @@ Include:
 - Which node remains weak or partially unlocked.
 - One next-step task that is small and concrete.
 
-When a visual progress artifact is useful, render the same feedback block into `skill-tree.html` instead of wrapping it in a README.
+When a visual progress artifact is useful, update `learning-progress.json` and render the same feedback block into `skill-tree.html` instead of wrapping it in a README.
 
-The skill tree is stateful across the conversation or project package: if the learner answers more questions or gains new understanding, update the HTML so the level, stars, XP, and unlocked nodes reflect the latest state.
+The skill tree is stateful across the conversation or project package: if the learner answers more questions or gains new understanding, update `learning-progress.json` first, then regenerate the HTML so the level, stars, XP, and unlocked nodes reflect the latest state.
 The starting state is zero progress. The tree begins at 0 XP, 0 stars, and unlocked nodes only appear after the learner earns the matching points from exercises.
+
+## Progress State
+
+Use `learning-progress.json` as the single source of truth for visual progress. Start from `assets/learning-progress-template.json` when creating a new learning package.
+
+Required fields:
+
+- `project_name`, `source_summary`, `mode`, and `density`.
+- `total_xp`, `earned_xp`, `level`, and `stars`.
+- `nodes`: 5 to 8 project-specific capability nodes with `id`, `name`, `state`, `earned_points`, `total_points`, and `chapters`.
+- `exercises`: each scored exercise with `id`, `chapter`, `node_id`, `points`, and `earned_points`.
+- `chapter_map`, `positive_feedback`, and `next_step`.
+
+Allowed node states are `locked`, `active`, and `unlocked`. Progress updates must change `earned_points` only when the learner earns explicit exercise points.
+
+Render with:
+
+```powershell
+python scripts/render_skill_tree.py learning-progress.json skill-tree.html
+```
 
 ## DOCX Conversion
 

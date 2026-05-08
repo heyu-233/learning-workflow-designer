@@ -9,6 +9,7 @@ The HTML page should present:
 - A project-specific capability tree.
 - A game-like progression layer with level, stars, and an experience bar.
 - Zero-based initial state that only grows from exercise points.
+- A state model backed by `learning-progress.json`.
 - Chapter-to-node mapping.
 - Progress state.
 - Compact positive feedback.
@@ -61,20 +62,37 @@ Use a single static HTML file with these sections:
 
 ## Suggested Data Model
 
+Store this model in `learning-progress.json`. Start from `assets/learning-progress-template.json` for a new package.
+
 - `project_name`
 - `source_summary`
+- `mode`
+- `density`
+- `level`
+- `stars`
+- `earned_xp`
+- `total_xp`
 - `nodes`
+- `exercises`
 - `chapter_map`
 - `positive_feedback`
 - `next_step`
+
+Each exercise should include an ID, chapter, node ID, total points, and earned points. Each node should include an ID, name, state, total points, earned points, and chapter list.
 
 ## Output Note
 
 The HTML page can be generated alongside Markdown files, but it should replace the old README wrapper, not duplicate it.
 
+Render with:
+
+```powershell
+python scripts/render_skill_tree.py learning-progress.json skill-tree.html
+```
+
 ## Refresh Rule
 
-After each answer or feedback pass, re-evaluate the skill tree. If any node changes state or the learner gains XP/stars, regenerate `skill-tree.html` so the visual state stays current.
+After each answer or feedback pass, re-evaluate the skill tree. If any node changes state or the learner gains XP/stars, update `learning-progress.json` first, then regenerate `skill-tree.html` so the visual state stays current.
 
 ## Source Inspirations
 

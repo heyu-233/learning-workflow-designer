@@ -9,6 +9,7 @@ Recommended files:
 - `learning-content.md`
 - `exercises.md`
 - `reference-answers.md`
+- `learning-progress.json` as the state source for XP, stars, nodes, and exercise points
 - `skill-tree.html` as part of the default learning package
 
 For critique:
@@ -72,9 +73,16 @@ Requirements:
 - Self-contained single file.
 - Game-like presentation: level badge, star rating, experience bar, and unlock states.
 - Starting state is always 0 XP and 0 stars until exercise points are earned.
+- Generated from `learning-progress.json` whenever possible.
 - Clear title, source/project label, and chapter mapping.
 - Visual status markers for `未解锁`, `进行中`, and `已解锁`.
 - Compact positive-feedback block with `本章获得`, `技能树进度`, and `下一步最小任务`.
 - No README wrapper around the same content unless the user explicitly asks for one.
 - Refresh the page whenever the learner's state changes after an answer, critique, or chapter update.
 - All progress values must come from explicit point values in `exercises.md`, not from guessed understanding.
+
+Render with:
+
+```powershell
+python scripts/render_skill_tree.py learning-progress.json skill-tree.html
+```

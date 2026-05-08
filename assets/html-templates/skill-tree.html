@@ -3,24 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{project_name}} 技能树</title>
+  <title>$project_name 技能树</title>
   <style>
     :root {
-      --bg: #f6f7fb;
-      --panel: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #dbe1ea;
-      --done: #d1fae5;
-      --doing: #fef3c7;
-      --todo: #e5e7eb;
-      --accent: #2563eb;
+      --bg: #111827;
+      --panel: #182033;
+      --panel-strong: #202a43;
+      --text: #f8fafc;
+      --muted: #a7b0c4;
+      --border: #334155;
+      --done: #34d399;
+      --doing: #fbbf24;
+      --todo: #64748b;
+      --accent: #38bdf8;
+      --accent-2: #a78bfa;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
-      background: var(--bg);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, .20), transparent 32rem),
+        linear-gradient(135deg, #111827 0%, #172033 52%, #241b3a 100%);
       color: var(--text);
       line-height: 1.6;
     }
@@ -28,19 +32,38 @@
     .header, .panel {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 8px;
       padding: 18px 20px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .22);
     }
-    .header { margin-bottom: 18px; }
+    .header {
+      margin-bottom: 18px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+    }
+    .header h1 { margin: 0 0 8px; }
+    .header p { margin: 0; color: var(--muted); }
+    .hud { display: grid; gap: 8px; min-width: 260px; }
+    .hud-row { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 14px; }
+    .stars { color: var(--doing); letter-spacing: 1px; }
+    .xp-bar, .meter { overflow: hidden; border-radius: 999px; background: rgba(148, 163, 184, .22); }
+    .xp-bar { height: 12px; }
+    .xp-bar span, .meter span { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
     .grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 18px; }
-    .node {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 0;
-      border-top: 1px solid #edf1f6;
+    .node-card {
+      background: var(--panel-strong);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
     }
-    .node:first-child { border-top: 0; padding-top: 0; }
+    .node-top { display: flex; justify-content: space-between; gap: 12px; }
+    .node-card h3 { margin: 0 0 4px; font-size: 16px; }
+    .node-card p { margin: 0; color: var(--muted); }
+    .meter { height: 8px; margin-top: 12px; }
+    .node-meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; color: var(--muted); font-size: 13px; }
     .badge {
       display: inline-flex;
       align-items: center;
@@ -50,44 +73,55 @@
       font-weight: 700;
       white-space: nowrap;
     }
-    .done { background: var(--done); color: #065f46; }
-    .doing { background: var(--doing); color: #92400e; }
-    .todo { background: var(--todo); color: #374151; }
+    .done.badge { background: rgba(52, 211, 153, .18); color: #a7f3d0; }
+    .doing.badge { background: rgba(251, 191, 36, .18); color: #fde68a; }
+    .todo.badge { background: rgba(100, 116, 139, .22); color: #cbd5e1; }
     table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    th, td { border-bottom: 1px solid #edf1f6; padding: 10px 8px; text-align: left; vertical-align: top; }
+    th, td { border-bottom: 1px solid var(--border); padding: 10px 8px; text-align: left; vertical-align: top; }
     th { color: var(--muted); font-weight: 700; }
     .feedback {
       border-left: 4px solid var(--accent);
-      background: #eff6ff;
+      background: rgba(56, 189, 248, .10);
       padding: 12px 14px;
       margin-top: 10px;
       border-radius: 8px;
     }
     @media (max-width: 900px) {
       .grid { grid-template-columns: 1fr; }
+      .header { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="header">
-      <h1>{{project_name}} 技能树</h1>
-      <p>{{subtitle}}</p>
+      <div>
+        <h1>$project_name 技能树</h1>
+        <p>$subtitle</p>
+      </div>
+      <div class="hud" aria-label="学习进度">
+        <div class="hud-row"><strong>Lv. $level</strong><span class="stars">$stars</span></div>
+        <div class="xp-bar"><span style="width:$xp_percent%"></span></div>
+        <div class="hud-row"><span>$mode / $density</span><span>$earned_xp / $total_xp XP</span></div>
+      </div>
     </div>
     <div class="grid">
       <section class="panel">
         <h2>能力节点</h2>
-        {{nodes_html}}
+        $nodes_html
       </section>
       <aside class="panel">
         <h2>章节映射</h2>
-        {{chapter_table_html}}
+        $chapter_table_html
         <h2 style="margin-top:18px;">本章获得</h2>
-        <div class="feedback">{{chapter_gain}}</div>
+        <div class="feedback">$chapter_gain</div>
+        <h2 style="margin-top:18px;">技能树进度</h2>
+        <div class="feedback">$skill_tree_progress</div>
         <h2 style="margin-top:18px;">下一步最小任务</h2>
-        <div class="feedback">{{next_step}}</div>
+        <div class="feedback">$next_step</div>
       </aside>
     </div>
+    <script type="application/json" id="learning-progress">$progress_json</script>
   </div>
 </body>
 </html>
