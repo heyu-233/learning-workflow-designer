@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import re
 from pathlib import Path
 from string import Template
 from typing import Any
@@ -68,6 +69,14 @@ SKINS = {
         "accent_2": "#b45309",
     },
 }
+
+BAD_ENCODING_MARKERS = {
+    "\ufffd": "replacement character",
+    "\u951f": "mojibake marker",
+    "\u93b5": "mojibake marker",
+}
+
+QUESTION_RUN = re.compile(r"\?{4,}")
 
 
 def esc(value: Any) -> str:
@@ -192,6 +201,14 @@ def validate_progress(data: dict[str, Any]) -> None:
             )
 
 
+def validate_text_encoding(text: str, label: str) -> None:
+    for marker, reason in BAD_ENCODING_MARKERS.items():
+        if marker in text:
+            raise ValueError(f"{label} contains {reason}; regenerate from a UTF-8-safe source.")
+    if QUESTION_RUN.search(text):
+        raise ValueError(f"{label} contains repeated question marks; check for Chinese encoding loss.")
+
+
 def render(
     progress_path: Path,
     output_path: Path,
@@ -200,6 +217,7 @@ def render(
 ) -> None:
     data = json.loads(progress_path.read_text(encoding="utf-8"))
     validate_progress(data)
+    validate_text_encoding(json.dumps(data, ensure_ascii=False), str(progress_path))
     template = Template(template_path.read_text(encoding="utf-8"))
     total_xp = int(data.get("total_xp", 0))
     earned_xp = int(data.get("earned_xp", 0))
@@ -239,8 +257,10 @@ def render(
         next_step=esc(data.get("next_step") or feedback.get("next_step", "")),
         progress_json=html.escape(json.dumps(data, ensure_ascii=False, indent=2), quote=False),
     )
+    validate_text_encoding(html_text, str(output_path))
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(html_text, encoding="utf-8")
+    validate_text_encoding(output_path.read_text(encoding="utf-8"), str(output_path))
 
 
 def main() -> int:

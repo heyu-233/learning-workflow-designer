@@ -18,6 +18,12 @@ If the user provides another output directory, use that directory instead of `tu
 
 After file generation, respond with a compact file list and a short summary.
 
+For Chinese output, avoid writing content through PowerShell/CMD inline scripts. Generate files through `apply_patch`, checked-in scripts, or UTF-8 source files, then run:
+
+```powershell
+python scripts/validate_text_encoding.py tutorial
+```
+
 For critique:
 
 ```md

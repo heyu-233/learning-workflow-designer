@@ -32,6 +32,12 @@
 
 默认行为是写入文件，而不是只在聊天窗口里展开全文。生成完成后，AI 应只返回文件路径和简短说明。
 
+中文内容生成后应运行编码检查，防止 PowerShell/CMD 内联脚本把中文写成连续问号或其他乱码：
+
+```powershell
+python scripts/validate_text_encoding.py tutorial
+```
+
 ## 等级规则
 
 技能树默认总共 5 级。

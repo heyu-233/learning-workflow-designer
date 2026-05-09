@@ -46,3 +46,16 @@ When checking completed answers:
 - If files or facts are missing, write "待确认" instead of inventing.
 - For codebases, inspect actual files before naming modules, ports, APIs, or classes.
 - Do not reuse a fixed capability tree across unrelated projects; derive feedback nodes from the current materials and chapter plan.
+
+## Encoding Integrity
+
+- Do not embed Chinese content inside PowerShell/CMD inline Python or one-liner script strings.
+- Prefer `apply_patch`, checked-in templates, or UTF-8 files read by scripts.
+- After generating Chinese Markdown, JSON, or HTML, run:
+
+```powershell
+python scripts/validate_text_encoding.py tutorial
+```
+
+- If the user chose another output directory, scan that directory instead.
+- Treat repeated question marks, Unicode replacement characters, or common mojibake markers in generated files as real corruption until proven otherwise. Regenerate from a UTF-8-safe source instead of manually patching random fragments.

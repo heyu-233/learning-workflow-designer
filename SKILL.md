@@ -30,6 +30,7 @@ Unless the user specifies otherwise, use:
 - Language: follow the user's language or source material.
 - Output directory: if the user does not specify a destination, create a `tutorial/` folder and put all generated files there.
 - File writing: by default, write the generated package to files. Do not only print the full learning package in chat unless the user explicitly asks for inline output.
+- Chinese encoding: do not pass Chinese text through PowerShell/CMD inline script strings. Use `apply_patch`, existing scripts, or UTF-8 files, then verify the written files.
 
 For large codebases or broad source sets, generate the chapter map and the first chapter sample first, then continue with the full package after the user confirms the direction.
 
@@ -55,8 +56,9 @@ The exercise set should not feel repetitive: vary stem shapes, mix prompt types,
 13. After every answer, critique, or learning-step response, check whether `learning-progress.json` should advance and refresh the HTML if any node or progress value changed.
 14. Do not invent a README wrapper for the learning package unless the user explicitly asks for one.
 15. Run the quality checks from `references/quality-checks.md` before finishing.
-16. If DOCX output is requested, create Markdown first, then use `scripts/md_to_docx.py` or equivalent DOCX tooling.
-17. Final chat response should be a short summary with links or paths to generated files, not the full content of every generated document.
+16. Run `python scripts/validate_text_encoding.py tutorial` after generating Chinese Markdown/JSON/HTML outputs. If the user chose another output directory, scan that directory instead.
+17. If DOCX output is requested, create Markdown first, then use `scripts/md_to_docx.py` or equivalent DOCX tooling.
+18. Final chat response should be a short summary with links or paths to generated files, not the full content of every generated document.
 
 ## Mode References
 
