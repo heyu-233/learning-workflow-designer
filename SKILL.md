@@ -66,6 +66,7 @@ Read only the references needed for the user's request:
 
 - `references/modes.md`: learning, review, exam modes and lightweight/detailed density.
 - `references/question-types.md`: available question types and when to use them.
+- `references/engineering-practice.md`: engineering project exercise packs with core questions, hands-on tests, commands, stage acceptance, and final tasks.
 - `references/output-formats.md`: Markdown and DOCX requirements, including red DOCX critique annotations.
 - `references/feedback.md`: project-specific capability tree and positive-feedback rules.
 - `references/skill-tree-html.md`: HTML skill-tree layout and styling rules.
@@ -86,6 +87,8 @@ If the user does not specify an output directory, create `tutorial/` and produce
 3. `tutorial/reference-answers.md`
 4. `tutorial/learning-progress.json`
 5. `tutorial/skill-tree.html`
+
+For engineering projects, make `tutorial/exercises.md` task-based by default: include a learning record template, chapter exercise quick table, recommended test commands, stage acceptance criteria, and one small final task. Use `references/engineering-practice.md`.
 
 For review mode, write a review outline, weak-point checklist, and short reinforcement exercises to `tutorial/review-pack.md` unless another destination is specified.
 

@@ -19,6 +19,11 @@ Use question types to expose misunderstandings, not just memorization gaps.
 - Ordering plus explanation: ask the learner to sort a chain first, then explain why that order is correct.
 - Pseudocode multi-question: provide one pseudocode or code block and ask several related questions about function, boundary, and failure mode.
 - Contrast question: present two similar options or chains and ask the learner to explain the difference.
+- Engineering architecture task: ask the learner to draw or describe the module map, responsibilities, inputs, processing, and outputs.
+- Command verification task: ask the learner to run a command, record the result, and explain what the result proves.
+- Call-chain tracing task: ask the learner to trace a UI action, API request, message, frame, interrupt, or function call through real modules.
+- Runtime observation task: ask the learner to use logs, browser Network, device files, ports, process status, or performance output to verify behavior.
+- Stage acceptance task: ask the learner to prove they can explain, run, verify, or diagnose a stage of the system.
 
 ## Reusable Templates
 
@@ -115,6 +120,7 @@ For each chapter:
 - It is acceptable for one exercise to contain multiple sub-questions if they are tightly related and together cover a broader concept chain.
 - Try to vary the stem style across the chapter, not just the knowledge point.
 - Good chapter patterns include: sort then explain, pseudo-code then diagnose, chain then correct, or compare two nearly correct options.
+- For engineering projects, each chapter should have one core question, one understanding task, and one hands-on test when the source supports it.
 
 ## Detailed Selection
 
@@ -124,6 +130,7 @@ For each chapter:
 - Include at least one conceptual question.
 - Include at least one chain/code/diagram judgment question when applicable.
 - Include at least one troubleshooting or practical record question for engineering projects.
+- For engineering projects, include a chapter quick table, recommended test commands, stage acceptance criteria, and a small final task.
 
 ## Avoid
 

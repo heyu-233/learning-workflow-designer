@@ -20,6 +20,8 @@ Default structure:
 
 Learning mode teaches first, then tests. It should create a coherent path from prerequisites to application, and it may introduce new concepts the learner has not seen.
 
+For engineering projects, learning mode should also produce a task-based exercise pack: per-chapter core question, understanding task, hands-on test, recommended commands, stage acceptance, and a small final task.
+
 ### Review Mode
 
 Use when the user already studied the material and wants fast consolidation.

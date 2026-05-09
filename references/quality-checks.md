@@ -23,6 +23,15 @@ Run these checks before finalizing generated learning materials or critique.
 - If a chapter uses three exercises, they should feel structurally different from each other.
 - If a chapter uses one composite exercise, its sub-questions should progress from recognition to explanation to boundary checking.
 
+## Engineering Practice Quality
+
+- Engineering learning packs should include a learning record template.
+- Engineering chapter tables should include chapter, core question, required understanding task, and required hands-on test.
+- Prefer "run, observe, trace, draw, compare, diagnose, record" tasks over pure definition questions.
+- Include recommended commands when the source material contains runnable commands, ports, device paths, APIs, logs, or build steps.
+- Include 2 to 4 stage acceptance groups that describe observable abilities.
+- Include one small final task that forces synthesis without becoming a new project.
+
 ## Answer Separation
 
 - Keep learning content, exercises, and reference answers separate unless the user asks for a combined teacher edition.
