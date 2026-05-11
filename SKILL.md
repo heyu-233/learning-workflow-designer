@@ -1,21 +1,24 @@
 ---
 name: learning-workflow-designer
 description: >
-  Create reusable learning workflows from projects, papers, codebases, notes,
-  or course materials. Use when the user wants to learn a project/codebase,
-  generate staged study content, review packs, practice drills, exam papers,
-  exercises, answer keys, critique completed answers, or track learning progress
-  with Markdown/DOCX/HTML outputs. Use project-lab mode when the user wants to
-  complete a concrete project step by step through guided exercises, capstone-driven
-  learning, project-driven labs, or build-as-you-learn practice. Chinese triggers
-  include: 我想学习这个项目, 帮我学习这个代码库, 帮我出题, 生成练习题, 批改答案,
-  整理成学习包, 生成技能树, 更新学习进度, 复习模式, 练习模式, 项目实验模式,
-  项目驱动学习, 边学边做项目, 通过练习完成项目, 以小项目为主线, 一步一步完成项目.
+  Create project-driven learning packages from projects, papers, codebases,
+  notes, or course materials. Use when the user wants to learn a project/codebase,
+  audit source materials, generate staged study content, review packs, practice
+  drills, exam papers, guided lab exercises, answer keys, critique completed
+  answers, or track learning progress with Markdown/DOCX/HTML outputs. Use
+  project-lab mode when the user wants to complete a concrete project step by
+  step through guided exercises, capstone-driven learning, project-driven labs,
+  or build-as-you-learn practice. Chinese triggers include: 我想学习这个项目,
+  帮我学习这个代码库, 帮我出题, 生成练习题, 批改答案, 整理成学习包, 生成技能树,
+  更新学习进度, 复习模式, 练习模式, 项目实验模式, 项目驱动学习, 边学边做项目,
+  通过练习完成项目, 以小项目为主线, 一步一步完成项目, 材料审计, 输入材料检查.
 ---
 
 # Learning Workflow Designer
 
-Turn raw materials into reusable learning workflows: staged lessons, exercises, answer keys, review packs, exams, feedback, and progress tracking.
+Turn raw materials into reusable project-driven learning packages: staged lessons, guided exercises, answer keys, review packs, exams, feedback, and progress tracking.
+
+This is a Codex-first skill, not a general workflow engine. Keep the core learning-package format platform-neutral so the same package can later be used in ChatGPT, Claude, Obsidian, VS Code, a CLI, or plain Markdown.
 
 ## Defaults
 
@@ -25,6 +28,7 @@ Unless the user specifies otherwise:
 - Use project-lab mode instead when the user names a final project and wants exercises to guide project completion step by step.
 - Write files to disk. If no destination is given, create `tutorial/`.
 - Produce Markdown first: `learning-content.md`, `exercises.md`, `reference-answers.md`, `learning-progress.json`, and `skill-tree.html`.
+- Run source intake before full generation unless the user only asks for a quick brainstorm or a narrow edit.
 - Follow the user's language or the source language.
 - For broad codebases or large source sets, generate a 10-chapter map and first-chapter sample before the full package.
 - Do not print the full package in chat unless the user explicitly asks for inline output.
@@ -34,28 +38,31 @@ Unless the user specifies otherwise:
 ## Workflow
 
 1. Inspect source materials before generating content. Prefer real files, code, schemas, diagrams, configs, logs, and commands over assumptions.
-2. Build a project-specific map: modules, concepts, data/control flow, dependencies, prerequisites, and likely failure points.
-3. Choose the requested mode and density; default to learning + lightweight.
-4. Split into chapters. Default to 10 chapters. Do not reduce the chapter count just because project-lab mode uses fewer project milestones.
-5. For each chapter, write one main-line sentence, lesson content, and exercises.
-6. Keep exercises varied. Lightweight mode uses at most 3 exercises per chapter; detailed mode uses exactly 5.
-7. Keep answers separate from exercises.
-8. Every exercise, practice set, exam, and project-lab task must include visible learner answer space in the question document.
-9. For project-lab mode, first extract the final project acceptance target, then design exercises backward from project milestones. Milestones are a project thread, not a replacement for the default 10 chapters.
-10. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
-11. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
-12. Render `skill-tree.html` from `learning-progress.json` when producing or updating a learning package.
-13. Award progress only from explicit exercise points. Do not infer XP from vague confidence.
-14. When grading completed answers, output critique, positive feedback, and the next smallest task; update progress JSON and regenerate HTML when XP or node states change.
-15. Run the quality checks in `references/quality-checks.md` before finishing.
-16. Run `python scripts/validate_text_encoding.py <output-dir>` after generating Chinese Markdown/JSON/HTML.
-17. Keep the final chat response short: summarize generated files and what changed.
+2. Run source intake. Score material readiness, list missing inputs, and decide whether to generate a full package or a provisional package with clear `待确认` markers.
+3. If critical material is missing, output a missing-information checklist first. Continue only with a provisional package when it is still useful and clearly marked as provisional.
+4. Build a project-specific map: modules, concepts, data/control flow, dependencies, prerequisites, and likely failure points.
+5. Choose the requested mode and density; default to learning + lightweight.
+6. Split into chapters. Default to 10 chapters. Do not reduce the chapter count just because project-lab mode uses fewer project milestones.
+7. For each chapter, write one main-line sentence, lesson content, and exercises.
+8. Keep exercises varied. Lightweight mode uses at most 3 exercises per chapter; detailed mode uses exactly 5.
+9. Keep answers separate from exercises.
+10. Every exercise, practice set, exam, and project-lab task must include visible learner answer space in the question document.
+11. For project-lab mode, first extract the final project acceptance target, then design exercises backward from project milestones. Milestones are a project thread, not a replacement for the default 10 chapters.
+12. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
+13. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
+14. Render `skill-tree.html` from `learning-progress.json` when producing or updating a learning package.
+15. Award progress only from explicit exercise points. Do not infer XP from vague confidence.
+16. When grading completed answers, output critique, positive feedback, and the next smallest task; update progress JSON and regenerate HTML when XP or node states change.
+17. Run the quality checks in `references/quality-checks.md` before finishing.
+18. Run `python scripts/validate_text_encoding.py <output-dir>` after generating Chinese Markdown/JSON/HTML.
+19. Keep the final chat response short: summarize generated files and what changed.
 
 ## Reference Loading
 
 Read only the references needed for the request:
 
 - `references/modes.md`: learning, review, practice, exam modes and density rules.
+- `references/source-intake.md`: material audit, readiness scoring, missing-information handling, and provisional package rules.
 - `references/project-lab.md`: project-lab mode for capstone-driven, step-by-step project completion through exercises.
 - `references/question-types.md`: exercise shapes and reusable templates.
 - `references/engineering-practice.md`: hands-on engineering exercise packs.
@@ -83,6 +90,7 @@ Question documents must leave answer space directly after each prompt. Use blank
 Start from `assets/learning-progress-template.json` when helpful. Required fields:
 
 - `project_name`, `source_summary`, `mode`, `density`
+- optional `material_readiness` with score, confirmed inputs, missing inputs, and provisional flag
 - `total_xp`, `earned_xp`, `level`, `stars`, `total_levels`
 - optional `level_thresholds`
 - optional `level_title_set` or custom `level_titles`

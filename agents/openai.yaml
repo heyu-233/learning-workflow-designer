@@ -1,3 +1,3 @@
 display_name: Learning Workflow
-short_description: Build study packs and critique answers.
-default_prompt: Create a lightweight ten-chapter learning pack with exercises and answers from my materials.
+short_description: Build project-driven learning packs with material intake.
+default_prompt: Audit my materials, then create a lightweight ten-chapter project-driven learning package with exercises, answer space, reference answers, and progress tracking.

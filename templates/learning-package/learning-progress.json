@@ -1,6 +1,6 @@
 {
   "project_name": "项目名称",
-  "source_summary": "用一句话说明学习材料来源。",
+  "source_summary": "材料来源摘要。",
   "mode": "learning",
   "density": "lightweight",
   "material_readiness": {
@@ -19,7 +19,7 @@
   "level_title_set": "classic",
   "stars": 0,
   "earned_xp": 0,
-  "total_xp": 20,
+  "total_xp": 100,
   "nodes": [
     {
       "id": "foundation",
@@ -36,7 +36,7 @@
       "id": "ch01-q01",
       "chapter": 1,
       "node_id": "foundation",
-      "points": 20,
+      "points": 10,
       "earned_points": 0
     }
   ],
@@ -52,5 +52,5 @@
     "skill_tree_progress": "基础理解节点等待解锁。",
     "next_step": "完成第 1 章第 1 题，并按答案获得明确分值。"
   },
-  "next_step": "完成一个带分值的练习题。"
+  "next_step": "补齐材料审计中的待补充项，或完成一个带分值的练习题。"
 }

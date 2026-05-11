@@ -16,6 +16,8 @@ Use project-lab mode when the user wants to learn foundations while step by step
 
 Project-lab mode is not a quiz sheet and not a generic learning outline. The exercise document is the build path.
 
+Before designing the build path, run source intake. If the final demo, source files, toolchain, board, simulator, build commands, or acceptance criteria are missing, put those gaps in the package and make the first tasks collect or verify them.
+
 ## Chapters Vs Milestones
 
 Do not confuse chapters with project milestones.

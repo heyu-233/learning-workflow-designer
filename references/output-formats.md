@@ -14,6 +14,8 @@ Recommended learning-package files:
 - `tutorial/learning-progress.json`
 - `tutorial/skill-tree.html`
 
+These files are platform-neutral outputs. Codex is the first authoring environment, but the generated Markdown, JSON, DOCX, and static HTML should remain usable in other tools.
+
 If the user provides another output directory, use that directory instead of `tutorial/`.
 
 After file generation, respond with a compact file list and a short summary.

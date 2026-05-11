@@ -2,6 +2,15 @@
 
 Run these checks before finalizing generated learning materials or critique.
 
+## Source Intake
+
+- A learning package should be preceded by source intake unless the user asks only for a quick brainstorm, a narrow edit, or critique of an already generated package.
+- Material readiness is scored across goal clarity, source accessibility, environment clarity, acceptance criteria, and learner constraints.
+- If readiness is below 5/10, output a missing-information checklist before generating the full package.
+- If generating with incomplete information, mark unknown facts as `待确认` and call the package provisional.
+- Do not invent precise files, commands, pins, protocol fields, APIs, logs, test results, or hardware behavior.
+- Early exercises may collect missing evidence, such as environment info, build logs, source maps, or demo acceptance criteria.
+
 ## Continuity
 
 - Every chapter has a one-sentence main line.
