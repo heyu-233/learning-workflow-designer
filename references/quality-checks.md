@@ -30,6 +30,15 @@ Run these checks before finalizing generated learning materials or critique.
 - Include 2 to 4 observable stage acceptance groups.
 - Include one small final task that forces synthesis without becoming a new project.
 
+## Project-Lab Quality
+
+- The exercise document starts with the final project target and acceptance checklist.
+- Chapters are organized as project milestones, not only topic lessons.
+- Each main exercise states why it matters for the final project.
+- Each main exercise includes read/trace, implement/change, run/observe, pass criteria, failure diagnosis, submitted evidence, and XP.
+- Pure concept questions are optional unless they unlock an implementation step.
+- Every milestone creates or verifies a concrete artifact.
+
 ## Answer Separation
 
 - Keep learning content, exercises, and reference answers separate unless the user asks for a combined teacher edition.

@@ -49,6 +49,7 @@ BAD_SUBSTRINGS = {
     "\u7ed4\u72ba": "mojibake phrase for 章",
     "\u5bf0\u546f": "mojibake phrase for 待",
     "\u9473\u82a5": "mojibake phrase for 能",
+    "\ub364\ud6c5\ud6f0": "mojibake phrase for 待确认",
 }
 
 QUESTION_RUN = re.compile(r"\?{4,}")

@@ -22,6 +22,21 @@ Learning mode teaches first, then tests. It should create a coherent path from p
 
 For engineering projects, learning mode should also produce a task-based exercise pack: per-chapter core question, understanding task, hands-on test, recommended commands, stage acceptance, and a small final task.
 
+### Project-Lab Mode
+
+Use when the user wants to learn foundations while completing a concrete project step by step. English triggers include `project-lab mode`, `capstone-driven learning`, `project-driven labs`, `build this project while learning`, and `complete the project through exercises`. Chinese triggers include `项目实验模式`, `项目驱动学习`, `边学边做项目`, `通过练习完成项目`, `以小项目为主线`, and `一步一步完成项目`.
+
+Outputs:
+
+- Learning content focused on only the concepts needed for the project.
+- Exercise document as a milestone build guide.
+- Reference answers with acceptance criteria, expected observations, hints, and diagnostic paths.
+- Progress JSON and skill-tree HTML.
+
+Project-lab mode starts from the final project acceptance target and designs exercises backward from project milestones. Each chapter should connect a foundation topic, a source-reading or observation task, and a concrete project artifact to implement or verify.
+
+Project-lab mode may use more guided sub-steps than normal lightweight mode when the project is unfamiliar. The main exercises should move the project forward; pure review questions should be optional.
+
 ### Review Mode
 
 Use when the user already studied the material and wants fast consolidation.
@@ -95,4 +110,10 @@ If the user only says "make a learning workflow" or similar, choose:
 
 ```text
 learning mode + lightweight mode + 10 chapters + Markdown outputs
+```
+
+If the user names a final project and asks to complete it through exercises, choose:
+
+```text
+project-lab mode + milestone build guide + explicit evidence-based XP
 ```

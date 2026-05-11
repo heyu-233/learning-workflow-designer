@@ -4,6 +4,8 @@ Use this reference for software, embedded, IoT, backend/frontend, robotics, hard
 
 The goal is not to create a normal quiz sheet. The goal is to make the learner able to reproduce, explain, test, and debug the system.
 
+If the user wants exercises to drive completion of a named final project, use project-lab mode from `references/project-lab.md`. Engineering practice packs can be task-based, but project-lab mode is stricter: each exercise must advance the final project artifact.
+
 ## Default Shape
 
 For engineering projects, the exercise document should include these sections:

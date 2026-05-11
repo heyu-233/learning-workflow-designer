@@ -24,6 +24,7 @@ Use question types to expose misunderstandings, not just memorization gaps.
 - Call-chain tracing task: trace a UI action, API request, message, frame, interrupt, or function call through real modules.
 - Runtime observation task: verify behavior with logs, Network, device files, ports, process status, or performance output.
 - Stage acceptance task: prove the learner can explain, run, verify, or diagnose a stage.
+- Project-lab implementation step: read or trace a source pattern, implement one project artifact, run it, diagnose failures, and submit evidence.
 
 ## Reusable Templates
 
@@ -120,6 +121,7 @@ For each chapter:
 - Use composite multipart questions when one coherent code or flow block covers nearby ideas better than many tiny questions.
 - Vary stem style across the chapter.
 - For engineering projects, each chapter should have one core question, one understanding task, and one hands-on test when the source supports it.
+- For project-lab mode, the main exercise should be a build step that advances the final project; concept-only questions should be optional or attached to the build step.
 
 ## Detailed Selection
 
@@ -130,6 +132,7 @@ For each chapter:
 - Include at least one chain/code/diagram judgment question when applicable.
 - Include at least one troubleshooting or practical record question for engineering projects.
 - For engineering projects, include a chapter quick table, recommended test commands, stage acceptance criteria, and a small final task.
+- For project-lab mode, include milestone acceptance criteria and a final demo script.
 
 ## Avoid
 

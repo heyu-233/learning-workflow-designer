@@ -5,9 +5,12 @@ description: >
   or course materials. Use when the user wants to learn a project/codebase,
   generate staged study content, review packs, practice drills, exam papers,
   exercises, answer keys, critique completed answers, or track learning progress
-  with Markdown/DOCX/HTML outputs. Chinese triggers include: 我想学习这个项目,
-  帮我学习这个代码库, 帮我出题, 生成练习题, 批改答案, 整理成学习包, 生成技能树,
-  更新学习进度, 复习模式, 练习模式.
+  with Markdown/DOCX/HTML outputs. Use project-lab mode when the user wants to
+  complete a concrete project step by step through guided exercises, capstone-driven
+  learning, project-driven labs, or build-as-you-learn practice. Chinese triggers
+  include: 我想学习这个项目, 帮我学习这个代码库, 帮我出题, 生成练习题, 批改答案,
+  整理成学习包, 生成技能树, 更新学习进度, 复习模式, 练习模式, 项目实验模式,
+  项目驱动学习, 边学边做项目, 通过练习完成项目, 以小项目为主线, 一步一步完成项目.
 ---
 
 # Learning Workflow Designer
@@ -19,6 +22,7 @@ Turn raw materials into reusable learning workflows: staged lessons, exercises, 
 Unless the user specifies otherwise:
 
 - Use learning mode + lightweight density + 10 chapters.
+- Use project-lab mode instead when the user names a final project and wants exercises to guide project completion step by step.
 - Write files to disk. If no destination is given, create `tutorial/`.
 - Produce Markdown first: `learning-content.md`, `exercises.md`, `reference-answers.md`, `learning-progress.json`, and `skill-tree.html`.
 - Follow the user's language or the source language.
@@ -36,20 +40,22 @@ Unless the user specifies otherwise:
 5. For each chapter, write one main-line sentence, lesson content, and exercises.
 6. Keep exercises varied. Lightweight mode uses at most 3 exercises per chapter; detailed mode uses exactly 5.
 7. Keep answers separate from exercises.
-8. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
-9. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
-10. Render `skill-tree.html` from `learning-progress.json` when producing or updating a learning package.
-11. Award progress only from explicit exercise points. Do not infer XP from vague confidence.
-12. When grading completed answers, output critique, positive feedback, and the next smallest task; update progress JSON and regenerate HTML when XP or node states change.
-13. Run the quality checks in `references/quality-checks.md` before finishing.
-14. Run `python scripts/validate_text_encoding.py <output-dir>` after generating Chinese Markdown/JSON/HTML.
-15. Keep the final chat response short: summarize generated files and what changed.
+8. For project-lab mode, first extract the final project acceptance target, then design exercises backward from project milestones.
+9. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
+10. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
+11. Render `skill-tree.html` from `learning-progress.json` when producing or updating a learning package.
+12. Award progress only from explicit exercise points. Do not infer XP from vague confidence.
+13. When grading completed answers, output critique, positive feedback, and the next smallest task; update progress JSON and regenerate HTML when XP or node states change.
+14. Run the quality checks in `references/quality-checks.md` before finishing.
+15. Run `python scripts/validate_text_encoding.py <output-dir>` after generating Chinese Markdown/JSON/HTML.
+16. Keep the final chat response short: summarize generated files and what changed.
 
 ## Reference Loading
 
 Read only the references needed for the request:
 
 - `references/modes.md`: learning, review, practice, exam modes and density rules.
+- `references/project-lab.md`: project-lab mode for capstone-driven, step-by-step project completion through exercises.
 - `references/question-types.md`: exercise shapes and reusable templates.
 - `references/engineering-practice.md`: hands-on engineering exercise packs.
 - `references/output-formats.md`: Markdown, DOCX, and HTML output rules.
@@ -63,6 +69,7 @@ Read only the references needed for the request:
 ## Output Modes
 
 - Learning mode: write `learning-content.md`, `exercises.md`, `reference-answers.md`, `learning-progress.json`, and `skill-tree.html`.
+- Project-lab mode: write a project-oriented package where `exercises.md` is a milestone build guide, not a quiz sheet.
 - Review mode: write `review-pack.md` with outline, weak-point checklist, and reinforcement exercises.
 - Practice mode: write `practice.md` plus `practice-answers.md`; keep explanations brief before the learner answers.
 - Exam mode: write `exam.md`, `rubric.md`, and `exam-answers.md`; preserve assessment integrity.
