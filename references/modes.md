@@ -33,7 +33,7 @@ Outputs:
 - Reference answers with acceptance criteria, expected observations, hints, and diagnostic paths.
 - Progress JSON and skill-tree HTML.
 
-Project-lab mode starts from the final project acceptance target and designs exercises backward from project milestones. Each chapter should connect a foundation topic, a source-reading or observation task, and a concrete project artifact to implement or verify.
+Project-lab mode starts from the final project acceptance target and designs exercises backward from project milestones. Milestones are not chapters. Keep the default 10-chapter learning structure unless the user explicitly asks for a different chapter count; map the project milestones across those chapters. Each chapter should connect a foundation topic, a source-reading or observation task, and a concrete project artifact to implement or verify.
 
 Project-lab mode may use more guided sub-steps than normal lightweight mode when the project is unfamiliar. The main exercises should move the project forward; pure review questions should be optional.
 
@@ -115,5 +115,5 @@ learning mode + lightweight mode + 10 chapters + Markdown outputs
 If the user names a final project and asks to complete it through exercises, choose:
 
 ```text
-project-lab mode + milestone build guide + explicit evidence-based XP
+project-lab mode + 10-chapter learning path + milestone build guide + explicit evidence-based XP
 ```

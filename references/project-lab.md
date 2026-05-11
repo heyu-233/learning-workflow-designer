@@ -16,6 +16,16 @@ Use project-lab mode when the user wants to learn foundations while step by step
 
 Project-lab mode is not a quiz sheet and not a generic learning outline. The exercise document is the build path.
 
+## Chapters Vs Milestones
+
+Do not confuse chapters with project milestones.
+
+- Chapters are the learning structure. Default to 10 chapters unless the user explicitly asks for another chapter count.
+- Milestones are the project build thread. Use 4 to 8 project milestones and map them across the chapters.
+- A milestone may span multiple chapters, and a chapter may contain part of a milestone.
+- Do not reduce a default 10-chapter package to 4 to 8 chapters just because there are 4 to 8 milestones.
+- If the user explicitly asks to organize by milestones instead of chapters, then milestone count may become the visible section count.
+
 ## Core Rule
 
 Start from the final project acceptance target, then design the learning path backward.
@@ -44,7 +54,7 @@ For project-lab mode, produce:
 
 1. Final project target and acceptance checklist.
 2. Required hardware/software/source assumptions and "待确认" items.
-3. Milestone map from empty project to final demo.
+3. A 10-chapter map plus a milestone map from empty project to final demo.
 4. Chapter tasks. Each task should include:
    - Goal.
    - Why this matters for the final project.
@@ -61,7 +71,7 @@ For project-lab mode, produce:
 
 ## Milestone Design
 
-Use 4 to 8 project milestones. Each milestone should produce a visible artifact, such as:
+Use 4 to 8 project milestones, mapped across the default 10 chapters. Each milestone should produce a visible artifact, such as:
 
 - A compiling skeleton.
 - A running hello/demo task.

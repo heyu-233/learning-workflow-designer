@@ -26,7 +26,7 @@ Unless the user specifies otherwise:
 - Write files to disk. If no destination is given, create `tutorial/`.
 - Produce Markdown first: `learning-content.md`, `exercises.md`, `reference-answers.md`, `learning-progress.json`, and `skill-tree.html`.
 - Follow the user's language or the source language.
-- For broad codebases or large source sets, generate a chapter map and first-chapter sample before the full package.
+- For broad codebases or large source sets, generate a 10-chapter map and first-chapter sample before the full package.
 - Do not print the full package in chat unless the user explicitly asks for inline output.
 - Do not wrap the package in a README unless the user asks for one.
 - For Chinese content, avoid PowerShell/CMD inline script strings; use `apply_patch`, existing scripts, or UTF-8 source files, then validate encoding.
@@ -36,12 +36,12 @@ Unless the user specifies otherwise:
 1. Inspect source materials before generating content. Prefer real files, code, schemas, diagrams, configs, logs, and commands over assumptions.
 2. Build a project-specific map: modules, concepts, data/control flow, dependencies, prerequisites, and likely failure points.
 3. Choose the requested mode and density; default to learning + lightweight.
-4. Split into chapters. Default to 10 chapters, but merge or split when the material clearly requires it.
+4. Split into chapters. Default to 10 chapters. Do not reduce the chapter count just because project-lab mode uses fewer project milestones.
 5. For each chapter, write one main-line sentence, lesson content, and exercises.
 6. Keep exercises varied. Lightweight mode uses at most 3 exercises per chapter; detailed mode uses exactly 5.
 7. Keep answers separate from exercises.
 8. Every exercise, practice set, exam, and project-lab task must include visible learner answer space in the question document.
-9. For project-lab mode, first extract the final project acceptance target, then design exercises backward from project milestones.
+9. For project-lab mode, first extract the final project acceptance target, then design exercises backward from project milestones. Milestones are a project thread, not a replacement for the default 10 chapters.
 10. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
 11. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
 12. Render `skill-tree.html` from `learning-progress.json` when producing or updating a learning package.

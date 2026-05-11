@@ -34,7 +34,9 @@ Run these checks before finalizing generated learning materials or critique.
 ## Project-Lab Quality
 
 - The exercise document starts with the final project target and acceptance checklist.
-- Chapters are organized as project milestones, not only topic lessons.
+- The package keeps the default 10-chapter structure unless the user explicitly asks for another chapter count.
+- Project milestones are mapped across chapters; they do not silently replace chapters.
+- Chapters combine topic learning with milestone progress instead of being only topic lessons.
 - Each main exercise states why it matters for the final project.
 - Each main exercise includes read/trace, implement/change, run/observe, pass criteria, failure diagnosis, submitted evidence, and XP.
 - Each main exercise includes a fillable learner record block or answer table.
