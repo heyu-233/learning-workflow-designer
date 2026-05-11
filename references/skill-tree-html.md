@@ -71,6 +71,8 @@ Store this model in `learning-progress.json`. Start from `assets/learning-progre
 - `density`
 - `level`
 - `total_levels`
+- `level_title_set` when the package should use a specific built-in five-level title set
+- `level_titles` when the package needs custom five-level names
 - `level_thresholds` when the default proportional thresholds are not enough
 - `stars`
 - `earned_xp`
@@ -84,6 +86,8 @@ Store this model in `learning-progress.json`. Start from `assets/learning-progre
 Each exercise should include an ID, chapter, node ID, total points, and earned points. Each node should include an ID, name, state, total points, earned points, and chapter list. If the visible progress artifact is called a task tree or chapter tree, keep the node count aligned with the chapter count unless the user asks for a compressed capability tree.
 
 Default level rule: use 5 levels. Split `total_xp` into five milestones: Lv.1 = 0%, Lv.2 = 25%, Lv.3 = 50%, Lv.4 = 75%, Lv.5 = 100%. The sum of all exercise `points` must equal `total_xp`, so completing every scored exercise reaches Lv.5.
+
+Give the five levels short game-like titles. If no title style is specified, use `classic` for most projects and occasionally choose one of the other built-in sets for surprise. The choice must stay stable across regeneration. See `references/level-title-sets.md`.
 
 ## Output Note
 

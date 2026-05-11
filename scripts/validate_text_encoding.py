@@ -35,6 +35,22 @@ BAD_MARKERS = {
     "\u93b5": "mojibake marker",
 }
 
+BAD_SUBSTRINGS = {
+    "\u93b5\u89c4\u655e": "mojibake phrase for 批注",
+    "\u951b\u6b5a": "mojibake punctuation",
+    "\u701b\ufe3f": "mojibake phrase for 学",
+    "\u752f\ue1bd": "mojibake phrase for 帮",
+    "\u9422\u71b8": "mojibake phrase for 生",
+    "\u93c1\u5bf8": "mojibake phrase for 整",
+    "\u59af\u2033\u7d21": "mojibake phrase for 模式",
+    "\u93c8\ue047": "mojibake phrase for 未",
+    "\u6769\u6d9c": "mojibake phrase for 进",
+    "\u5bb8\u8336": "mojibake phrase for 已",
+    "\u7ed4\u72ba": "mojibake phrase for 章",
+    "\u5bf0\u546f": "mojibake phrase for 待",
+    "\u9473\u82a5": "mojibake phrase for 能",
+}
+
 QUESTION_RUN = re.compile(r"\?{4,}")
 
 
@@ -66,6 +82,9 @@ def scan_file(path: Path) -> list[str]:
         for marker, label in BAD_MARKERS.items():
             if marker in line:
                 findings.append(f"{path}:{line_no}: found {label}")
+        for marker, label in BAD_SUBSTRINGS.items():
+            if marker in line:
+                findings.append(f"{path}:{line_no}: found {label}: {marker}")
         if QUESTION_RUN.search(line):
             findings.append(f"{path}:{line_no}: found repeated question marks")
     return findings

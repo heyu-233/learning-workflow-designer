@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html
 import json
 import re
@@ -70,6 +71,16 @@ SKINS = {
     },
 }
 
+LEVEL_TITLE_SETS = {
+    "classic": ["新手", "初学者", "进阶者", "熟练者", "掌握者"],
+    "sao": ["起始镇新手", "单手剑练习者", "攻略组成员", "前线独行者", "黑衣剑士"],
+    "eu4": ["边陲伯国", "区域强权", "王国中坚", "列强候选", "世界霸权"],
+    "hoi4": ["新兵训练营", "前线参谋", "集团军指挥官", "战区统帅", "最高统帅部"],
+    "civ6": ["开拓者", "建城者", "城邦盟友", "文明领袖", "时代缔造者"],
+}
+
+SURPRISE_LEVEL_TITLE_SETS = ["sao", "eu4", "hoi4", "civ6"]
+
 BAD_ENCODING_MARKERS = {
     "\ufffd": "replacement character",
     "\u951f": "mojibake marker",
@@ -119,6 +130,24 @@ def render_stars(stars: int | float, total: int = 5) -> str:
     return "".join("★" if index < count else "☆" for index in range(total))
 
 
+def choose_level_title_set(data: dict[str, Any], total_levels: int) -> tuple[str, list[str]]:
+    custom_titles = data.get("level_titles")
+    if isinstance(custom_titles, list) and len(custom_titles) >= total_levels:
+        return "custom", [str(title) for title in custom_titles[:total_levels]]
+
+    requested_set = str(data.get("level_title_set", "")).strip()
+    if requested_set in LEVEL_TITLE_SETS:
+        return requested_set, LEVEL_TITLE_SETS[requested_set][:total_levels]
+
+    seed = f"{data.get('project_name', '')}|{data.get('source_summary', '')}"
+    digest = hashlib.sha256(seed.encode("utf-8")).hexdigest()
+    if int(digest[:8], 16) % 100 < 80:
+        selected = "classic"
+    else:
+        selected = SURPRISE_LEVEL_TITLE_SETS[int(digest[8:16], 16) % len(SURPRISE_LEVEL_TITLE_SETS)]
+    return selected, LEVEL_TITLE_SETS[selected][:total_levels]
+
+
 def render_nodes(nodes: list[dict[str, Any]]) -> str:
     rows: list[str] = []
     for node in nodes:
@@ -150,20 +179,22 @@ def render_nodes(nodes: list[dict[str, Any]]) -> str:
     return "\n".join(rows)
 
 
-def render_level_table(thresholds: list[int], earned_xp: int) -> str:
+def render_level_table(thresholds: list[int], earned_xp: int, level_titles: list[str]) -> str:
     rows = []
     for index, threshold in enumerate(thresholds, start=1):
         state = "已达到" if earned_xp >= threshold else "未达到"
+        title = level_titles[index - 1] if index - 1 < len(level_titles) else f"Lv. {index}"
         rows.append(
             "<tr>"
             f"<td>Lv. {index}</td>"
+            f"<td>{esc(title)}</td>"
             f"<td>{threshold} XP</td>"
             f"<td>{state}</td>"
             "</tr>"
         )
     return (
         "<table>"
-        "<thead><tr><th>等级</th><th>最低 XP</th><th>状态</th></tr></thead>"
+        "<thead><tr><th>等级</th><th>称号</th><th>最低 XP</th><th>状态</th></tr></thead>"
         f"<tbody>{''.join(rows)}</tbody>"
         "</table>"
     )
@@ -225,6 +256,10 @@ def render(
     thresholds = data.get("level_thresholds") or level_thresholds(total_xp, total_levels)
     current_level = level_from_xp(earned_xp, total_xp, total_levels)
     current_stars = stars_from_xp(earned_xp, total_xp, total_levels)
+    level_title_set, level_titles = choose_level_title_set(data, total_levels)
+    current_level_title = (
+        level_titles[current_level - 1] if current_level - 1 < len(level_titles) else f"Lv. {current_level}"
+    )
     feedback = data.get("positive_feedback", {})
     skin_tokens = SKINS.get(skin, SKINS["default"])
 
@@ -243,13 +278,15 @@ def render(
         mode=esc(data.get("mode", "learning")),
         density=esc(data.get("density", "lightweight")),
         level=esc(current_level),
+        level_title=esc(current_level_title),
+        level_title_set=esc(level_title_set),
         total_levels=esc(total_levels),
         stars=render_stars(current_stars, total_levels),
         earned_xp=earned_xp,
         total_xp=total_xp,
         xp_percent=percent(earned_xp, total_xp),
-        level_rule=esc(f"共 {total_levels} 级，达到 {total_xp} XP 即满级；学完全部带分值课程应获得全部 XP。"),
-        level_table_html=render_level_table([int(value) for value in thresholds], earned_xp),
+        level_rule=esc(f"共 {total_levels} 级，达到 {total_xp} XP 即满级；当前称号组：{level_title_set}。"),
+        level_table_html=render_level_table([int(value) for value in thresholds], earned_xp, level_titles),
         nodes_html=render_nodes(data.get("nodes", [])),
         chapter_table_html=render_chapter_table(data.get("chapter_map", [])),
         chapter_gain=esc(feedback.get("chapter_gain", "")),

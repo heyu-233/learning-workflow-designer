@@ -4,37 +4,37 @@ Use question types to expose misunderstandings, not just memorization gaps.
 
 ## Available Types
 
-- Fill-in-the-blank: good for names, ports, file paths, key terms, and sequence anchors.
-- True/false judgment: good for quick concept boundaries.
-- Multiple choice: good for exam mode and single-best-answer checks.
-- Short answer: good for explaining why a design is used.
-- Chain judgment: provide a data/control/media flow and ask whether it is correct.
-- System diagram judgment: provide a textual block diagram and ask what is wrong or missing.
-- Code function judgment: provide a core code block and ask what it does.
-- Code correction: provide flawed pseudocode or code and ask how to fix it.
-- Troubleshooting: give a symptom and ask for a diagnostic order.
-- Practical record: ask the learner to record command, phenomenon, log, and conclusion.
-- Comprehensive retelling: ask the learner to explain the whole system or chapter in several sentences.
-- Composite multipart question: one stem plus several sub-questions, good for covering multiple nearby knowledge points without inflating chapter count.
-- Ordering plus explanation: ask the learner to sort a chain first, then explain why that order is correct.
-- Pseudocode multi-question: provide one pseudocode or code block and ask several related questions about function, boundary, and failure mode.
-- Contrast question: present two similar options or chains and ask the learner to explain the difference.
-- Engineering architecture task: ask the learner to draw or describe the module map, responsibilities, inputs, processing, and outputs.
-- Command verification task: ask the learner to run a command, record the result, and explain what the result proves.
-- Call-chain tracing task: ask the learner to trace a UI action, API request, message, frame, interrupt, or function call through real modules.
-- Runtime observation task: ask the learner to use logs, browser Network, device files, ports, process status, or performance output to verify behavior.
-- Stage acceptance task: ask the learner to prove they can explain, run, verify, or diagnose a stage of the system.
+- Fill-in-the-blank: names, ports, file paths, key terms, sequence anchors.
+- True/false judgment: quick concept boundaries.
+- Multiple choice: exam mode or single-best-answer checks.
+- Short answer: explain why a design or step is used.
+- Ordering plus explanation: sort a chain, then justify the order.
+- Chain judgment: inspect a data/control/media flow and decide whether it is correct.
+- Chain correction: identify the wrong step, write the correct chain, and explain the debugging impact.
+- System diagram judgment: inspect a textual block diagram and identify missing or wrong parts.
+- Code function judgment: explain what a core code block does.
+- Code correction: repair flawed pseudocode or code.
+- Troubleshooting: diagnose a symptom in the shortest reliable order.
+- Practical record: record command, phenomenon, log, and conclusion.
+- Comprehensive retelling: explain the whole chapter or system in several sentences.
+- Composite multipart question: one stem plus several related sub-questions.
+- Contrast question: compare two similar options or chains.
+- Engineering architecture task: describe module map, responsibilities, inputs, processing, and outputs.
+- Command verification task: run a command, record the result, and explain what it proves.
+- Call-chain tracing task: trace a UI action, API request, message, frame, interrupt, or function call through real modules.
+- Runtime observation task: verify behavior with logs, Network, device files, ports, process status, or performance output.
+- Stage acceptance task: prove the learner can explain, run, verify, or diagnose a stage.
 
 ## Reusable Templates
 
-Use these templates as shapes. Replace every placeholder with project-specific material from the source.
+Replace every placeholder with project-specific material from the source.
 
 ### Ordering Plus Explanation
 
 ```md
 ### 题 X：排序后解释（N 分）
 
-下面是 `{{concept_or_flow}}` 的若干步骤，它们现在顺序被打乱：
+下面是 `{{concept_or_flow}}` 的几个步骤，目前顺序被打乱：
 
 1. {{step_a}}
 2. {{step_b}}
@@ -45,7 +45,7 @@ Use these templates as shapes. Replace every placeholder with project-specific m
 
 1. 写出正确顺序。
 2. 解释为什么 `{{key_step}}` 必须出现在这个位置。
-3. 指出如果 `{{wrong_order}}` 发生，会出现什么现象或风险。
+3. 如果 `{{wrong_order}}` 发生，会出现什么现象或风险？
 
 答：
 ```
@@ -82,7 +82,7 @@ Use these templates as shapes. Replace every placeholder with project-specific m
 
 请比较：
 
-1. 两者在 `{{dimension_1}}` 上的关键差异是什么？
+1. 二者在 `{{dimension_1}}` 上的关键差异是什么？
 2. 哪个方案更适合 `{{scenario}}`？为什么？
 3. 另一个方案在什么情况下反而更合适？
 
@@ -115,11 +115,10 @@ For each chapter:
 
 - Use at most 3 exercises.
 - Prefer 2 to 3 different types.
-- Include at least one reasoning-heavy type when the material supports it: chain judgment, system diagram judgment, code judgment, or troubleshooting.
+- Include at least one reasoning-heavy type when the material supports it.
 - Do not test the same knowledge point twice in the same chapter.
-- It is acceptable for one exercise to contain multiple sub-questions if they are tightly related and together cover a broader concept chain.
-- Try to vary the stem style across the chapter, not just the knowledge point.
-- Good chapter patterns include: sort then explain, pseudo-code then diagnose, chain then correct, or compare two nearly correct options.
+- Use composite multipart questions when one coherent code or flow block covers nearby ideas better than many tiny questions.
+- Vary stem style across the chapter.
 - For engineering projects, each chapter should have one core question, one understanding task, and one hands-on test when the source supports it.
 
 ## Detailed Selection
@@ -134,8 +133,8 @@ For each chapter:
 
 ## Avoid
 
-- Requiring hand-drawn diagrams when a system diagram judgment question would test the same skill.
+- Requiring hand-drawn diagrams when a textual system-diagram judgment would test the same skill.
 - Long rote lists with no reasoning.
-- Exercises whose answer is already visible in the immediately preceding sentence unless the goal is very early recall.
-- Splitting one coherent code or flow block into many isolated micro-questions when a composite question would be clearer.
+- Exercises whose answer is already visible in the immediately preceding sentence unless the goal is early recall.
+- Splitting one coherent code or flow block into many isolated micro-questions.
 - Repeating the same opening phrase across all questions in a chapter.

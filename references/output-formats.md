@@ -6,13 +6,13 @@ Markdown is the default because it is easy to inspect, edit, diff, and convert.
 
 Default behavior is to write files to disk. Do not emit the full package only in chat unless the user explicitly requests inline output.
 
-Recommended files:
+Recommended learning-package files:
 
 - `tutorial/learning-content.md`
 - `tutorial/exercises.md`
 - `tutorial/reference-answers.md`
-- `tutorial/learning-progress.json` as the state source for XP, stars, nodes, and exercise points
-- `tutorial/skill-tree.html` as part of the default learning package
+- `tutorial/learning-progress.json`
+- `tutorial/skill-tree.html`
 
 If the user provides another output directory, use that directory instead of `tutorial/`.
 
@@ -27,7 +27,7 @@ python scripts/validate_text_encoding.py tutorial
 For critique:
 
 ```md
-> 批注：这里理解基本正确，但建议补充……
+> 批注：这里理解基本正确，但还需要补充具体调用链或证据。
 ```
 
 Use:
@@ -74,25 +74,25 @@ python scripts/md_to_docx.py exercises.md exercises.docx
 python scripts/md_to_docx.py reference-answers.md reference-answers.docx
 ```
 
-If conversion fails because `python-docx` is missing, keep the Markdown outputs and tell the user to install `python-docx`.
+If conversion fails because `python-docx` is missing, keep the Markdown outputs and tell the user that DOCX conversion requires `python-docx`.
 
 ## HTML Skill Tree
 
-Use a static `skill-tree.html` for the project-specific capability tree when the user wants a visible progress page.
+Use a static `skill-tree.html` for the project-specific capability tree when producing or updating a learning package.
 
 Requirements:
 
 - Self-contained single file.
-- Game-like presentation: level badge, star rating, experience bar, and unlock states.
-- Starting state is always 0 XP and 0 stars until exercise points are earned.
+- Game-like presentation: level title, star rating, XP bar, and unlock states.
+- Starting state is 0 XP and 0 stars until exercise points are earned.
 - Generated from `learning-progress.json` whenever possible.
 - Uses 5 levels by default: 0%, 25%, 50%, 75%, and 100% of `total_xp`.
-- Clear title, source/project label, and chapter mapping.
+- Clear project label, source summary, level table, capability nodes, and chapter mapping.
 - Visual status markers for `未解锁`, `进行中`, and `已解锁`.
-- Compact positive-feedback block with `本章获得`, `技能树进度`, and `下一步最小任务`.
+- Compact feedback blocks with `本章获得`, `技能树进度`, and `下一步最小任务`.
 - No README wrapper around the same content unless the user explicitly asks for one.
 - Refresh the page whenever the learner's state changes after an answer, critique, or chapter update.
-- All progress values must come from explicit point values in `exercises.md`, not from guessed understanding.
+- All progress values must come from explicit point values in `exercises.md` and `learning-progress.json`, not from guessed understanding.
 
 Render with:
 

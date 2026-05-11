@@ -12,147 +12,101 @@ description: >
 
 # Learning Workflow Designer
 
-Use this skill to turn raw materials into a reusable learning workflow: staged lessons, exercises, answer keys, exams, review packs, and answer critique.
+Turn raw materials into reusable learning workflows: staged lessons, exercises, answer keys, review packs, exams, feedback, and progress tracking.
 
-Trigger this skill when the user says they want to learn a project, learn a codebase, study a tutorial, make exercises, or build a reusable learning package.
+## Defaults
 
-Requests such as "make a learning summary", "generate exercises", "create a study pack", or "整理学习总结和习题" should be treated as file-generation tasks by default.
+Unless the user specifies otherwise:
 
-## Default Behavior
-
-Unless the user specifies otherwise, use:
-
-- Mode: learning mode.
-- Density: lightweight.
-- Chapters: 10.
-- Outputs: learning content, exercise paper, reference answers, skill tree HTML.
-- Format: Markdown first; DOCX only when requested.
-- Language: follow the user's language or source material.
-- Output directory: if the user does not specify a destination, create a `tutorial/` folder and put all generated files there.
-- File writing: by default, write the generated package to files. Do not only print the full learning package in chat unless the user explicitly asks for inline output.
-- Chinese encoding: do not pass Chinese text through PowerShell/CMD inline script strings. Use `apply_patch`, existing scripts, or UTF-8 files, then verify the written files.
-
-For large codebases or broad source sets, generate the chapter map and the first chapter sample first, then continue with the full package after the user confirms the direction.
-
-Lightweight mode means each chapter has a clear main line, no logic jumps, and at most 3 exercises. In lightweight mode, a single exercise may contain multiple sub-questions if that is the best way to cover related knowledge without increasing chapter length. Detailed mode means fuller explanations and exactly 5 exercises per chapter.
-The exercise set should not feel repetitive: vary stem shapes, mix prompt types, and prefer at least one multi-part or scenario-based exercise per chapter when the material supports it.
+- Use learning mode + lightweight density + 10 chapters.
+- Write files to disk. If no destination is given, create `tutorial/`.
+- Produce Markdown first: `learning-content.md`, `exercises.md`, `reference-answers.md`, `learning-progress.json`, and `skill-tree.html`.
+- Follow the user's language or the source language.
+- For broad codebases or large source sets, generate a chapter map and first-chapter sample before the full package.
+- Do not print the full package in chat unless the user explicitly asks for inline output.
+- Do not wrap the package in a README unless the user asks for one.
+- For Chinese content, avoid PowerShell/CMD inline script strings; use `apply_patch`, existing scripts, or UTF-8 source files, then validate encoding.
 
 ## Workflow
 
-1. Inspect the source materials before generating content. Prefer real files, code, schemas, diagrams, and configs over assumptions.
-2. Build a global map: modules, concepts, data flow, dependencies, and learning prerequisites.
-3. Derive a project-specific learning tree from the materials. Do not reuse a fixed generic skill tree; extract the capabilities from the current project, paper, or course.
-4. Choose the requested mode and density. If unspecified, use learning + lightweight.
-5. Split content into chapters. Default to 10 chapters, but merge or split only when the source material clearly requires it.
-6. For each chapter, write one main-line sentence, then the lesson content, then exercises.
-   In lightweight mode, prefer compact multi-part exercises when they improve coverage: for example, one code block followed by several small questions, or one ordered sequence followed by explanation prompts.
-   Avoid making every question a single-sentence "what is / why is / list" prompt.
-7. Generate a separate reference-answer document. Do not mix answers into the exercise document.
-8. When grading completed answers, output critique plus positive feedback: chapter gain, skill-tree update, and next-step task.
-9. If no output directory was specified, create `tutorial/` before writing files. Write `learning-content.md`, `exercises.md`, `reference-answers.md`, `learning-progress.json`, and `skill-tree.html` into that folder.
-10. Create or update `learning-progress.json` as the state source for the skill tree. Track exercise IDs, total points, earned points, capability node states, chapter mapping, and feedback.
-11. Render the project-specific skill tree as a static HTML page when the user wants a visible progress artifact. Prefer `scripts/render_skill_tree.py tutorial/learning-progress.json tutorial/skill-tree.html` when using the default output folder; the page should feel like a game UI, with level, stars, and an experience bar.
-12. The skill tree must be driven only by explicit point values in the exercise document and `learning-progress.json`. Do not infer progress from vague understanding; if a question or task has no declared points, it does not contribute to XP.
-13. After every answer, critique, or learning-step response, check whether `learning-progress.json` should advance and refresh the HTML if any node or progress value changed.
-14. Do not invent a README wrapper for the learning package unless the user explicitly asks for one.
-15. Run the quality checks from `references/quality-checks.md` before finishing.
-16. Run `python scripts/validate_text_encoding.py tutorial` after generating Chinese Markdown/JSON/HTML outputs. If the user chose another output directory, scan that directory instead.
-17. If DOCX output is requested, create Markdown first, then use `scripts/md_to_docx.py` or equivalent DOCX tooling.
-18. Final chat response should be a short summary with links or paths to generated files, not the full content of every generated document.
+1. Inspect source materials before generating content. Prefer real files, code, schemas, diagrams, configs, logs, and commands over assumptions.
+2. Build a project-specific map: modules, concepts, data/control flow, dependencies, prerequisites, and likely failure points.
+3. Choose the requested mode and density; default to learning + lightweight.
+4. Split into chapters. Default to 10 chapters, but merge or split when the material clearly requires it.
+5. For each chapter, write one main-line sentence, lesson content, and exercises.
+6. Keep exercises varied. Lightweight mode uses at most 3 exercises per chapter; detailed mode uses exactly 5.
+7. Keep answers separate from exercises.
+8. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
+9. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
+10. Render `skill-tree.html` from `learning-progress.json` when producing or updating a learning package.
+11. Award progress only from explicit exercise points. Do not infer XP from vague confidence.
+12. When grading completed answers, output critique, positive feedback, and the next smallest task; update progress JSON and regenerate HTML when XP or node states change.
+13. Run the quality checks in `references/quality-checks.md` before finishing.
+14. Run `python scripts/validate_text_encoding.py <output-dir>` after generating Chinese Markdown/JSON/HTML.
+15. Keep the final chat response short: summarize generated files and what changed.
 
-## Mode References
+## Reference Loading
 
-Read only the references needed for the user's request:
+Read only the references needed for the request:
 
-- `references/modes.md`: learning, review, exam modes and lightweight/detailed density.
-- `references/question-types.md`: available question types and when to use them.
-- `references/engineering-practice.md`: engineering project exercise packs with core questions, hands-on tests, commands, stage acceptance, and final tasks.
-- `references/output-formats.md`: Markdown and DOCX requirements, including red DOCX critique annotations.
-- `references/feedback.md`: project-specific capability tree and positive-feedback rules.
-- `references/skill-tree-html.md`: HTML skill-tree layout and styling rules.
-- `references/skill-tree-skins.md`: engineering, course, and paper visual styles for skill-tree pages.
-- `references/visual-inspirations.md`: GitHub references for more game-like skill tree presentation.
-- `references/quality-checks.md`: anti-repetition, continuity, answer separation, and critique rules.
+- `references/modes.md`: learning, review, practice, exam modes and density rules.
+- `references/question-types.md`: exercise shapes and reusable templates.
+- `references/engineering-practice.md`: hands-on engineering exercise packs.
+- `references/output-formats.md`: Markdown, DOCX, and HTML output rules.
+- `references/feedback.md`: critique, positive feedback, and progress update rules.
+- `references/skill-tree-html.md`: progress JSON model and HTML skill-tree requirements.
+- `references/skill-tree-skins.md`: engineering, course, and paper visual skins.
+- `references/level-title-sets.md`: five-level gamified title sets.
+- `references/quality-checks.md`: continuity, exercise, engineering, answer-separation, and encoding checks.
+- `references/visual-inspirations.md`: optional visual inspiration only when designing richer skill trees.
 
-## Output Rules
+## Output Modes
 
-Default output is file-based. Unless the user explicitly asks for inline-only content, create the output directory and write the artifacts to disk.
-
-For learning mode, produce these artifacts by default:
-
-If the user does not specify an output directory, create `tutorial/` and produce:
-
-1. `tutorial/learning-content.md`
-2. `tutorial/exercises.md`
-3. `tutorial/reference-answers.md`
-4. `tutorial/learning-progress.json`
-5. `tutorial/skill-tree.html`
-
-For engineering projects, make `tutorial/exercises.md` task-based by default: include a learning record template, chapter exercise quick table, recommended test commands, stage acceptance criteria, and one small final task. Use `references/engineering-practice.md`.
-
-For review mode, write a review outline, weak-point checklist, and short reinforcement exercises to `tutorial/review-pack.md` unless another destination is specified.
-
-For practice mode, write an exercise-first practice set with explicit points to `tutorial/practice.md`, and write separate answers/rubric to `tutorial/practice-answers.md` unless another destination is specified.
-
-For exam mode, write an independent paper to `tutorial/exam.md`, scoring rubric to `tutorial/rubric.md`, and separate answers to `tutorial/exam-answers.md` unless another destination is specified.
-
-## Critique Rules
-
-When checking completed answers:
-
-- Judge each answer as correct, partially correct, or incorrect.
-- Distinguish "right direction but weak expression" from "conceptually wrong".
-- Add actionable comments near the answer.
-- Markdown comments use blockquote paragraphs beginning with `批注：`.
-- DOCX comments use red text paragraphs beginning with `批注：`; do not require native Word comments.
-
-## Positive Feedback
-
-After critique, always emit a compact feedback block. The block should be derived from the current project, not from a fixed universal skill taxonomy.
-
-Include:
-
-- What the learner now clearly understands.
-- Which project-specific capability nodes advanced.
-- Which node remains weak or partially unlocked.
-- One next-step task that is small and concrete.
-
-When a visual progress artifact is useful, update `learning-progress.json` and render the same feedback block into `skill-tree.html` instead of wrapping it in a README.
-
-The skill tree is stateful across the conversation or project package: if the learner answers more questions or gains new understanding, update `learning-progress.json` first, then regenerate the HTML so the level, stars, XP, and unlocked nodes reflect the latest state.
-The starting state is zero progress. The tree begins at 0 XP, 0 stars, and unlocked nodes only appear after the learner earns the matching points from exercises.
+- Learning mode: write `learning-content.md`, `exercises.md`, `reference-answers.md`, `learning-progress.json`, and `skill-tree.html`.
+- Review mode: write `review-pack.md` with outline, weak-point checklist, and reinforcement exercises.
+- Practice mode: write `practice.md` plus `practice-answers.md`; keep explanations brief before the learner answers.
+- Exam mode: write `exam.md`, `rubric.md`, and `exam-answers.md`; preserve assessment integrity.
+- DOCX: create Markdown first, then use `scripts/md_to_docx.py` when requested.
 
 ## Progress State
 
-Use `learning-progress.json` as the single source of truth for visual progress. Start from `assets/learning-progress-template.json` when creating a new learning package.
+Start from `assets/learning-progress-template.json` when helpful. Required fields:
 
-Required fields:
+- `project_name`, `source_summary`, `mode`, `density`
+- `total_xp`, `earned_xp`, `level`, `stars`, `total_levels`
+- optional `level_thresholds`
+- optional `level_title_set` or custom `level_titles`
+- `nodes` with `id`, `name`, `state`, `earned_points`, `total_points`, and `chapters`
+- `exercises` with `id`, `chapter`, `node_id`, `points`, and `earned_points`
+- `chapter_map`, `positive_feedback`, and `next_step`
 
-- `project_name`, `source_summary`, `mode`, and `density`.
-- `total_xp`, `earned_xp`, `level`, and `stars`.
-- `total_levels`: default to 5. Level thresholds are derived from total XP unless `level_thresholds` is explicitly provided.
-- `nodes`: project-specific capability nodes or chapter task nodes with `id`, `name`, `state`, `earned_points`, `total_points`, and `chapters`. For a chapter task tree, keep one visible node per chapter.
-- `exercises`: each scored exercise with `id`, `chapter`, `node_id`, `points`, and `earned_points`.
-- `chapter_map`, `positive_feedback`, and `next_step`.
-
-Allowed node states are `locked`, `active`, and `unlocked`. Progress updates must change `earned_points` only when the learner earns explicit exercise points.
-
-Default level rule: there are 5 levels. Split the package's `total_xp` into 5 thresholds: Lv.1 at 0%, Lv.2 at 25%, Lv.3 at 50%, Lv.4 at 75%, and Lv.5 at 100%. The exercise point total must equal `total_xp`, so completing every scored exercise fills the XP bar and reaches Lv.5.
+Allowed node states are `locked`, `active`, and `unlocked`. Default level rule: 5 levels at 0%, 25%, 50%, 75%, and 100% of `total_xp`; exercise point totals must equal `total_xp`.
 
 Render with:
 
 ```powershell
 python scripts/render_skill_tree.py learning-progress.json skill-tree.html
-```
-
-Use the default skin unless the project type is obvious or the user asks for a style. Available skins are `engineering`, `course`, and `paper`; see `references/skill-tree-skins.md`.
-
-```powershell
 python scripts/render_skill_tree.py learning-progress.json skill-tree.html --skin engineering
 ```
 
+## Critique And Feedback
+
+When checking completed answers:
+
+- Mark each answer as correct, partially correct, or incorrect.
+- Distinguish wording weakness from concept errors.
+- Keep critique actionable and close to the learner's answer.
+- Markdown critique comments begin with `批注：`.
+- DOCX critique comments are red paragraphs beginning with `批注：`.
+
+After critique, include a compact positive-feedback block:
+
+- `本章获得`
+- `技能树进度`
+- `下一步最小任务`
+
+The feedback must come from the current project and explicit exercise evidence, not from a universal capability tree.
+
 ## DOCX Conversion
 
-Use `scripts/md_to_docx.py` for basic DOCX conversion when `python-docx` is available. The script preserves headings, tables, code blocks, answer lines, and converts Markdown critique comments into red DOCX paragraphs.
-
-If the script cannot run, still produce clean Markdown and explain that DOCX conversion requires `python-docx`.
+Use `scripts/md_to_docx.py` when `python-docx` is available. If conversion fails, keep clean Markdown and explain that DOCX conversion requires `python-docx`.

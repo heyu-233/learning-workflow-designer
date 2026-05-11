@@ -12,9 +12,7 @@ Use this layer after learning content or answer critique. Do not predefine a fix
 4. Organize them from foundation to module-level to integration/debugging, or from chapter 1 to the final chapter for a chapter task tree.
 5. Reuse the same tree throughout the document set so progress can be compared chapter by chapter.
 
-### Example Shapes
-
-Project-specific trees may look like:
+## Example Shapes
 
 - FreeRTOS: task scheduling, synchronization, queues, interrupts, memory, peripherals, debugging.
 - Web/IoT: routing, API calls, media playback, backend services, device control, streaming, troubleshooting.
@@ -22,16 +20,15 @@ Project-specific trees may look like:
 
 ## Update Rules
 
-For each chapter or feedback pass:
-
-- Mark nodes as `未解锁`, `进行中`, or `已解锁`.
+- Mark nodes as `未解锁`, `进行中`, or `已解锁` in user-facing text; keep JSON states as `locked`, `active`, or `unlocked`.
 - If the learner shows clear understanding of a prerequisite, move that node forward.
 - If the learner confuses two linked concepts, keep both visible in the tree and mark the weak node.
 - Do not invent a node that is not supported by the current material.
+- Award XP only for explicit exercise points and submitted evidence.
 
 ## Positive Feedback Block
 
-After critique, always output a compact block with:
+After critique, output a compact block with:
 
 1. `本章获得`
 2. `技能树进度`
@@ -39,15 +36,13 @@ After critique, always output a compact block with:
 
 Optional extras:
 
-- `能力条`
+- `能力树`
 - `进步证据`
 - `待复习点`
 
 Keep it short. The goal is visible progress, not a second essay.
 
 ## Markdown Format
-
-Use a compact section like:
 
 ```md
 ## 本章正反馈
@@ -66,5 +61,5 @@ Use a compact section like:
 
 - Use the same sections as Markdown.
 - Keep the tree textual or table-based.
-- If critique is included, keep the critique in red text paragraphs.
+- If critique is included, keep critique in red text paragraphs.
 - Do not use graphical radar charts in the first version.

@@ -40,7 +40,7 @@
     .header {
       margin-bottom: 18px;
       display: grid;
-      grid-template-columns: 1fr minmax(280px, 360px);
+      grid-template-columns: 1fr minmax(280px, 380px);
       gap: 18px;
       align-items: center;
     }
@@ -48,6 +48,7 @@
     .header p { margin: 0; color: var(--muted); }
     .hud { display: grid; gap: 8px; }
     .hud-row { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 14px; }
+    .level-title { color: var(--text); font-weight: 800; }
     .stars { color: var(--doing); letter-spacing: 1px; }
     .xp-bar, .meter { overflow: hidden; border-radius: 999px; background: rgba(148, 163, 184, .22); }
     .xp-bar { height: 12px; }
@@ -101,7 +102,10 @@
         <p>$subtitle</p>
       </div>
       <div class="hud" aria-label="学习进度">
-        <div class="hud-row"><strong>Lv. $level / $total_levels</strong><span class="stars">$stars</span></div>
+        <div class="hud-row">
+          <strong>Lv. $level / $total_levels <span class="level-title">$level_title</span></strong>
+          <span class="stars">$stars</span>
+        </div>
         <div class="xp-bar"><span style="width:$xp_percent%"></span></div>
         <div class="hud-row"><span>$mode / $density</span><span>$earned_xp / $total_xp XP</span></div>
         <div class="hud-row"><span>$level_rule</span></div>
