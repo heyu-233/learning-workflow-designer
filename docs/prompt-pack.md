@@ -2,6 +2,8 @@
 
 Use these prompts when you want the Learning Workflow Designer format outside Codex. The prompts are intentionally platform-neutral and can be pasted into ChatGPT, Claude, a local model, or another assistant.
 
+For Claude Code, prefer the installable adapter in `adapters/claude-code/`. Use this prompt pack when you are in a chat-only environment without local file access.
+
 ## Full Learning Package
 
 ```text

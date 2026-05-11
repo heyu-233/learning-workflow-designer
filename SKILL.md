@@ -18,7 +18,7 @@ description: >
 
 Turn raw materials into reusable project-driven learning packages: staged lessons, guided exercises, answer keys, review packs, exams, feedback, and progress tracking.
 
-This is a Codex-first skill, not a general workflow engine. Keep the core learning-package format platform-neutral so the same package can later be used in ChatGPT, Claude, Obsidian, VS Code, a CLI, or plain Markdown.
+This is a Codex-first skill, not a general workflow engine. Keep the core learning-package format platform-neutral so the same package can be used in Claude Code, ChatGPT, Claude, Obsidian, VS Code, a CLI, or plain Markdown.
 
 ## Defaults
 

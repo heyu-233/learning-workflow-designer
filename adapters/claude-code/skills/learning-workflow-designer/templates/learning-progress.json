@@ -1,0 +1,32 @@
+{
+  "project_name": "项目名称",
+  "source_summary": "材料来源摘要。",
+  "mode": "learning",
+  "density": "lightweight",
+  "material_readiness": {
+    "score": 0,
+    "goal_clarity": 0,
+    "source_accessibility": 0,
+    "environment_clarity": 0,
+    "acceptance_criteria": 0,
+    "learner_constraints": 0,
+    "confirmed": [],
+    "missing": [],
+    "provisional": true
+  },
+  "total_levels": 5,
+  "level": 1,
+  "level_title_set": "classic",
+  "stars": 0,
+  "earned_xp": 0,
+  "total_xp": 100,
+  "nodes": [],
+  "exercises": [],
+  "chapter_map": [],
+  "positive_feedback": {
+    "chapter_gain": "尚未开始答题。",
+    "skill_tree_progress": "学习节点等待解锁。",
+    "next_step": "完成一个带分值的练习题，并提交可观察证据。"
+  },
+  "next_step": "补齐材料审计中的待补充项，或完成一个带分值的练习题。"
+}

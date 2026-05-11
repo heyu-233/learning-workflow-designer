@@ -123,7 +123,10 @@ Rules:
 | Target | How to use |
 |---|---|
 | Codex | Install as a skill and generate files directly. |
+| Claude Code | Install `adapters/claude-code/skills/learning-workflow-designer` as a Claude Code skill. |
 | ChatGPT or Claude | Use `docs/prompt-pack.md` and paste source materials. |
 | Obsidian | Store Markdown files as notes; link chapters, exercises, and progress. |
 | VS Code | Edit Markdown/JSON directly and preview `skill-tree.html`. |
 | CLI | Future target: run intake, scaffold package files, validate package quality, render skill tree. |
+
+For platform setup details, see `docs/platform-adapters.md`.
