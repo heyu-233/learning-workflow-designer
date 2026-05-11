@@ -40,15 +40,16 @@ Unless the user specifies otherwise:
 5. For each chapter, write one main-line sentence, lesson content, and exercises.
 6. Keep exercises varied. Lightweight mode uses at most 3 exercises per chapter; detailed mode uses exactly 5.
 7. Keep answers separate from exercises.
-8. For project-lab mode, first extract the final project acceptance target, then design exercises backward from project milestones.
-9. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
-10. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
-11. Render `skill-tree.html` from `learning-progress.json` when producing or updating a learning package.
-12. Award progress only from explicit exercise points. Do not infer XP from vague confidence.
-13. When grading completed answers, output critique, positive feedback, and the next smallest task; update progress JSON and regenerate HTML when XP or node states change.
-14. Run the quality checks in `references/quality-checks.md` before finishing.
-15. Run `python scripts/validate_text_encoding.py <output-dir>` after generating Chinese Markdown/JSON/HTML.
-16. Keep the final chat response short: summarize generated files and what changed.
+8. Every exercise, practice set, exam, and project-lab task must include visible learner answer space in the question document.
+9. For project-lab mode, first extract the final project acceptance target, then design exercises backward from project milestones.
+10. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
+11. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
+12. Render `skill-tree.html` from `learning-progress.json` when producing or updating a learning package.
+13. Award progress only from explicit exercise points. Do not infer XP from vague confidence.
+14. When grading completed answers, output critique, positive feedback, and the next smallest task; update progress JSON and regenerate HTML when XP or node states change.
+15. Run the quality checks in `references/quality-checks.md` before finishing.
+16. Run `python scripts/validate_text_encoding.py <output-dir>` after generating Chinese Markdown/JSON/HTML.
+17. Keep the final chat response short: summarize generated files and what changed.
 
 ## Reference Loading
 
@@ -74,6 +75,8 @@ Read only the references needed for the request:
 - Practice mode: write `practice.md` plus `practice-answers.md`; keep explanations brief before the learner answers.
 - Exam mode: write `exam.md`, `rubric.md`, and `exam-answers.md`; preserve assessment integrity.
 - DOCX: create Markdown first, then use `scripts/md_to_docx.py` when requested.
+
+Question documents must leave answer space directly after each prompt. Use blank lines, answer tables, or structured record blocks depending on the task type.
 
 ## Progress State
 

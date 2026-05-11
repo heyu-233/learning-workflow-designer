@@ -54,6 +54,7 @@ For project-lab mode, produce:
    - Pass criteria.
    - If it fails: shortest diagnostic path.
    - Submit evidence.
+   - Learner answer space.
    - XP.
 5. Stage acceptance groups.
 6. Final demo script.
@@ -130,6 +131,33 @@ Award XP only for submitted evidence:
 - Written conclusion tied to an observed result.
 
 Do not award XP for "I read it" unless the learner provides a trace note or source-reading artifact.
+
+## Learner Answer Space
+
+Every project-lab task must include a fillable record block. Use this shape unless a more specific task format is better:
+
+```md
+填写区：
+
+- 修改文件：
+- 实现说明：
+- 阅读/跟踪记录：
+- 运行命令：
+- 观察现象：
+- 失败排查：
+- 提交证据：
+- 我的问题：
+```
+
+For protocol, driver, boot, or RTOS tasks, prefer structured tables where useful:
+
+| 项目 | 我的记录 |
+|---|---|
+| 修改的函数/文件 |  |
+| 关键参数/地址/命令 |  |
+| 运行现象 |  |
+| 日志或截图路径 |  |
+| 结论 |  |
 
 ## Reference Answers
 

@@ -24,6 +24,20 @@ For Chinese output, avoid writing content through PowerShell/CMD inline scripts.
 python scripts/validate_text_encoding.py tutorial
 ```
 
+## Answer Space
+
+Every learner-facing question document must leave answer space.
+
+Use one of these forms directly after each prompt:
+
+- Conceptual question: `答：` followed by 3 to 6 blank lines or Markdown horizontal answer lines.
+- Multi-part question: a small table with columns such as `小问`, `我的答案`, `证据/原因`.
+- Engineering task: a structured record block with fields such as `命令`, `现象`, `日志`, `结论`, `证据路径`.
+- Project-lab task: a build record block with fields such as `修改文件`, `实现说明`, `运行结果`, `失败排查`, `提交证据`.
+- Exam paper: leave enough blank lines for the expected answer length.
+
+Do not make `exercises.md`, `practice.md`, or `exam.md` read like an answer key or project README. The learner should be able to write directly into the file.
+
 For critique:
 
 ```md
@@ -35,7 +49,7 @@ Use:
 - Headings for chapters.
 - Tables for comparisons and port/API lists.
 - Fenced code blocks for code and chains.
-- Blank answer lines for learner responses.
+- Blank answer lines or structured answer blocks for learner responses.
 
 ## DOCX
 

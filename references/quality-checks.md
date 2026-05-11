@@ -20,6 +20,7 @@ Run these checks before finalizing generated learning materials or critique.
 - In lightweight mode, favor compact composite exercises when they cover a broader concept chain without inflating chapter count.
 - If a chapter uses three exercises, they should feel structurally different.
 - If a chapter uses one composite exercise, its sub-questions should progress from recognition to explanation to boundary checking.
+- Every learner-facing exercise, practice item, exam question, and project-lab task must include answer space immediately after the prompt.
 
 ## Engineering Practice Quality
 
@@ -36,6 +37,7 @@ Run these checks before finalizing generated learning materials or critique.
 - Chapters are organized as project milestones, not only topic lessons.
 - Each main exercise states why it matters for the final project.
 - Each main exercise includes read/trace, implement/change, run/observe, pass criteria, failure diagnosis, submitted evidence, and XP.
+- Each main exercise includes a fillable learner record block or answer table.
 - Pure concept questions are optional unless they unlock an implementation step.
 - Every milestone creates or verifies a concrete artifact.
 
@@ -43,6 +45,7 @@ Run these checks before finalizing generated learning materials or critique.
 
 - Keep learning content, exercises, and reference answers separate unless the user asks for a combined teacher edition.
 - Exercise documents should not reveal answers.
+- Exercise documents should include visible answer space; answer-only prompts are incomplete.
 - Reference answers should identify the question clearly.
 - When the source material supports it, include at least one exercise that asks the learner to order, then explain.
 
