@@ -8,6 +8,9 @@ Run these checks before finalizing generated learning materials or critique.
 - Concepts appear after their prerequisites.
 - No chapter jumps from global architecture to low-level details without a bridge.
 - Later exercises may refer to earlier chapters, but not to unexplained future concepts.
+- Knowledge dependency must be one-way: later chapters may reuse earlier concepts, code, tools, logs, and project artifacts.
+- Earlier chapters must not require the learner to use concepts, APIs, files, protocol fields, debugging methods, or project artifacts introduced only in later chapters.
+- Brief previews of future topics are allowed, but they must not be required to answer exercises or complete hands-on tasks.
 
 ## Exercise Quality
 
@@ -37,6 +40,7 @@ Run these checks before finalizing generated learning materials or critique.
 - The package keeps the default 10-chapter structure unless the user explicitly asks for another chapter count.
 - Project milestones are mapped across chapters; they do not silently replace chapters.
 - Chapters combine topic learning with milestone progress instead of being only topic lessons.
+- Project-lab tasks may build on artifacts from previous chapters, but must not depend on artifacts or implementation details introduced only in later chapters.
 - Each main exercise states why it matters for the final project.
 - Each main exercise includes read/trace, implement/change, run/observe, pass criteria, failure diagnosis, submitted evidence, and XP.
 - Each main exercise includes a fillable learner record block or answer table.
