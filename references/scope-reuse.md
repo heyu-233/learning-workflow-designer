@@ -17,6 +17,7 @@ Classify the request:
 | Fix wording, make exercises more readable, add answer space | Existing chapters, source intake, progress JSON | Only touched question document sections |
 | Redo exercises for the same package | Chapter map, learning content, material audit, project goal | `exercises.md`; maybe a lightweight answer/checklist file |
 | Redo learning content but keep project | Source intake, project goal, progress style | `learning-content.md`; adjust exercises only if dependencies changed |
+| Add missing environment, source code, logs, screenshots, commands, board info, or acceptance details | Existing package, chapter map, progress structure | Material audit plus only affected chapters/exercises/checklists |
 | Critique answers | Existing exercises, progress JSON | Feedback and changed XP fields only |
 | Update progress | Existing package | `learning-progress.json` and `skill-tree.html` only |
 | New source material, new project, new chapter count, or new mode | Nothing unless still relevant | Full package |
@@ -32,6 +33,28 @@ When a package directory exists:
 3. Preserve exercise IDs and point totals when possible, so progress does not become stale.
 4. Do not rerun source intake unless materials changed or the existing audit is missing.
 5. Do not rewrite unrelated files.
+
+## Supplemental Material Merge
+
+Treat later user-provided facts as supplements, not as a reason to restart.
+
+Examples of supplements:
+
+- The board model, OS version, toolchain, IP, serial port, or build commands arrived after the first package.
+- The source repository or important files became available later.
+- The user added run logs, screenshots, error output, teacher rubric, or final demo requirements.
+- Previously unknown items marked `待确认` are now known.
+
+When supplements arrive:
+
+1. Read the existing package first.
+2. Identify which `待确认` items or assumptions the new material resolves.
+3. Update `material_readiness`, `source_summary`, and the material audit section if present.
+4. Patch only affected chapters, exercises, acceptance criteria, and reference checklists.
+5. Preserve chapter count, chapter order, exercise IDs, point totals, and learner progress unless the new material proves they are wrong.
+6. Add a short "本次补充了什么" note in the final response.
+
+Do not full-regenerate unless the supplement changes the final project goal, target platform, mode, or chapter count.
 
 ## Reference Answer Cost Control
 

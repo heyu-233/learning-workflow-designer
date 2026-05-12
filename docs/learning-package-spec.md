@@ -54,6 +54,8 @@ For an existing package, use scope-first and reuse-first behavior:
 
 - Read existing package files before raw source materials.
 - Reuse source audit, chapter map, project goal, exercise IDs, point totals, and level title set when still valid.
+- Treat later environment details, source code, logs, screenshots, commands, board info, or rubrics as supplemental material to merge into the existing package.
+- Update resolved `待确认` items and only affected chapters, exercises, acceptance criteria, and checklists.
 - Rewrite only the files or chapters requested by the user.
 - Regenerate `skill-tree.html` only when progress JSON or point mappings changed.
 - Validate only changed Chinese Markdown/JSON/HTML files when the edit scope is narrow.

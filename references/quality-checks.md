@@ -6,6 +6,8 @@ Run these checks before finalizing generated learning materials or critique.
 
 - Decide the changed files before checking quality.
 - For an existing package, reuse existing source intake, chapter map, progress JSON, and skill tree unless the request changes them.
+- Treat later environment details, source code, logs, screenshots, commands, board info, or rubric as supplements to merge into the existing package.
+- When supplements arrive, update resolved `待确认` items and affected chapters/tasks instead of regenerating the whole package.
 - Do not run full package checks after a narrow wording, answer-space, critique, or progress-only edit.
 - Do not rerender `skill-tree.html` unless progress state or point mappings changed.
 - Validate encoding for changed Chinese Markdown/JSON/HTML files; full-directory scans are for full package generation.

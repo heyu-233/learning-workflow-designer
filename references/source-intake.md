@@ -2,6 +2,8 @@
 
 Use source intake before generating a full learning package, especially when the user provides a broad project goal, screenshots, scattered notes, or a low-detail assignment.
 
+If source intake was already done and the user later provides missing material, update the existing audit instead of treating the request as a fresh package.
+
 ## Purpose
 
 Prevent vague or low-quality inputs from producing generic learning packages. Prefer a truthful partial package over a confident but imaginary one.
@@ -51,6 +53,24 @@ Ask for at most the smallest useful set of missing items. Prefer concrete reques
 - expected final demo
 - teacher rubric or screenshot text
 - existing logs or failure output
+
+## Later Supplements
+
+When the user later provides something that was missing:
+
+1. Match it to the old `待补充` list.
+2. Move resolved items into `已确认`.
+3. Recalculate only the affected readiness dimensions.
+4. Update affected tasks so they use the real commands, files, board details, logs, or acceptance criteria.
+5. Remove or narrow `待确认` markers that are now resolved.
+6. Keep the package structure and progress state unless the supplement changes the project target.
+
+Examples:
+
+- New board IP and serial port should update environment-check tasks, not every chapter.
+- New source code path should update reading paths and implementation tasks that point to `待确认`.
+- New build log should update failure diagnosis and pass criteria.
+- New teacher rubric should update acceptance criteria and scoring, but preserve exercise IDs when possible.
 
 ## Provisional Package Rules
 
