@@ -28,6 +28,7 @@ Unless the user specifies otherwise:
 - Use project-lab mode instead when the user names a final project and wants exercises to guide project completion step by step.
 - Write files to disk. If no destination is given, create `tutorial/`.
 - Produce Markdown first: `learning-content.md`, `exercises.md`, `reference-answers.md`, `learning-progress.json`, and `skill-tree.html`.
+- Use scope-first and reuse-first behavior for existing packages. Do not full-regenerate unless source materials, project goal, mode, chapter count, or acceptance target changed.
 - Run source intake before full generation unless the user only asks for a quick brainstorm or a narrow edit.
 - Write learner-facing content in plain teacher language. Every task must say what to do, how to do it, why it matters when needed, what counts as done, and where to write the answer.
 - Follow the user's language or the source language.
@@ -38,26 +39,29 @@ Unless the user specifies otherwise:
 
 ## Workflow
 
-1. Inspect source materials before generating content. Prefer real files, code, schemas, diagrams, configs, logs, and commands over assumptions.
-2. Run source intake. Score material readiness, list missing inputs, and decide whether to generate a full package or a provisional package with clear `待确认` markers.
-3. If critical material is missing, output a missing-information checklist first. Continue only with a provisional package when it is still useful and clearly marked as provisional.
-4. Build a project-specific map: modules, concepts, data/control flow, dependencies, prerequisites, and likely failure points.
-5. Choose the requested mode and density; default to learning + lightweight.
-6. Split into chapters. Default to 10 chapters. Do not reduce the chapter count just because project-lab mode uses fewer project milestones.
-7. For each chapter, write one main-line sentence, lesson content, and exercises.
-8. Before writing learner-facing tasks, apply the plain-language rules. Do not use abstract labels like "建立环境基线"; write what the learner should actually do, such as "确认板子能联网、能登录、能运行基本命令".
-9. Keep exercises varied. Lightweight mode uses at most 3 exercises per chapter; detailed mode uses exactly 5.
-10. Keep answers separate from exercises.
-11. Every exercise, practice set, exam, and project-lab task must include visible learner answer space in the question document.
-12. For project-lab mode, first extract the final project acceptance target, then design exercises backward from project milestones. Milestones are a project thread, not a replacement for the default 10 chapters.
-13. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
-14. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
-15. Render `skill-tree.html` from `learning-progress.json` when producing or updating a learning package.
-16. Award progress only from explicit exercise points. Do not infer XP from vague confidence.
-17. When grading completed answers, output critique, positive feedback, and the next smallest task; update progress JSON and regenerate HTML when XP or node states change.
-18. Run the quality checks in `references/quality-checks.md` before finishing.
-19. Run `python scripts/validate_text_encoding.py <output-dir>` after generating Chinese Markdown/JSON/HTML.
-20. Keep the final chat response short: summarize generated files and what changed.
+1. Decide scope first. If a package already exists, inspect existing package files before raw source materials.
+2. Reuse existing chapter map, source summary, material readiness, exercise IDs, point totals, and level title set unless the user changed the source materials, project goal, mode, chapter count, or acceptance target.
+3. Inspect raw source materials only when creating a new package, filling missing facts, or changing the project/source assumptions.
+4. Run source intake for full generation or changed source materials. Do not rerun it for wording fixes, answer-space fixes, exercise rewrites within the same chapter map, critique, or progress-only updates.
+5. If critical material is missing, output a missing-information checklist first. Continue only with a provisional package when it is still useful and clearly marked as provisional.
+6. Build or reuse a project-specific map: modules, concepts, data/control flow, dependencies, prerequisites, and likely failure points.
+7. Choose the requested mode and density; default to learning + lightweight.
+8. Split into chapters. Default to 10 chapters. Do not reduce the chapter count just because project-lab mode uses fewer project milestones.
+9. For each changed chapter, write one main-line sentence, lesson content, and exercises. Do not rewrite unchanged chapters.
+10. Before writing learner-facing tasks, apply the plain-language rules. Do not use abstract labels like "建立环境基线"; write what the learner should actually do, such as "确认板子能联网、能登录、能运行基本命令".
+11. Keep exercises varied. Lightweight mode uses at most 3 exercises per chapter; detailed mode uses exactly 5.
+12. Keep answers separate from exercises.
+13. Every exercise, practice set, exam, and project-lab task must include visible learner answer space in the question document.
+14. For project-lab mode, first extract or reuse the final project acceptance target, then design exercises backward from project milestones. Milestones are a project thread, not a replacement for the default 10 chapters.
+15. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
+16. For project-lab or hands-on lab tasks, do not generate full worked reference answers by default. Provide lightweight mentor checklists with pass criteria, expected evidence, common failures, and diagnostic order unless the user asks for a teacher edition or solution key.
+17. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
+18. Render `skill-tree.html` only when `learning-progress.json`, XP, node states, level titles, or exercise point mappings changed.
+19. Award progress only from explicit exercise points. Do not infer XP from vague confidence.
+20. When grading completed answers, output critique, positive feedback, and the next smallest task; update progress JSON and regenerate HTML only when XP or node states change.
+21. Run only the quality checks relevant to changed files unless producing a full package or changing structure.
+22. Run `python scripts/validate_text_encoding.py <changed-file-or-output-dir>` after generating Chinese Markdown/JSON/HTML; prefer changed files when the scope is narrow.
+23. Keep the final chat response short: summarize generated files and what changed.
 
 ## Reference Loading
 
@@ -65,6 +69,7 @@ Read only the references needed for the request:
 
 - `references/modes.md`: learning, review, practice, exam modes and density rules.
 - `references/plain-language.md`: mandatory human-readable wording rules for every exercise, exam question, project-lab task, and critique.
+- `references/scope-reuse.md`: scope-first and reuse-first rules for faster regeneration of existing packages.
 - `references/source-intake.md`: material audit, readiness scoring, missing-information handling, and provisional package rules.
 - `references/project-lab.md`: project-lab mode for capstone-driven, step-by-step project completion through exercises.
 - `references/question-types.md`: exercise shapes and reusable templates.
@@ -79,8 +84,8 @@ Read only the references needed for the request:
 
 ## Output Modes
 
-- Learning mode: write `learning-content.md`, `exercises.md`, `reference-answers.md`, `learning-progress.json`, and `skill-tree.html`.
-- Project-lab mode: write a project-oriented package where `exercises.md` is a milestone build guide, not a quiz sheet.
+- Learning mode: write `learning-content.md`, `exercises.md`, `reference-answers.md`, `learning-progress.json`, and `skill-tree.html`; on existing packages, rewrite only files or chapters in scope.
+- Project-lab mode: write a project-oriented package where `exercises.md` is a milestone build guide, not a quiz sheet. Use lightweight reference checklists for hands-on tasks unless the user asks for full answers.
 - Review mode: write `review-pack.md` with outline, weak-point checklist, and reinforcement exercises.
 - Practice mode: write `practice.md` plus `practice-answers.md`; keep explanations brief before the learner answers.
 - Exam mode: write `exam.md`, `rubric.md`, and `exam-answers.md`; preserve assessment integrity.

@@ -2,6 +2,14 @@
 
 Run these checks before finalizing generated learning materials or critique.
 
+## Scope
+
+- Decide the changed files before checking quality.
+- For an existing package, reuse existing source intake, chapter map, progress JSON, and skill tree unless the request changes them.
+- Do not run full package checks after a narrow wording, answer-space, critique, or progress-only edit.
+- Do not rerender `skill-tree.html` unless progress state or point mappings changed.
+- Validate encoding for changed Chinese Markdown/JSON/HTML files; full-directory scans are for full package generation.
+
 ## Source Intake
 
 - A learning package should be preceded by source intake unless the user asks only for a quick brainstorm, a narrow edit, or critique of an already generated package.
@@ -58,6 +66,7 @@ Run these checks before finalizing generated learning materials or critique.
 - Each main exercise includes a fillable learner record block or answer table.
 - Pure concept questions are optional unless they unlock an implementation step.
 - Every milestone creates or verifies a concrete artifact.
+- Full worked reference answers are optional for hands-on project-lab tasks; lightweight mentor checklists are acceptable and often preferred.
 
 ## Answer Separation
 
@@ -65,6 +74,8 @@ Run these checks before finalizing generated learning materials or critique.
 - Exercise documents should not reveal answers.
 - Exercise documents should include visible answer space; answer-only prompts are incomplete.
 - Reference answers should identify the question clearly.
+- For project-lab and hands-on lab tasks, reference answers may be lightweight checklists instead of full worked answers.
+- Do not generate full implementation solutions for labs unless the user asks for a teacher edition or solution key.
 - When the source material supports it, include at least one exercise that asks the learner to order, then explain.
 
 ## Critique

@@ -60,7 +60,7 @@ For project-lab mode, produce:
 
 1. `learning-content.md`: concepts and source-reading guide, written only as much as needed for the lab.
 2. `exercises.md`: milestone build guide with explicit implementation tasks.
-3. `reference-answers.md`: expected observations, acceptance criteria, and hints, not just conceptual answers.
+3. `reference-answers.md`: optional for hands-on tasks. Prefer lightweight mentor checklists with expected evidence, acceptance criteria, common failures, and diagnostic order. Do not write full worked solutions unless the user asks for a teacher edition.
 4. `learning-progress.json`: XP tied to project milestones and evidence.
 5. `skill-tree.html`: progress page.
 
@@ -201,7 +201,36 @@ For protocol, driver, boot, or RTOS tasks, prefer structured tables where useful
 
 ## Reference Answers
 
-Reference answers should act like a mentor's checklist:
+For project-lab and hands-on lab tasks, reference answers should act like a mentor's checklist, not a full solution manual.
+
+Default:
+
+- Omit full worked answers for implementation tasks.
+- Provide only pass criteria, minimum evidence, common failure points, and diagnostic order.
+- Keep conceptual answers only for concept questions that are scored separately.
+- Do not reveal final code, full protocol implementation, full driver implementation, or complete project solution unless the user asks for a teacher edition.
+
+Use this lightweight structure:
+
+```md
+### 任务 X：标题
+
+验收标准：
+- ...
+
+最低提交证据：
+- ...
+
+常见失败点：
+- ...
+
+建议排查顺序：
+1. ...
+2. ...
+3. ...
+```
+
+When full answers are requested, they should still act like a mentor's checklist:
 
 - Expected implementation shape.
 - Expected command/log/phenomenon.

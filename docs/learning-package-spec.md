@@ -19,7 +19,7 @@ The learner-facing wording must sound like a teacher wrote it for a student. A t
 |---|---|---|
 | `learning-content.md` | Yes | Chaptered learning path, source-reading guide, concepts, and summaries. |
 | `exercises.md` | Yes | Learner-facing exercises, labs, or project tasks with answer space. |
-| `reference-answers.md` | Yes | Mentor checklist, expected observations, answers, hints, and acceptance criteria. |
+| `reference-answers.md` | Yes for concept/practice/exam; optional lightweight checklist for labs | Mentor checklist, expected observations, answers, hints, and acceptance criteria. |
 | `learning-progress.json` | Yes | Machine-readable state for XP, levels, nodes, exercises, and next step. |
 | `skill-tree.html` | Optional but recommended | Static visual progress page rendered from `learning-progress.json`. |
 | `review-pack.md` | Mode-specific | Review-mode output for weak points and short reinforcement tasks. |
@@ -47,6 +47,16 @@ Every substantial package should begin from a material audit. Put this block in 
 ```
 
 If the score is below 5/10, generate a missing-information checklist before generating a full package. A provisional package is acceptable only when clearly marked and useful.
+
+## Regeneration Rules
+
+For an existing package, use scope-first and reuse-first behavior:
+
+- Read existing package files before raw source materials.
+- Reuse source audit, chapter map, project goal, exercise IDs, point totals, and level title set when still valid.
+- Rewrite only the files or chapters requested by the user.
+- Regenerate `skill-tree.html` only when progress JSON or point mappings changed.
+- Validate only changed Chinese Markdown/JSON/HTML files when the edit scope is narrow.
 
 ## Chapter Rules
 
@@ -86,6 +96,8 @@ Required shape:
 6. Chapter tasks with what to do, how to do it, why it matters, completion criteria, failure diagnosis, submitted evidence, answer space, and XP.
 7. Stage acceptance groups.
 8. Final demo script.
+
+For project-lab and hands-on lab tasks, `reference-answers.md` may omit full worked answers. Use a lightweight checklist with 验收标准, 最低提交证据, 常见失败点, and 建议排查顺序 unless the user asks for a teacher edition.
 
 ## Progress JSON
 

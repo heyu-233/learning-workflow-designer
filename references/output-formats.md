@@ -6,7 +6,7 @@ Markdown is the default because it is easy to inspect, edit, diff, and convert.
 
 Default behavior is to write files to disk. Do not emit the full package only in chat unless the user explicitly requests inline output.
 
-Recommended learning-package files:
+Recommended learning-package files for a new full package:
 
 - `tutorial/learning-content.md`
 - `tutorial/exercises.md`
@@ -18,12 +18,14 @@ These files are platform-neutral outputs. Codex is the first authoring environme
 
 If the user provides another output directory, use that directory instead of `tutorial/`.
 
+For existing packages, do not rewrite every file by default. Change only the files needed by the user's request.
+
 After file generation, respond with a compact file list and a short summary.
 
-For Chinese output, avoid writing content through PowerShell/CMD inline scripts. Generate files through `apply_patch`, checked-in scripts, or UTF-8 source files, then run:
+For Chinese output, avoid writing content through PowerShell/CMD inline scripts. Generate files through `apply_patch`, checked-in scripts, or UTF-8 source files. Prefer validating changed Chinese Markdown/JSON/HTML files instead of the whole package when the edit scope is narrow:
 
 ```powershell
-python scripts/validate_text_encoding.py tutorial
+python scripts/validate_text_encoding.py tutorial/exercises.md
 ```
 
 ## Answer Space
@@ -99,6 +101,8 @@ If conversion fails because `python-docx` is missing, keep the Markdown outputs 
 ## HTML Skill Tree
 
 Use a static `skill-tree.html` for the project-specific capability tree when producing or updating a learning package.
+
+Regenerate it only when `learning-progress.json`, XP, level titles, node states, exercise IDs, exercise points, or chapter-node mappings changed. Do not rerender it for wording-only edits to learning content or exercises.
 
 Requirements:
 

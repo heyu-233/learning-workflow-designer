@@ -21,6 +21,7 @@ Unless the user specifies otherwise:
 - Write files to `tutorial/` unless the user gives another directory.
 - Produce Markdown first: `learning-content.md`, `exercises.md`, `reference-answers.md`, and `learning-progress.json`.
 - Generate `skill-tree.html` when the repository has a rendering script or when a static HTML progress view can be produced safely.
+- Use scope-first and reuse-first behavior for existing packages. Do not full-regenerate unless source materials, project goal, mode, chapter count, or acceptance target changed.
 - Run source intake before full generation.
 - Write learner-facing content in plain teacher language. Every task must say what to do, how to do it, why it matters when useful, what counts as done, and where to write the answer.
 - Keep answers separate from learner-facing exercises.
@@ -29,17 +30,21 @@ Unless the user specifies otherwise:
 
 ## Workflow
 
-1. Inspect available files and materials before generating content.
-2. Run source intake and score readiness from 0 to 10.
-3. If readiness is below 5/10, output a missing-information checklist before generating a full package.
-4. If still generating with incomplete information, mark the package as provisional.
-5. Build a project-specific concept and artifact map.
-6. Split into 10 chapters unless the user explicitly changes the count.
-7. For project-lab mode, extract the final acceptance target first, then map 4 to 8 project milestones across the 10 chapters.
-8. Write exercises that sound like a teacher wrote them for a student. Avoid abstract task names like "建立环境基线"; write concrete actions like "确认板子能联网、能登录、能运行基本命令".
-9. Include what to do, how to do it, why it matters when useful, completion criteria, failure diagnosis, submitted evidence, XP, and answer space.
-10. Create or update `learning-progress.json`; XP must come only from explicit exercise points and submitted evidence.
-11. Run quality checks before finishing.
+1. Decide scope first. If a package exists, inspect existing package files before raw source materials.
+2. Reuse source intake, chapter map, exercise IDs, point totals, progress JSON, and level title set unless the source materials, project goal, mode, chapter count, or acceptance target changed.
+3. Inspect raw source materials only for new packages, changed materials, or missing facts.
+4. Run source intake for full generation or changed source materials; skip it for wording fixes, answer-space fixes, exercise rewrites within the same chapter map, critique, or progress-only updates.
+5. If readiness is below 5/10, output a missing-information checklist before generating a full package.
+6. If still generating with incomplete information, mark the package as provisional.
+7. Build or reuse a project-specific concept and artifact map.
+8. Split into 10 chapters unless the user explicitly changes the count.
+9. For project-lab mode, extract or reuse the final acceptance target, then map 4 to 8 project milestones across the 10 chapters.
+10. Write exercises that sound like a teacher wrote them for a student. Avoid abstract task names like "建立环境基线"; write concrete actions like "确认板子能联网、能登录、能运行基本命令".
+11. Include what to do, how to do it, why it matters when useful, completion criteria, failure diagnosis, submitted evidence, XP, and answer space.
+12. For project-lab or hands-on lab tasks, do not generate full worked answers by default. Use lightweight mentor checklists unless the user asks for a teacher edition.
+13. Create or update `learning-progress.json`; XP must come only from explicit exercise points and submitted evidence.
+14. Regenerate `skill-tree.html` only when progress JSON, XP, node states, level titles, or point mappings changed.
+15. Run only quality checks relevant to changed files unless producing a full package.
 
 ## Source Intake
 
@@ -94,6 +99,7 @@ tutorial/
 - Expected commands, logs, observations, or evidence.
 - Common mistakes and diagnostic order.
 - Minimum acceptable evidence.
+- For project-lab and hands-on lab tasks, use lightweight checklists by default and avoid full worked solutions unless requested.
 
 `learning-progress.json`:
 
