@@ -18,6 +18,20 @@ Project-lab mode is not a quiz sheet and not a generic learning outline. The exe
 
 Before designing the build path, run source intake. If the final demo, source files, toolchain, board, simulator, build commands, or acceptance criteria are missing, put those gaps in the package and make the first tasks collect or verify them.
 
+The build path must be written for a learner. Do not write task titles as abstract engineering labels. Say what the learner will actually do.
+
+Bad:
+
+- 建立板端环境基线
+- 打通用户态到驱动态链路
+- 完成 SPI 子系统能力闭环
+
+Good:
+
+- 确认板子能联网、能登录、能运行基本命令
+- 从用户程序调用 `open/read/write` 开始，找到驱动里被调用的函数
+- 写一个最小 SPI 读写测试，并记录读写结果
+
 ## Chapters Vs Milestones
 
 Do not confuse chapters with project milestones.
@@ -58,12 +72,13 @@ For project-lab mode, produce:
 2. Required hardware/software/source assumptions and "待确认" items.
 3. A 10-chapter map plus a milestone map from empty project to final demo.
 4. Chapter tasks. Each task should include:
-   - Goal.
-   - Why this matters for the final project.
-   - Read/trace first: concrete source files, functions, docs, logs, or commands.
-   - Implement/change: concrete file, function, module, protocol frame, test, or config to create.
-   - Run/observe: command, debug action, serial output, log, device behavior, or screenshot to collect.
-   - Pass criteria.
+   - What to do: one plain sentence.
+   - How to do it: concrete steps the learner can follow.
+   - Why it matters for the final project when the reason is not obvious.
+   - First read/check: concrete source files, functions, docs, logs, or commands.
+   - Then implement/change: concrete file, function, module, protocol frame, test, or config to create.
+   - Then run/observe: command, debug action, serial output, log, device behavior, or screenshot to collect.
+   - What counts as done.
    - If it fails: shortest diagnostic path.
    - Submit evidence.
    - Learner answer space.
@@ -103,6 +118,8 @@ Good project-lab exercise verbs:
 - compare
 - diagnose
 - submit evidence
+
+Use these verbs in full sentences. For example, write "运行 `uname -a`，把输出复制到答题区，并用一句话说明它证明了什么" instead of "验证内核版本".
 
 Avoid making the main exercises mostly:
 
@@ -149,16 +166,27 @@ Do not award XP for "I read it" unless the learner provides a trace note or sour
 Every project-lab task must include a fillable record block. Use this shape unless a more specific task format is better:
 
 ```md
+这一步要做什么：
+
+怎么做：
+1. 先看/先查：
+2. 再修改/新建：
+3. 然后运行/观察：
+
+为什么这样做：
+
+做到什么算完成：
+
+如果失败，先查：
+
 填写区：
 
-- 修改文件：
-- 实现说明：
-- 阅读/跟踪记录：
-- 运行命令：
-- 观察现象：
-- 失败排查：
-- 提交证据：
-- 我的问题：
+- 我看了哪些文件/命令：
+- 我改了什么：
+- 我运行了什么：
+- 我看到了什么现象：
+- 我判断是否完成的依据：
+- 我还不明白的问题：
 ```
 
 For protocol, driver, boot, or RTOS tasks, prefer structured tables where useful:

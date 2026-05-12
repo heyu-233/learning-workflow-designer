@@ -29,6 +29,7 @@ Unless the user specifies otherwise:
 - Write files to disk. If no destination is given, create `tutorial/`.
 - Produce Markdown first: `learning-content.md`, `exercises.md`, `reference-answers.md`, `learning-progress.json`, and `skill-tree.html`.
 - Run source intake before full generation unless the user only asks for a quick brainstorm or a narrow edit.
+- Write learner-facing content in plain teacher language. Every task must say what to do, how to do it, why it matters when needed, what counts as done, and where to write the answer.
 - Follow the user's language or the source language.
 - For broad codebases or large source sets, generate a 10-chapter map and first-chapter sample before the full package.
 - Do not print the full package in chat unless the user explicitly asks for inline output.
@@ -44,24 +45,26 @@ Unless the user specifies otherwise:
 5. Choose the requested mode and density; default to learning + lightweight.
 6. Split into chapters. Default to 10 chapters. Do not reduce the chapter count just because project-lab mode uses fewer project milestones.
 7. For each chapter, write one main-line sentence, lesson content, and exercises.
-8. Keep exercises varied. Lightweight mode uses at most 3 exercises per chapter; detailed mode uses exactly 5.
-9. Keep answers separate from exercises.
-10. Every exercise, practice set, exam, and project-lab task must include visible learner answer space in the question document.
-11. For project-lab mode, first extract the final project acceptance target, then design exercises backward from project milestones. Milestones are a project thread, not a replacement for the default 10 chapters.
-12. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
-13. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
-14. Render `skill-tree.html` from `learning-progress.json` when producing or updating a learning package.
-15. Award progress only from explicit exercise points. Do not infer XP from vague confidence.
-16. When grading completed answers, output critique, positive feedback, and the next smallest task; update progress JSON and regenerate HTML when XP or node states change.
-17. Run the quality checks in `references/quality-checks.md` before finishing.
-18. Run `python scripts/validate_text_encoding.py <output-dir>` after generating Chinese Markdown/JSON/HTML.
-19. Keep the final chat response short: summarize generated files and what changed.
+8. Before writing learner-facing tasks, apply the plain-language rules. Do not use abstract labels like "建立环境基线"; write what the learner should actually do, such as "确认板子能联网、能登录、能运行基本命令".
+9. Keep exercises varied. Lightweight mode uses at most 3 exercises per chapter; detailed mode uses exactly 5.
+10. Keep answers separate from exercises.
+11. Every exercise, practice set, exam, and project-lab task must include visible learner answer space in the question document.
+12. For project-lab mode, first extract the final project acceptance target, then design exercises backward from project milestones. Milestones are a project thread, not a replacement for the default 10 chapters.
+13. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
+14. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
+15. Render `skill-tree.html` from `learning-progress.json` when producing or updating a learning package.
+16. Award progress only from explicit exercise points. Do not infer XP from vague confidence.
+17. When grading completed answers, output critique, positive feedback, and the next smallest task; update progress JSON and regenerate HTML when XP or node states change.
+18. Run the quality checks in `references/quality-checks.md` before finishing.
+19. Run `python scripts/validate_text_encoding.py <output-dir>` after generating Chinese Markdown/JSON/HTML.
+20. Keep the final chat response short: summarize generated files and what changed.
 
 ## Reference Loading
 
 Read only the references needed for the request:
 
 - `references/modes.md`: learning, review, practice, exam modes and density rules.
+- `references/plain-language.md`: mandatory human-readable wording rules for every exercise, exam question, project-lab task, and critique.
 - `references/source-intake.md`: material audit, readiness scoring, missing-information handling, and provisional package rules.
 - `references/project-lab.md`: project-lab mode for capstone-driven, step-by-step project completion through exercises.
 - `references/question-types.md`: exercise shapes and reusable templates.
@@ -84,6 +87,8 @@ Read only the references needed for the request:
 - DOCX: create Markdown first, then use `scripts/md_to_docx.py` when requested.
 
 Question documents must leave answer space directly after each prompt. Use blank lines, answer tables, or structured record blocks depending on the task type.
+
+Question documents must read like a teacher wrote them for a learner. Avoid abstract task names and explain what to do, how to do it, why it matters when useful, and what counts as done.
 
 ## Progress State
 

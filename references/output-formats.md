@@ -30,6 +30,8 @@ python scripts/validate_text_encoding.py tutorial
 
 Every learner-facing question document must leave answer space.
 
+Every learner-facing question document must also use plain teacher language. A question is incomplete if it only names a goal but does not tell the learner what to do, how to do it, and what counts as done.
+
 Use one of these forms directly after each prompt:
 
 - Conceptual question: `答：` followed by 3 to 6 blank lines or Markdown horizontal answer lines.
@@ -39,6 +41,8 @@ Use one of these forms directly after each prompt:
 - Exam paper: leave enough blank lines for the expected answer length.
 
 Do not make `exercises.md`, `practice.md`, or `exam.md` read like an answer key or project README. The learner should be able to write directly into the file.
+
+Do not use abstract headings as a substitute for instructions. For example, replace `建立板端环境基线` with `确认板子能联网、能登录、能运行基本命令`.
 
 For critique:
 

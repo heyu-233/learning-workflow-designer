@@ -2,6 +2,8 @@
 
 Use question types to expose misunderstandings, not just memorization gaps.
 
+All question types must be written in plain teacher language. The learner should immediately know what to do, how much to write or record, and what evidence is expected. Avoid abstract labels such as "链路认知", "环境基线", "能力闭环", or "机制沉淀" unless the prompt immediately translates them into concrete actions.
+
 ## Available Types
 
 - Fill-in-the-blank: names, ports, file paths, key terms, sequence anchors.
@@ -30,6 +32,13 @@ Use question types to expose misunderstandings, not just memorization gaps.
 
 Replace every placeholder with project-specific material from the source.
 
+Every template should be expanded with:
+
+- `这一步要做什么` for task-style questions.
+- `怎么做` when the learner must run, inspect, modify, or record something.
+- `为什么这样做` when the task might otherwise look mechanical.
+- `做到什么算完成` for observable completion.
+
 ### Ordering Plus Explanation
 
 ```md
@@ -47,6 +56,11 @@ Replace every placeholder with project-specific material from the source.
 1. 写出正确顺序。
 2. 解释为什么 `{{key_step}}` 必须出现在这个位置。
 3. 如果 `{{wrong_order}}` 发生，会出现什么现象或风险？
+
+做到什么算完成：
+- 顺序完整。
+- 至少解释一个关键步骤的原因。
+- 说出一个可观察的错误现象或风险。
 
 答：
 ```
@@ -69,6 +83,10 @@ Replace every placeholder with project-specific material from the source.
 3. 如果 `{{edge_case}}` 发生，代码应该如何处理？
 4. 给出一个最小修改，让它更符合 `{{project_constraint}}`。
 
+做到什么算完成：
+- 每个小问都有答案。
+- 修改建议能对应到伪代码中的具体位置。
+
 答：
 ````
 
@@ -86,6 +104,10 @@ Replace every placeholder with project-specific material from the source.
 1. 二者在 `{{dimension_1}}` 上的关键差异是什么？
 2. 哪个方案更适合 `{{scenario}}`？为什么？
 3. 另一个方案在什么情况下反而更合适？
+
+做到什么算完成：
+- 至少比较两个维度。
+- 结论要说明适用场景，不能只写“方案 A 更好”。
 
 答：
 ```
@@ -106,6 +128,11 @@ Replace every placeholder with project-specific material from the source.
 1. 标出错误位置。
 2. 写出正确链路。
 3. 说明这个错误会导致怎样的调试误判。
+
+做到什么算完成：
+- 标出错误位置。
+- 写出正确顺序。
+- 说明一个可能出现的现象或误判。
 
 答：
 ````
@@ -141,3 +168,4 @@ For each chapter:
 - Exercises whose answer is already visible in the immediately preceding sentence unless the goal is early recall.
 - Splitting one coherent code or flow block into many isolated micro-questions.
 - Repeating the same opening phrase across all questions in a chapter.
+- Hiding the actual task behind abstract nouns such as "baseline", "chain", "capability", "闭环", "基线", or "链路" without saying what to do.

@@ -11,6 +11,8 @@ A learning package is a small learning product with four jobs:
 3. Keep answers and grading criteria separate.
 4. Track progress with explicit evidence and XP.
 
+The learner-facing wording must sound like a teacher wrote it for a student. A task should say what to do, how to do it, why it matters when useful, and what counts as finished.
+
 ## Default Files
 
 | File | Required | Purpose |
@@ -58,6 +60,8 @@ If the score is below 5/10, generate a missing-information checklist before gene
 
 Every learner-facing exercise must include answer space directly after the prompt.
 
+Every learner-facing exercise must also be concrete enough to start. Do not use abstract labels such as `建立环境基线`, `打通链路`, or `构建能力闭环` as titles. Replace them with actions such as `确认板子能联网、能登录、能运行基本命令`.
+
 Recommended answer-space forms:
 
 | Task type | Answer space |
@@ -79,7 +83,7 @@ Required shape:
 3. Required hardware/software/source assumptions and `待确认` items.
 4. 10-chapter map.
 5. 4 to 8 project milestones mapped across those chapters.
-6. Chapter tasks with read/trace, implement/change, run/observe, pass criteria, failure diagnosis, submitted evidence, answer space, and XP.
+6. Chapter tasks with what to do, how to do it, why it matters, completion criteria, failure diagnosis, submitted evidence, answer space, and XP.
 7. Stage acceptance groups.
 8. Final demo script.
 

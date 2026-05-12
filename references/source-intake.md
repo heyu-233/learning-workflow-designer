@@ -75,4 +75,4 @@ For project-lab mode, identify:
 6. What can be simulated before hardware access.
 7. What each milestone must produce.
 
-If the final target is clear but the environment is unclear, generate the first chapter as an environment-discovery and baseline-running lab before implementation tasks.
+If the final target is clear but the environment is unclear, make the first chapter a concrete environment check: confirm the board or project can be opened, logged into, built, run, and observed before implementation tasks.

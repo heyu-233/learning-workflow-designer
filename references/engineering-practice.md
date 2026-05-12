@@ -6,6 +6,8 @@ The goal is not to create a normal quiz sheet. The goal is to make the learner a
 
 If the user wants exercises to drive completion of a named final project, use project-lab mode from `references/project-lab.md`. Engineering practice packs can be task-based, but project-lab mode is stricter: each exercise must advance the final project artifact.
 
+Engineering tasks are still written for people. Do not make the learner decode phrases like "establish a board-side baseline" or "complete the driver chain". Say the real action: "确认板子能联网、能登录、能运行 `uname -a`", or "从用户程序的 `open()` 调用开始，找到驱动里对应的函数".
+
 ## Default Shape
 
 For engineering projects, the exercise document should include these sections:
@@ -40,6 +42,13 @@ The core question should be concrete, for example:
 
 Prefer task verbs over school-exam verbs.
 
+Each hands-on task should include:
+
+- What to do.
+- How to do it.
+- Why it matters when the task is only preparation.
+- What evidence proves it is done.
+
 Good verbs:
 
 - draw the architecture or flow.
@@ -57,6 +66,7 @@ Avoid making engineering chapters mostly:
 - list generic advantages.
 - explain from memory without touching the system.
 - answer multiple choice questions unless the user asks for exam mode.
+- establish a baseline, build a chain, form a closed loop, or construct capability without immediately saying the concrete command, file, code, log, or observation.
 
 ## Required Tests
 

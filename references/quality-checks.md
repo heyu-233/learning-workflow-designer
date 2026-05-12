@@ -25,6 +25,9 @@ Run these checks before finalizing generated learning materials or critique.
 
 - Lightweight mode: no more than 3 exercises per chapter.
 - Detailed mode: exactly 5 exercises per chapter.
+- Every exercise title says a concrete action, not an abstract label.
+- Every task tells the learner what to do, how to do it, why it matters when useful, and what counts as finished.
+- Reject vague task names such as `建立环境基线`, `打通链路`, `构建能力闭环`, or `完成机制认知` unless they are immediately rewritten into concrete learner actions.
 - Do not repeat the same knowledge point across multiple questions in the same chapter.
 - Do not overuse one question type in a chapter.
 - Include reasoning-heavy questions where possible.

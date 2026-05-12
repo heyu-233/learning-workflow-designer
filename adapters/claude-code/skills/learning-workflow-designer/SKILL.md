@@ -22,6 +22,7 @@ Unless the user specifies otherwise:
 - Produce Markdown first: `learning-content.md`, `exercises.md`, `reference-answers.md`, and `learning-progress.json`.
 - Generate `skill-tree.html` when the repository has a rendering script or when a static HTML progress view can be produced safely.
 - Run source intake before full generation.
+- Write learner-facing content in plain teacher language. Every task must say what to do, how to do it, why it matters when useful, what counts as done, and where to write the answer.
 - Keep answers separate from learner-facing exercises.
 - Every learner-facing exercise must include visible answer space directly after the prompt.
 - Mark unknown files, commands, APIs, hardware behavior, logs, ports, pins, addresses, and protocol fields as `待确认`.
@@ -35,9 +36,10 @@ Unless the user specifies otherwise:
 5. Build a project-specific concept and artifact map.
 6. Split into 10 chapters unless the user explicitly changes the count.
 7. For project-lab mode, extract the final acceptance target first, then map 4 to 8 project milestones across the 10 chapters.
-8. Write exercises that include read/trace, implement/change, run/observe, pass criteria, failure diagnosis, submitted evidence, XP, and answer space.
-9. Create or update `learning-progress.json`; XP must come only from explicit exercise points and submitted evidence.
-10. Run quality checks before finishing.
+8. Write exercises that sound like a teacher wrote them for a student. Avoid abstract task names like "建立环境基线"; write concrete actions like "确认板子能联网、能登录、能运行基本命令".
+9. Include what to do, how to do it, why it matters when useful, completion criteria, failure diagnosis, submitted evidence, XP, and answer space.
+10. Create or update `learning-progress.json`; XP must come only from explicit exercise points and submitted evidence.
+11. Run quality checks before finishing.
 
 ## Source Intake
 
@@ -82,6 +84,7 @@ tutorial/
 - Learner-facing only.
 - No hidden answers.
 - Answer space after every prompt.
+- Plain wording: the learner should know what to do, how to do it, why it matters when useful, and what counts as done.
 - Engineering tasks should include command/operation, observation, log or screenshot path, conclusion, and questions.
 - Project-lab tasks should include modified files, implementation notes, trace record, run command, observation, diagnosis, submitted evidence, and learner questions.
 
@@ -105,25 +108,27 @@ Project-lab mode is a build guide, not a quiz sheet.
 Each main task must include:
 
 ```md
-目标：
-为什么它服务于最终项目：
-阅读/跟踪：
-实现/修改：
-运行/观察：
-通过标准：
-失败排查：
-提交证据：
+这一步要做什么：
+怎么做：
+1. 先看/先查：
+2. 再修改/新建：
+3. 然后运行/观察：
+为什么这样做：
+做到什么算完成：
+如果失败，先查：
 XP：
 填写区：
-- 修改文件：
-- 实现说明：
-- 阅读/跟踪记录：
-- 运行命令：
-- 观察现象：
-- 失败排查：
-- 提交证据：
-- 我的问题：
+- 我看了哪些文件/命令：
+- 我改了什么：
+- 我运行了什么：
+- 我看到了什么现象：
+- 我判断是否完成的依据：
+- 我还不明白的问题：
 ```
+
+Bad title: `建立板端环境基线`.
+
+Good title: `确认板子能联网、能登录、能运行基本命令`.
 
 ## Continuity Rules
 

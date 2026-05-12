@@ -20,7 +20,7 @@ Default structure:
 
 Learning mode teaches first, then tests. It should create a coherent path from prerequisites to application, and it may introduce new concepts the learner has not seen.
 
-For engineering projects, learning mode should also produce a task-based exercise pack: per-chapter core question, understanding task, hands-on test, recommended commands, stage acceptance, and a small final task.
+For engineering projects, learning mode should also produce a task-based exercise pack. Write each task in teacher language: first say what the learner should do, then how to do it, why it matters when useful, and what counts as finished. Do not name tasks with abstract labels such as "environment baseline" or "capability chain"; translate them into concrete actions.
 
 ### Project-Lab Mode
 
@@ -35,6 +35,8 @@ Outputs:
 
 Project-lab mode starts from the final project acceptance target and designs exercises backward from project milestones. Milestones are not chapters. Keep the default 10-chapter learning structure unless the user explicitly asks for a different chapter count; map the project milestones across those chapters. Each chapter should connect a foundation topic, a source-reading or observation task, and a concrete project artifact to implement or verify.
 
+Every project-lab task must be understandable without decoding engineering shorthand. Use titles like "确认板子能联网、能登录、能运行基本命令" instead of "建立板端环境基线".
+
 Project-lab mode may use more guided sub-steps than normal lightweight mode when the project is unfamiliar. The main exercises should move the project forward; pure review questions should be optional.
 
 ### Review Mode
@@ -48,7 +50,7 @@ Outputs:
 - Mistake categories.
 - Short reinforcement exercises.
 
-Keep review mode concise. Prefer recall prompts, comparison tables, and troubleshooting checklists.
+Keep review mode concise, but still write like a teacher. A review prompt must say what to recall, what to compare, or what symptom to diagnose. Do not write vague items like "巩固核心链路"; write "用 5 句话说清楚客户端发消息到服务器回复之间经过了哪些步骤".
 
 Review mode does not re-teach the whole course. It compresses existing material into weak-point maps, memory hooks, contrast tables, and targeted checks. Use it when the learner says they have learned once but want to consolidate, summarize, or prepare for a second pass.
 
@@ -63,7 +65,7 @@ Outputs:
 - Optional answer sheet for learner responses.
 - Critique and skill-tree update after the learner submits answers.
 
-Practice mode is exercise-first. Keep explanations short before the learner answers, then give detailed feedback after grading. Use varied question types and explicit point values so progress can update reliably.
+Practice mode is exercise-first. Keep explanations short before the learner answers, then give detailed feedback after grading. Use varied question types and explicit point values so progress can update reliably. Even short prompts must be concrete: what to answer, how much to answer, and what evidence or reason to include.
 
 ### Exam Mode
 
@@ -77,7 +79,7 @@ Outputs:
 
 Exam mode should combine factual recall, concept judgment, chain analysis, code judgment, and troubleshooting.
 
-Exam mode is stricter than practice mode: fewer hints, clearer timing/scoring expectations, and a paper-like structure. Practice mode may coach after each answer; exam mode should preserve assessment integrity until answers are submitted.
+Exam mode is stricter than practice mode: fewer hints, clearer timing/scoring expectations, and a paper-like structure. Practice mode may coach after each answer; exam mode should preserve assessment integrity until answers are submitted. Do not remove clarity for the sake of difficulty: exam questions still need plain wording and an observable scoring target.
 
 ## Density
 
