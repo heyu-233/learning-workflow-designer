@@ -1,0 +1,39 @@
+name: Validate skill
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Compile scripts
+        run: python -m py_compile scripts/*.py
+
+      - name: Validate text encoding
+        run: >
+          python scripts/validate_text_encoding.py
+          SKILL.md README.md references scripts assets examples templates docs adapters
+
+      - name: Render FreeRTOS skill tree
+        run: >
+          python scripts/render_skill_tree.py
+          examples/freertos-lightweight/learning-progress.json
+          /tmp/skill-tree.html
+          --skin engineering
+
+      - name: Validate learning packages
+        run: >
+          python scripts/validate_learning_package.py
+          --skill-root .
+          templates/learning-package

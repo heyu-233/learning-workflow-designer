@@ -19,7 +19,7 @@
   "level_title_set": "classic",
   "stars": 0,
   "earned_xp": 0,
-  "total_xp": 100,
+  "total_xp": 10,
   "nodes": [
     {
       "id": "foundation",
@@ -27,7 +27,7 @@
       "description": "识别项目目标、边界和主要模块。",
       "state": "locked",
       "earned_points": 0,
-      "total_points": 20,
+      "total_points": 10,
       "chapters": [1, 2]
     }
   ],
