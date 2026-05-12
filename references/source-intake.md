@@ -8,6 +8,38 @@ If source intake was already done and the user later provides missing material, 
 
 Prevent vague or low-quality inputs from producing generic learning packages. Prefer a truthful partial package over a confident but imaginary one.
 
+## Initial Readiness Gate
+
+On the first turn of a new package-generation request, do not continue into tutorial files when the user only names a topic, project, or technology but provides no inspectable source, environment, or acceptance target. Pause and ask one compact missing-input question.
+
+This gate applies when the user says things like "I want to learn FreeRTOS" but does not provide enough material to make project-specific lessons or exercises.
+
+Critical inputs depend on the domain, but usually include:
+
+- source code path, archive, repository URL, document URL, or pasted material
+- target hardware, OS, simulator, runtime, or toolchain when the topic is engineering or code
+- build, run, flash, test, or observation commands when hands-on work is expected
+- final demo, deliverable, rubric, or acceptance criteria
+- learner constraints that cannot be safely defaulted, such as level, time, language, or depth
+
+Ask only once. The question should request the smallest useful set, not every possible detail. Example:
+
+```md
+我现在还不能负责任地生成 FreeRTOS 学习包，因为缺少可检查材料和运行环境。请一次性补充以下任意足够信息：
+- 源码位置：本机文件夹、压缩包，或 GitHub/官网源码链接
+- 使用环境：芯片/开发板/模拟器、工具链、RTOS 版本
+- 验收目标：希望最后能跑出什么 demo，或要重点学哪类问题
+
+如果你暂时没有这些信息，我可以先只做“材料准备清单”，不生成完整 tutorial。
+```
+
+After this one intake question:
+
+- If the user supplies enough input, inspect it and continue normally.
+- If the user explicitly asks for a provisional package, generate only a clearly marked provisional package with `待确认` markers and early evidence-collection tasks.
+- If the user still supplies no inspectable source, environment, or acceptance target, do not invent a full package. Provide a material preparation checklist instead.
+- Do not repeatedly ask follow-up questions just to make the package perfect; convert remaining gaps into `待确认` items.
+
 ## Readiness Score
 
 Score the input from 0 to 10 before full generation. Use this rubric:
@@ -24,7 +56,7 @@ Readiness bands:
 
 - 8-10: Generate a full learning package.
 - 5-7: Generate a package, but include a `待确认` section and avoid precise claims that are not source-grounded.
-- 0-4: First output a missing-information checklist. Generate only a provisional package if the user still needs a starting point.
+- 0-4: On the first package-generation turn, stop and ask the one intake question before writing package files. Later, generate only a material preparation checklist or a clearly marked provisional package if the user explicitly wants one.
 
 ## Missing-Information Checklist
 

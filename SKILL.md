@@ -31,6 +31,7 @@ Unless the user specifies otherwise:
 - Use scope-first and reuse-first behavior for existing packages. Do not full-regenerate unless source materials, project goal, mode, chapter count, or acceptance target changed.
 - Treat later environment details, source code, logs, screenshots, run commands, board info, or rubric as supplemental material to merge into the existing package, not as a reason to restart.
 - Run source intake before full generation unless the user only asks for a quick brainstorm or a narrow edit.
+- On the first package-generation turn, if critical inputs are missing, pause and ask one compact missing-input question before writing tutorial files.
 - Write learner-facing content in plain teacher language. Every task must say what to do, how to do it, why it matters when needed, what counts as done, and where to write the answer.
 - Follow the user's language or the source language.
 - For broad codebases or large source sets, generate a 10-chapter map and first-chapter sample before the full package.
@@ -45,25 +46,26 @@ Unless the user specifies otherwise:
 3. If the user provides later supplemental material, match it to existing `待确认` items, update the material audit, and patch only affected chapters, exercises, acceptance criteria, and reference checklists.
 4. Inspect raw source materials only when creating a new package, filling missing facts, merging supplemental material, or changing the project/source assumptions.
 5. Run source intake for full generation, changed source materials, or supplemental material that resolves missing facts. Do not rerun it for wording fixes, answer-space fixes, exercise rewrites within the same chapter map, critique, or progress-only updates.
-6. If critical material is missing, output a missing-information checklist first. Continue only with a provisional package when it is still useful and clearly marked as provisional.
-7. Build or reuse a project-specific map: modules, concepts, data/control flow, dependencies, prerequisites, and likely failure points.
-8. Choose the requested mode and density; default to learning + lightweight.
-9. Split into chapters. Default to 10 chapters. Do not reduce the chapter count just because project-lab mode uses fewer project milestones.
-10. For each changed chapter, write one main-line sentence, lesson content, and exercises. Do not rewrite unchanged chapters.
-11. Before writing learner-facing tasks, apply the plain-language rules. Do not use abstract labels like "建立环境基线"; write what the learner should actually do, such as "确认板子能联网、能登录、能运行基本命令".
-12. Keep exercises varied. Lightweight mode uses at most 3 exercises per chapter; detailed mode uses exactly 5.
-13. Keep answers separate from exercises.
-14. Every exercise, practice set, exam, and project-lab task must include visible learner answer space in the question document.
-15. For project-lab mode, first extract or reuse the final project acceptance target, then design exercises backward from project milestones. Milestones are a project thread, not a replacement for the default 10 chapters.
-16. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
-17. For project-lab or hands-on lab tasks, do not generate full worked reference answers by default. Provide lightweight mentor checklists with pass criteria, expected evidence, common failures, and diagnostic order unless the user asks for a teacher edition or solution key.
-18. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
-19. Render `skill-tree.html` only when `learning-progress.json`, XP, node states, level titles, or exercise point mappings changed.
-20. Award progress only from explicit exercise points. Do not infer XP from vague confidence.
-21. When grading completed answers, output critique, positive feedback, and the next smallest task; update progress JSON and regenerate HTML only when XP or node states change.
-22. Run only the quality checks relevant to changed files unless producing a full package or changing structure.
-23. Run `python scripts/validate_text_encoding.py <changed-file-or-output-dir>` after generating Chinese Markdown/JSON/HTML; prefer changed files when the scope is narrow.
-24. Keep the final chat response short: summarize generated files and what changed.
+6. If this is the first package-generation turn and critical material is missing, stop before generating package files and ask once for the smallest necessary input set, such as source path or URL, toolchain/environment, build/run command, target hardware or runtime, and expected final demo. Do not ask repeated follow-up questions for completeness.
+7. After that single intake question, continue only when the user provides enough material or explicitly asks for a provisional package. Mark unknown facts as `待确认` and avoid exact file names, commands, hardware behavior, or acceptance logs that were not provided or inspected.
+8. Build or reuse a project-specific map: modules, concepts, data/control flow, dependencies, prerequisites, and likely failure points.
+9. Choose the requested mode and density; default to learning + lightweight.
+10. Split into chapters. Default to 10 chapters. Do not reduce the chapter count just because project-lab mode uses fewer project milestones.
+11. For each changed chapter, write one main-line sentence, lesson content, and exercises. Do not rewrite unchanged chapters.
+12. Before writing learner-facing tasks, apply the plain-language rules. Do not use abstract labels like "建立环境基线"; write what the learner should actually do, such as "确认板子能联网、能登录、能运行基本命令".
+13. Keep exercises varied. Lightweight mode uses at most 3 exercises per chapter; detailed mode uses exactly 5.
+14. Keep answers separate from exercises.
+15. Every exercise, practice set, exam, and project-lab task must include visible learner answer space in the question document.
+16. For project-lab mode, first extract or reuse the final project acceptance target, then design exercises backward from project milestones. Milestones are a project thread, not a replacement for the default 10 chapters.
+17. For engineering projects, make exercises task-based by default: record template, chapter quick table, recommended commands, stage acceptance, and one small final task.
+18. For project-lab or hands-on lab tasks, do not generate full worked reference answers by default. Provide lightweight mentor checklists with pass criteria, expected evidence, common failures, and diagnostic order unless the user asks for a teacher edition or solution key.
+19. Create or update `learning-progress.json` as the single source of truth for XP, stars, levels, nodes, exercises, and feedback.
+20. Render `skill-tree.html` only when `learning-progress.json`, XP, node states, level titles, or exercise point mappings changed.
+21. Award progress only from explicit exercise points. Do not infer XP from vague confidence.
+22. When grading completed answers, output critique, positive feedback, and the next smallest task; update progress JSON and regenerate HTML only when XP or node states change.
+23. Run only the quality checks relevant to changed files unless producing a full package or changing structure.
+24. Run `python scripts/validate_text_encoding.py <changed-file-or-output-dir>` after generating Chinese Markdown/JSON/HTML; prefer changed files when the scope is narrow.
+25. Keep the final chat response short: summarize generated files and what changed.
 
 ## Reference Loading
 

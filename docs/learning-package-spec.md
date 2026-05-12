@@ -48,6 +48,8 @@ Every substantial package should begin from a material audit. Put this block in 
 
 If the score is below 5/10, generate a missing-information checklist before generating a full package. A provisional package is acceptable only when clearly marked and useful.
 
+On the first turn of a new package-generation request, readiness below 5/10 is a hard stop: ask one compact question for the minimum missing inputs before writing tutorial files. Typical required inputs are source path or URL, toolchain/environment, build or run command, target hardware/runtime, and final demo or acceptance criteria. Do not ask multiple rounds of questions just to fill every gap; after the one intake question, either proceed with supplied facts, produce a clearly marked provisional package on request, or provide only a material preparation checklist.
+
 ## Regeneration Rules
 
 For an existing package, use scope-first and reuse-first behavior:
