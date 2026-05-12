@@ -16,7 +16,8 @@ Run these checks before finalizing generated learning materials or critique.
 
 - A learning package should be preceded by source intake unless the user asks only for a quick brainstorm, a narrow edit, or critique of an already generated package.
 - Material readiness is scored across goal clarity, source accessibility, environment clarity, acceptance criteria, and learner constraints.
-- If readiness is below 5/10 on the first package-generation turn, pause and ask one compact missing-input question before generating package files.
+- If readiness is below 5/10 on the first package-generation turn, pause and ask one compact missing-input question for blocking inputs only.
+- Do not ask for details that can be inspected from source/configs/docs/logs or taught through learner-guided exercises.
 - Do not ask repeated follow-up questions for completeness; after the one intake question, continue with provided facts or explicitly provisional output.
 - If generating with incomplete information, mark unknown facts as `待确认` and call the package provisional.
 - Do not invent precise files, commands, pins, protocol fields, APIs, logs, test results, or hardware behavior.

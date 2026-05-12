@@ -24,7 +24,7 @@ Unless the user specifies otherwise:
 - Use scope-first and reuse-first behavior for existing packages. Do not full-regenerate unless source materials, project goal, mode, chapter count, or acceptance target changed.
 - Treat later environment details, source code, logs, screenshots, run commands, board info, or rubric as supplemental material to merge into the existing package, not as a reason to restart.
 - Run source intake before full generation.
-- On the first package-generation turn, if critical inputs are missing, pause and ask one compact missing-input question before writing tutorial files.
+- On the first package-generation turn, if critical blocking inputs are missing, pause and ask one compact missing-input question before writing tutorial files. Do not ask for low-level parameters that can be discovered from source code, commands, device tree, config files, logs, or learner-guided exercises.
 - Write learner-facing content in plain teacher language. Every task must say what to do, how to do it, why it matters when useful, what counts as done, and where to write the answer.
 - Keep answers separate from learner-facing exercises.
 - Every learner-facing exercise must include visible answer space directly after the prompt.
@@ -37,18 +37,19 @@ Unless the user specifies otherwise:
 3. If the user provides later supplemental material, match it to existing `待确认` items, update the material audit, and patch only affected chapters, exercises, acceptance criteria, and reference checklists.
 4. Inspect raw source materials only for new packages, changed materials, supplemental material, or missing facts.
 5. Run source intake for full generation, changed source materials, or supplements that resolve missing facts; skip it for wording fixes, answer-space fixes, exercise rewrites within the same chapter map, critique, or progress-only updates.
-6. If readiness is below 5/10 on the first package-generation turn, stop before generating package files and ask once for the smallest necessary input set, such as source path or URL, toolchain/environment, build/run command, target hardware or runtime, and expected final demo.
-7. Do not ask repeated follow-up questions for completeness. After the one intake question, continue only when the user provides enough material or explicitly asks for a provisional package.
-8. If still generating with incomplete information, mark the package as provisional and use `待确认` for unknown facts.
-9. Build or reuse a project-specific concept and artifact map.
-10. Split into 10 chapters unless the user explicitly changes the count.
-11. For project-lab mode, extract or reuse the final acceptance target, then map 4 to 8 project milestones across the 10 chapters.
-12. Write exercises that sound like a teacher wrote them for a student. Avoid abstract task names like "建立环境基线"; write concrete actions like "确认板子能联网、能登录、能运行基本命令".
-13. Include what to do, how to do it, why it matters when useful, completion criteria, failure diagnosis, submitted evidence, XP, and answer space.
-14. For project-lab or hands-on lab tasks, do not generate full worked answers by default. Use lightweight mentor checklists unless the user asks for a teacher edition.
-15. Create or update `learning-progress.json`; XP must come only from explicit exercise points and submitted evidence.
-16. Regenerate `skill-tree.html` only when progress JSON, XP, node states, level titles, or point mappings changed.
-17. Run only quality checks relevant to changed files unless producing a full package.
+6. If readiness is below 5/10 on the first package-generation turn, stop before generating package files and ask once for the smallest blocking input set, usually source path or URL plus the target environment/toolchain when hands-on work is expected.
+7. Separate missing inputs into `blocking`, `discoverable`, and `learner-guided`. Ask the user only for blocking inputs. Inspect discoverable facts from source/configs/docs/logs. Turn learner-guided facts into exercises that teach the user how to check or configure them.
+8. Do not ask repeated follow-up questions for completeness. After the one intake question, continue only when the user provides enough material or explicitly asks for a provisional package.
+9. If still generating with incomplete information, mark the package as provisional and use `待确认` for unknown facts.
+10. Build or reuse a project-specific concept and artifact map.
+11. Split into 10 chapters unless the user explicitly changes the count.
+12. For project-lab mode, extract or reuse the final acceptance target, then map 4 to 8 project milestones across the 10 chapters.
+13. Write exercises that sound like a teacher wrote them for a student. Avoid abstract task names like "建立环境基线"; write concrete actions like "确认板子能联网、能登录、能运行基本命令".
+14. Include what to do, how to do it, why it matters when useful, completion criteria, failure diagnosis, submitted evidence, XP, and answer space.
+15. For project-lab or hands-on lab tasks, do not generate full worked answers by default. Use lightweight mentor checklists unless the user asks for a teacher edition.
+16. Create or update `learning-progress.json`; XP must come only from explicit exercise points and submitted evidence.
+17. Regenerate `skill-tree.html` only when progress JSON, XP, node states, level titles, or point mappings changed.
+18. Run only quality checks relevant to changed files unless producing a full package.
 
 ## Source Intake
 
