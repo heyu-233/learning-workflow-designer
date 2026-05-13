@@ -1,5 +1,20 @@
 # Learning Workflow Designer
 
+## Runtime install note
+
+For Codex runtime, do not copy the whole repository into `.codex/skills`.
+Use the pruned sync script so docs, examples, adapters, images, and GitHub
+workflow files do not become runtime noise:
+
+```powershell
+git clone https://github.com/heyu-233/learning-workflow-designer.git D:\codex_project\tutorial\learning-workflow-designer
+cd D:\codex_project\tutorial\learning-workflow-designer
+python scripts\sync_codex_skill.py --target $env:USERPROFILE\.codex\skills\learning-workflow-designer
+```
+
+This keeps only runtime files: `SKILL.md`, `agents/`, `references/`,
+`scripts/`, `assets/`, `templates/`, and `LICENSE`.
+
 <div align="center">
 
 ![License](https://img.shields.io/badge/license-MIT-2563eb)

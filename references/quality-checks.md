@@ -1,111 +1,42 @@
 # Quality Checks
 
-Run these checks before finalizing generated learning materials or critique.
+Run only checks relevant to changed files unless producing a full package.
 
-## Scope
+## Scope And Intake
 
-- Decide the changed files before checking quality.
-- For an existing package, reuse existing source intake, chapter map, progress JSON, and skill tree unless the request changes them.
-- Treat later environment details, source code, logs, screenshots, commands, board info, or rubric as supplements to merge into the existing package.
-- When supplements arrive, update resolved `待确认` items and affected chapters/tasks instead of regenerating the whole package.
-- Do not run full package checks after a narrow wording, answer-space, critique, or progress-only edit.
-- Do not rerender `skill-tree.html` unless progress state or point mappings changed.
-- Validate encoding for changed Chinese Markdown/JSON/HTML files; full-directory scans are for full package generation.
+- Reuse source intake, chapter map, progress JSON, and skill tree for existing packages unless the request changes them.
+- Treat later code, logs, commands, screenshots, board info, or rubrics as supplements; patch affected chapters/tasks instead of regenerating everything.
+- Run source intake before full package generation. If first-turn readiness is below 5/10, ask one compact question for blocking inputs only, then stop.
+- Do not ask for details that can be inspected from source/configs/docs/logs or taught through exercises.
+- Mark unknown facts as `待确认`; do not invent files, commands, pins, APIs, logs, tests, or hardware behavior.
 
-## Source Intake
+## Continuity And Exercises
 
-- A learning package should be preceded by source intake unless the user asks only for a quick brainstorm, a narrow edit, or critique of an already generated package.
-- Material readiness is scored across goal clarity, source accessibility, environment clarity, acceptance criteria, and learner constraints.
-- If readiness is below 5/10 on the first package-generation turn, pause and ask one compact missing-input question for blocking inputs only.
-- Do not ask for details that can be inspected from source/configs/docs/logs or taught through learner-guided exercises.
-- Do not ask repeated follow-up questions for completeness; after the one intake question, continue with provided facts or explicitly provisional output.
-- If generating with incomplete information, mark unknown facts as `待确认` and call the package provisional.
-- Do not invent precise files, commands, pins, protocol fields, APIs, logs, test results, or hardware behavior.
-- Early exercises may collect missing evidence, such as environment info, build logs, source maps, or demo acceptance criteria.
+- Every chapter has a one-sentence main line; prerequisites appear before dependent concepts.
+- Earlier chapters must not require future APIs, files, protocol fields, debugging methods, or artifacts.
+- Lightweight mode uses <= 3 exercises per chapter; detailed mode uses exactly 5.
+- Exercise titles must be concrete actions, not abstract labels such as `建立环境基线` or `打通链路`.
+- Every learner-facing item includes immediate answer space.
+- Keep learning content, exercises, and reference answers separate.
+- Include varied, reasoning-heavy questions where useful; avoid repeating the same point in one chapter.
 
-## Continuity
+## Engineering And Project-Lab
 
-- Every chapter has a one-sentence main line.
-- Concepts appear after their prerequisites.
-- No chapter jumps from global architecture to low-level details without a bridge.
-- Later exercises may refer to earlier chapters, but not to unexplained future concepts.
-- Knowledge dependency must be one-way: later chapters may reuse earlier concepts, code, tools, logs, and project artifacts.
-- Earlier chapters must not require the learner to use concepts, APIs, files, protocol fields, debugging methods, or project artifacts introduced only in later chapters.
-- Brief previews of future topics are allowed, but they must not be required to answer exercises or complete hands-on tasks.
+- Prefer run/observe/trace/compare/diagnose/record tasks over definitions.
+- Include commands, observable evidence, pass criteria, failure diagnosis, submitted evidence, and XP when the source supports them.
+- Project-lab keeps the default 10 chapters unless explicitly changed; milestones map across chapters.
+- Each milestone creates or verifies a concrete artifact.
+- Hands-on reference answers may be mentor checklists instead of full solutions unless teacher edition is requested.
 
-## Exercise Quality
+## Critique And Progress
 
-- Lightweight mode: no more than 3 exercises per chapter.
-- Detailed mode: exactly 5 exercises per chapter.
-- Every exercise title says a concrete action, not an abstract label.
-- Every task tells the learner what to do, how to do it, why it matters when useful, and what counts as finished.
-- Reject vague task names such as `建立环境基线`, `打通链路`, `构建能力闭环`, or `完成机制认知` unless they are immediately rewritten into concrete learner actions.
-- Do not repeat the same knowledge point across multiple questions in the same chapter.
-- Do not overuse one question type in a chapter.
-- Include reasoning-heavy questions where possible.
-- Prefer system diagram judgment or chain correction over asking the learner to hand-draw diagrams.
-- In lightweight mode, favor compact composite exercises when they cover a broader concept chain without inflating chapter count.
-- If a chapter uses three exercises, they should feel structurally different.
-- If a chapter uses one composite exercise, its sub-questions should progress from recognition to explanation to boundary checking.
-- Every learner-facing exercise, practice item, exam question, and project-lab task must include answer space immediately after the prompt.
+- Mark answers correct, partially correct, or incorrect.
+- Separate wording weakness from concept errors.
+- Award XP only from explicit submitted evidence.
+- Keep feedback close to the answer and include the next smallest task.
 
-## Engineering Practice Quality
+## Encoding
 
-- Engineering learning packs should include a learning record template.
-- Engineering chapter tables should include chapter, core question, required understanding task, and required hands-on test.
-- Prefer "run, observe, trace, draw, compare, diagnose, record" tasks over pure definition questions.
-- Include recommended commands when the source material contains runnable commands, ports, device paths, APIs, logs, or build steps.
-- Include 2 to 4 observable stage acceptance groups.
-- Include one small final task that forces synthesis without becoming a new project.
-
-## Project-Lab Quality
-
-- The exercise document starts with the final project target and acceptance checklist.
-- The package keeps the default 10-chapter structure unless the user explicitly asks for another chapter count.
-- Project milestones are mapped across chapters; they do not silently replace chapters.
-- Chapters combine topic learning with milestone progress instead of being only topic lessons.
-- Project-lab tasks may build on artifacts from previous chapters, but must not depend on artifacts or implementation details introduced only in later chapters.
-- Each main exercise states why it matters for the final project.
-- Each main exercise includes read/trace, implement/change, run/observe, pass criteria, failure diagnosis, submitted evidence, and XP.
-- Each main exercise includes a fillable learner record block or answer table.
-- Pure concept questions are optional unless they unlock an implementation step.
-- Every milestone creates or verifies a concrete artifact.
-- Full worked reference answers are optional for hands-on project-lab tasks; lightweight mentor checklists are acceptable and often preferred.
-
-## Answer Separation
-
-- Keep learning content, exercises, and reference answers separate unless the user asks for a combined teacher edition.
-- Exercise documents should not reveal answers.
-- Exercise documents should include visible answer space; answer-only prompts are incomplete.
-- Reference answers should identify the question clearly.
-- For project-lab and hands-on lab tasks, reference answers may be lightweight checklists instead of full worked answers.
-- Do not generate full implementation solutions for labs unless the user asks for a teacher edition or solution key.
-- When the source material supports it, include at least one exercise that asks the learner to order, then explain.
-
-## Critique
-
-- Mark each answer as correct, partially correct, or incorrect.
-- Separate wording issues from concept errors.
-- For partially correct answers, say what is already right and what must be added.
-- For incorrect answers, explain the mistaken boundary or chain.
-- Keep comments actionable and close to the relevant answer.
-
-## Anti-Hallucination
-
-- Prefer source-grounded facts.
-- If files or facts are missing, write "待确认" instead of inventing.
-- For codebases, inspect actual files before naming modules, ports, APIs, or classes.
-- Do not reuse a fixed capability tree across unrelated projects; derive feedback nodes from the current materials and chapter plan.
-
-## Encoding Integrity
-
-- Do not embed Chinese content inside PowerShell/CMD inline Python or one-liner script strings.
+- Avoid Chinese inside PowerShell/CMD inline script strings.
 - Prefer `apply_patch`, checked-in templates, or UTF-8 files read by scripts.
-- After generating Chinese Markdown, JSON, or HTML, run:
-
-```powershell
-python scripts/validate_text_encoding.py tutorial
-```
-
-- If the user chose another output directory, scan that directory instead.
-- Treat repeated question marks, Unicode replacement characters, or common mojibake markers as real corruption until proven otherwise.
+- After generating Chinese Markdown/JSON/HTML, run `python scripts/validate_text_encoding.py <output-path>`.
