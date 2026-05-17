@@ -44,13 +44,14 @@ Unless the user specifies otherwise:
 6. Keep 10 chapters by default. For project-lab mode, map project milestones across chapters; milestones do not replace chapters.
 7. Write changed chapters only. Keep exercises varied: lightweight <= 3 per chapter; detailed = 5.
 8. Keep learning content, learner exercises, and answers separate. Every learner-facing item must have answer space.
-9. In tutoring flows, default to review-before-advance: the learner completes the current chapter first, then Claude critiques and annotates it before moving on, unless the user asks to skip review.
-10. For engineering and project-lab tasks, prefer run/observe/trace/diagnose/record work with submitted evidence and stage acceptance.
-11. Use `learning-progress.json` as the source of truth for XP, level, stars, nodes, exercises, feedback, and next step.
-12. Render `skill-tree.html` only when progress JSON, XP, node states, level titles, exercise IDs, or point mappings changed.
-13. Award progress only from explicit exercise points. When grading, update progress only from submitted evidence.
-14. Validate changed Chinese Markdown/JSON/HTML with `python scripts/validate_text_encoding.py <path>`.
-15. Keep the final chat response short: generated files, important changes, and next action.
+9. Do not add vague reflection prompts such as "what questions do you still have?" If asking for confusion, require a specific stuck point, location, observed symptom, or attempted step.
+10. In tutoring flows, default to review-before-advance: the learner completes the current chapter first, then Claude critiques and annotates it before moving on, unless the user asks to skip review.
+11. For engineering and project-lab tasks, prefer run/observe/trace/diagnose/record work with submitted evidence and stage acceptance.
+12. Use `learning-progress.json` as the source of truth for XP, level, stars, nodes, exercises, feedback, and next step.
+13. Render `skill-tree.html` only when progress JSON, XP, node states, level titles, exercise IDs, or point mappings changed.
+14. Award progress only from explicit exercise points. When grading, update progress only from submitted evidence.
+15. Validate changed Chinese Markdown/JSON/HTML with `python scripts/validate_text_encoding.py <path>`.
+16. Keep the final chat response short: generated files, important changes, and next action.
 
 ## Reference Loading
 
@@ -100,6 +101,7 @@ When checking completed answers:
 - Include positive feedback and the next smallest task.
 - Base XP and progress on explicit evidence, not confidence.
 - In chapter-based tutoring, finish critique before assigning the next chapter unless the user explicitly wants to move on immediately.
+- Add a chapter gate: if earned points for the chapter are less than one third of that chapter's total points, tell the learner it is not suitable to continue yet, keep the next step inside the same chapter, and add two targeted remedial exercises for the weakest concepts or evidence gaps.
 
 ## DOCX Conversion
 

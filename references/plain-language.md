@@ -97,7 +97,7 @@ For engineering and project-lab tasks:
 - 我运行了什么：
 - 我看到了什么现象：
 - 我判断是否完成的依据：
-- 我还不明白的问题：
+- 我的具体卡点：写清楚卡在哪个概念/文件/现象，以及已经尝试过什么
 ```
 
 For exam mode, keep hints limited but still make the task understandable:

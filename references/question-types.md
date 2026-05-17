@@ -169,3 +169,4 @@ For each chapter:
 - Splitting one coherent code or flow block into many isolated micro-questions.
 - Repeating the same opening phrase across all questions in a chapter.
 - Hiding the actual task behind abstract nouns such as "baseline", "chain", "capability", "闭环", "基线", or "链路" without saying what to do.
+- Ending a chapter with vague prompts such as "你还有什么问题吗" or "你目前还有什么没弄明白的问题". If a reflection item is useful, make it concrete: ask the learner to name one stuck point, where it appears, what they observed, and what they tried.

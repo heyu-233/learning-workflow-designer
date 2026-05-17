@@ -25,6 +25,9 @@ Use this layer after learning content or answer critique. Do not predefine a fix
 - If the learner confuses two linked concepts, keep both visible in the tree and mark the weak node.
 - Do not invent a node that is not supported by the current material.
 - Award XP only for explicit exercise points and submitted evidence.
+- After grading a chapter, compare earned chapter points with that chapter's total points.
+- If earned points are less than one third of the chapter total, do not advance to the next chapter. Tell the learner that continuing now is not suitable, name the weakest 1-2 concepts or missing evidence types, and add two remedial exercises targeted at those gaps.
+- Remedial exercises should keep their own small point values or be marked as repair tasks, and should not unlock the next chapter until the learner submits concrete evidence.
 
 ## Positive Feedback Block
 
