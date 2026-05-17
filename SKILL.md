@@ -44,12 +44,13 @@ Unless the user specifies otherwise:
 6. Keep 10 chapters by default. For project-lab mode, map project milestones across chapters; milestones do not replace chapters.
 7. Write changed chapters only. Keep exercises varied: lightweight <= 3 per chapter; detailed = 5.
 8. Keep learning content, learner exercises, and answers separate. Every learner-facing item must have answer space.
-9. For engineering and project-lab tasks, prefer run/observe/trace/diagnose/record work with submitted evidence and stage acceptance.
-10. Use `learning-progress.json` as the source of truth for XP, level, stars, nodes, exercises, feedback, and next step.
-11. Render `skill-tree.html` only when progress JSON, XP, node states, level titles, exercise IDs, or point mappings changed.
-12. Award progress only from explicit exercise points. When grading, update progress only from submitted evidence.
-13. Validate changed Chinese Markdown/JSON/HTML with `python scripts/validate_text_encoding.py <path>`.
-14. Keep the final chat response short: generated files, important changes, and next action.
+9. In tutoring flows, default to review-before-advance: the learner completes the current chapter first, then Claude critiques and annotates it before moving on, unless the user asks to skip review.
+10. For engineering and project-lab tasks, prefer run/observe/trace/diagnose/record work with submitted evidence and stage acceptance.
+11. Use `learning-progress.json` as the source of truth for XP, level, stars, nodes, exercises, feedback, and next step.
+12. Render `skill-tree.html` only when progress JSON, XP, node states, level titles, exercise IDs, or point mappings changed.
+13. Award progress only from explicit exercise points. When grading, update progress only from submitted evidence.
+14. Validate changed Chinese Markdown/JSON/HTML with `python scripts/validate_text_encoding.py <path>`.
+15. Keep the final chat response short: generated files, important changes, and next action.
 
 ## Reference Loading
 
@@ -68,13 +69,13 @@ Read only what the task needs:
 ## Output Modes
 
 - Learning: `learning-content.md`, `exercises.md`, `reference-answers.md`, `learning-progress.json`, `skill-tree.html`.
-- Project-lab: milestone build guide in `exercises.md`; use mentor checklists for hands-on answers unless teacher edition is requested.
+- Project-lab: milestone build guide in `exercises.md`; use mentor checklists for hands-on answers unless teacher edition is requested. When the user is learning chapter by chapter, pause for answer review and annotation before advancing by default.
 - Review: `review-pack.md`.
 - Practice: `practice.md` and `practice-answers.md`.
 - Exam: `exam.md`, `rubric.md`, `exam-answers.md`.
 - DOCX: create Markdown first; convert with `scripts/md_to_docx.py` when requested.
 
-Question documents must leave answer space directly after each prompt using blank lines, tables, or record blocks. Avoid abstract task names; write concrete learner actions.
+Question documents must leave answer space directly after each prompt using blank lines, tables, or record blocks. Prefer natural exam/workbook-style `作答区` with numbered short-answer prompts and blank writing space. Use tables only when the learner truly needs structured side-by-side comparison or fixed evidence fields. Avoid abstract task names; write concrete learner actions.
 
 ## Progress State
 
@@ -98,6 +99,7 @@ When checking completed answers:
 - Keep critique actionable and close to the answer.
 - Include positive feedback and the next smallest task.
 - Base XP and progress on explicit evidence, not confidence.
+- In chapter-based tutoring, finish critique before assigning the next chapter unless the user explicitly wants to move on immediately.
 
 ## DOCX Conversion
 
